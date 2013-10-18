@@ -1,0 +1,129 @@
+server {
+    listen ${options.port};
+    server_name ${options.server_names}; 
+    client_max_body_size 100m;
+    
+    gzip on;
+    gzip_comp_level 5;
+    gzip_types text/css application/x-javascript image/jpeg image/png;
+    
+    # static resources
+    location ^~ /media/ {
+        alias   ${options.media_root}/;
+        expires 31d;
+    }
+
+    # static resources
+    location ^~ /static/ {
+        alias   ${options.static_root}/;
+        expires 31d;
+    }
+
+    # ssl rewrites
+    location /secure/ {
+        rewrite (.*) https://${options.server_name}$1 permanent;
+    }
+
+    location /console/ {
+        rewrite (.*) https://${options.server_name}$1 permanent;
+    }
+
+    location /admin/ {
+        rewrite (.*) https://${options.server_name}$1 permanent;
+    }
+    
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
+        proxy_set_header Host $$http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $$remote_addr;
+        proxy_set_header X-Scheme $$scheme;
+        proxy_connect_timeout 300;
+        proxy_read_timeout 300;
+        proxy_pass http://${options.frontend_proxy_host}:${options.frontend_proxy_port}/;
+        keepalive_timeout  0;
+    }
+
+    # loging
+    access_log  ${options.log_dir}/nginx_access.log;
+    error_log   ${options.log_dir}/nginx_error.log;
+    
+    auth_basic            "Restricted";
+    auth_basic_user_file  /etc/nginx/htpasswd;
+}
+
+
+server {
+    listen ${options.ssl_port};
+    server_name ${options.server_names};
+    client_max_body_size 100m;
+
+    ssl                  on;
+    ssl_certificate      ${options.crt_dir}/${options.server_name}.crt;
+    ssl_certificate_key  ${options.crt_dir}/${options.server_name}.key;
+    keepalive_timeout    70;
+
+    # static resources
+    location ^~ /media/ {
+       alias   ${options.media_root}/;
+       expires 31d;
+    }
+
+    # static resources
+    location ^~ /static/ {
+        alias   ${options.static_root}/;
+        expires 31d;
+    }
+
+    # gunicorn
+    location /secure/ {
+        proxy_pass_header Server;
+        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
+        proxy_set_header Host $$http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $$remote_addr;
+        proxy_set_header X-Scheme $$scheme;
+        proxy_connect_timeout 300;
+        proxy_read_timeout 300;
+        proxy_pass http://${options.frontend_proxy_host}:${options.frontend_proxy_port};
+        keepalive_timeout  0;
+    }
+
+    location /console/ {
+        proxy_pass_header Server;
+        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
+        proxy_set_header Host $$http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $$remote_addr;
+        proxy_set_header X-Scheme $$scheme;
+        proxy_connect_timeout 300;
+        proxy_read_timeout 300;
+        proxy_pass http://${options.frontend_proxy_host}:${options.frontend_proxy_port};
+        keepalive_timeout  0;
+    }
+
+    location /admin/ {
+        proxy_pass_header Server;
+        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
+        proxy_set_header Host $$http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $$remote_addr;
+        proxy_set_header X-Scheme $$scheme;
+        proxy_connect_timeout 300;
+        proxy_read_timeout 300;
+        proxy_pass http://${options.frontend_proxy_host}:${options.frontend_proxy_port};
+        keepalive_timeout  0;
+    }
+
+    location / {
+        rewrite (.*) http://${options.server_name}$1 permanent;
+    }
+
+    # logging
+    access_log  ${options.log_dir}/nginx_access.log;
+    error_log   ${options.log_dir}/nginx_error.log;
+
+    auth_basic            "Restricted";
+    auth_basic_user_file  /etc/nginx/htpasswd;
+}

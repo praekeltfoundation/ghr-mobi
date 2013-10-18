@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block messages %}<div></div>{% endblock %}
+
+{% block content %}
+    {% include 'sav/includes/fb_logout.html' %}
+    <div id="main">
+
+        <div id="content">
+
+            <div class="title">
+                <h2>Logout</h2>
+                <p>You have been logged out</p>
+            </div>
+
+            <div class="container">
+                <div class="form-divided form-full">
+                    <h3>You will be redirected in a few seconds</h3>
+                    <p>Please visit us again soon!</p>
+                </div>
+            </div>
+
+        </div><!--/content-->
+
+    </div><!--/Main-->
+{% endblock %}
+
+{% block bottom_js %}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            setTimeout(function() {
+                  window.location.href = "{% url 'index' %}";
+            }, 5000);
+        });
+    </script>
+{% endblock %}
