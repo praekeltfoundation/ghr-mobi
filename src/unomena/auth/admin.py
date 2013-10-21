@@ -78,3 +78,4 @@ class CustomUserAdmin(UserAdmin):
     
 
 admin.site.register(models.EndUser, CustomUserAdmin)
+admin.site.register(models.ProjectRegistrationProfile)
