@@ -48,11 +48,13 @@ class ProjectRegistration(BaseRegistrationView):
         else:
             site = RequestSite(request)
             
-        new_user = models.RegistrationProfile.objects.create_inactive_user(site, send_email=True, **cleaned_data)
+        new_user = models.ProjectRegistrationProfile.objects.create_inactive_user(site, send_email=True, **cleaned_data)
         registration_signals.user_registered.send(
             sender=self.__class__,
             user=new_user,
-            request=request
+            request=request,
+            site=site,
+            send_email=True
         )
         
         return new_user
@@ -92,7 +94,7 @@ class ProjectActivation(BaseActivationView):
         the class of this backend as the sender.
         
         """
-        activated_user = models.RegistrationProfile.objects.activate_user(activation_key)
+        activated_user = models.ProjectRegistrationProfile.objects.activate_user(activation_key)
         if activated_user:
             registration_signals.user_activated.send(
                 sender=self.__class__,

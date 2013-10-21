@@ -21,7 +21,8 @@ urlpatterns = patterns('',
                        
     url(r'^secure/register/$',
         views.ProjectRegistration.as_view(
-            template_name='auth/registration.html',
+            template_name='auth/registration_form.html',
+            form_class=forms.ProjectRegistrationForm
         ),
         name='secure_register'
     ),

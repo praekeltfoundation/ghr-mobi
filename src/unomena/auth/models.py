@@ -185,11 +185,11 @@ class ProjectRegistrationManager(models.Manager):
         if kwargs.has_key('title'):
             profile.title = kwargs['title']
                                          
-        if kwargs.has_key('phone_number'):
-            profile.phone_number = kwargs['phone_number']
+        if kwargs.has_key('phone'):
+            profile.phone_number = kwargs['phone']
             
-        if kwargs.has_key('mobile_number'):
-            profile.mobile_number = kwargs['phone_number']
+        if kwargs.has_key('mobile'):
+            profile.mobile_number = kwargs['mobile']
 
         if kwargs.has_key('password1'):
             profile.set_password(kwargs['password1'])

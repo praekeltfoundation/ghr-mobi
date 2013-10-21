@@ -28,6 +28,8 @@ class ProjectRegistrationForm(forms.Form):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField(max_length=75)
+    phone = forms.CharField(max_length=16, required=False)
+    mobile = forms.CharField(max_length=16, required=False)
     password1 = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 

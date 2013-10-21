@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    {% block extra_meta %}{% endblock %}
+    <title>Unomena Starter</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}unomena/img/favicon.ico" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/style.css" />
+    <script src="{{ STATIC_URL }}unomena/js/libs/modernizr-2.5.3.min.js"></script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div id="wrap">
+
+    {% block content %}{% endblock %}
+
+</div><!--/Wrap-->
+
+<div id="footer">
+    <p class="align-left"><span>&copy; Copyright 2013 &nbsp;&nbsp; </span> <span><a href="http://www.unomena.com/">Unomena.com</a></span></p>
+    <p class="align-right">Powered by <a href="http://unomena.com/" target="_blank">Unomena</a></p>
+    <div class="clear"></div>
+</div><!--/Footer-->
+
+<script src="{{ STATIC_URL }}unomena/js/libs/jquery-1.10.2.min.js"></script>
+<script src="{{ STATIC_URL }}unomena/js/scripts.js"></script>
+{% block bottom_js %}{% endblock %}
+</body>
+</html>
