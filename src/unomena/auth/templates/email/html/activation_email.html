@@ -5,7 +5,7 @@ Dear {{ user.display_name }},<br/>
 <br/>
 You have been registered on {{ app_name }} at http://{{ site }}<br/>
 <br/>
-Your username is: {{ user.username }}<br/>
+Your username is: {{ user.get_username }}<br/>
 <br/>
 To activate your account, go to http://{{ site }}/secure/accounts/activate/{{ activation_key }}/<br/>
 <br/>

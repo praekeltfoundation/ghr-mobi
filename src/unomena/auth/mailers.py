@@ -25,14 +25,16 @@ def email_account_activation(registration_profile_id, site_id):
         }
             
         subject = render_to_string(
-            'auth/activation_email_subject.txt',
+            'email/subjects/activation_email_subject.txt',
             ctx_dict
         )
         
         text_content = render_to_string(
-            'auth/activation_email.txt',
+            'email/txt/activation_email.txt',
             ctx_dict
         )
+        
+        print subject, text_content
         
 #         email_utils.send_mail('registration/activation_email.html', ctx_dict, subject,
 #                         text_content, settings.DEFAULT_FROM_EMAIL, [registration_profile.user.email,])

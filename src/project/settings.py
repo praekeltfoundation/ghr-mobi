@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'south',
     'unomena',
     'unomena.auth',
+    'unomena.core',
     'ckeditor',
     'photologue',
     #'registration',

@@ -2,7 +2,7 @@ Dear {{ user.display_name }},
 
 You have been registered on {{ app_name }} at http://{{ site }}
 
-Your username is: {{ user.username }}
+Your username is: {{ user.get_username }}
 
 To activate your account, go to http://{{ site }}/secure/accounts/activate/{{ activation_key }}/
 

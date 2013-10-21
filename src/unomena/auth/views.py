@@ -48,16 +48,16 @@ class ProjectRegistration(BaseRegistrationView):
         else:
             site = RequestSite(request)
             
-        new_user = models.ProjectRegistrationProfile.objects.create_inactive_user(site, send_email=True, **cleaned_data)
+        registration_profile = models.ProjectRegistrationProfile.objects.create_inactive_user(site, send_email=True, **cleaned_data)
         registration_signals.user_registered.send(
             sender=self.__class__,
-            user=new_user,
+            registration_profile=registration_profile,
             request=request,
             site=site,
             send_email=True
         )
         
-        return new_user
+        return registration_profile.user
     
     def registration_allowed(self, request):
         """

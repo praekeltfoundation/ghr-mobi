@@ -200,11 +200,8 @@ class ProjectRegistrationManager(models.Manager):
         profile.save()
 
         registration_profile = self.create_profile(profile)
-        
-        #if send_email:
-        #    automatic_emails.email_account_activation.delay(registration_profile.id, site.id)
 
-        return profile
+        return registration_profile
     
     def create_profile(self, user):
         """
