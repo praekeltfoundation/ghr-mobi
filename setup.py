@@ -11,7 +11,8 @@ setup(
     package_dir = {'': 'src'},
     dependency_links = [
         'http://github.com/unomena/django-photologue/tarball/2.7.praekelt#egg=django-photologue-2.7.praekelt',
-        'http://github.com/unomena/tunobase/tarball/0.0.1.beta#egg=tunobase-0.0.1.beta',
+        #'http://git.unomena.net/unomena/tunobase/repository/archive?ref=0.0.1.beta',
+        #'http://git.unomena.net/unomena/unobase/repository/archive?ref=1.3.3.beta'
     ],
     install_requires = [
     	#'tunobase==0.0.1.beta',

@@ -48,7 +48,7 @@ class ProjectRegistration(BaseRegistrationView):
         else:
             site = RequestSite(request)
             
-        registration_profile = models.ProjectRegistrationProfile.objects.create_inactive_user(site, send_email=True, **cleaned_data)
+        registration_profile = models.ProjectRegistrationProfile.objects.create_inactive_user(site, **cleaned_data)
         registration_signals.user_registered.send(
             sender=self.__class__,
             registration_profile=registration_profile,
@@ -106,6 +106,28 @@ class ProjectActivation(BaseActivationView):
 
     def get_success_url(self, request, user):
         return ('registration_activation_complete', (), {})
+    
+class ResendRegistrationEmail(generic_views.TemplateView):
+    
+    def get(self, request, *args, **kwargs):
+        if Site._meta.installed:
+            site = Site.objects.get_current()
+        else:
+            site = RequestSite(request)
+        
+        registration_profile = get_object_or_404(models.ProjectRegistrationProfile, pk=self.kwargs['pk'])
+        
+        registration_signals.user_registered.send(
+            sender=self.__class__,
+            registration_profile=registration_profile,
+            request=request,
+            site=site,
+            send_email=True
+        )
+        
+        messages.success(request, 'Email resent successfully.')
+        
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 @csrf_protect

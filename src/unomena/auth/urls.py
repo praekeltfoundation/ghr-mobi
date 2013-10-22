@@ -5,6 +5,7 @@ Created on 18 Oct 2013
 '''
 from django.conf.urls import patterns, url
 from django.views.generic.base import TemplateView
+from django.contrib.admin.views.decorators import staff_member_required
 
 from unomena.auth import views, forms
 
@@ -28,8 +29,15 @@ urlpatterns = patterns('',
     ),
                        
     url(r'^register/complete/$',
-       TemplateView.as_view(template_name='auth/registration_complete.html'),
-       name='registration_complete'
+        TemplateView.as_view(template_name='auth/registration_complete.html'),
+        name='registration_complete'
+    ),
+                       
+    url(r'^register/resend_email/(?P<pk>\d+)/$',
+        staff_member_required(
+            views.ResendRegistrationEmail.as_view()
+        ),
+        name='registration_resend_email'
     ),
                        
     url(r'^secure/password_reset/$',

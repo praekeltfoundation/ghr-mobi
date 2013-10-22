@@ -1,0 +1,9 @@
+{% block content %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+Kind regards
+The Unomena Team
+support@unomena.com
+
+Copyright &copy; Unomena. All Rights Reserved.

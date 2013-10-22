@@ -173,7 +173,7 @@ class ProjectRegistrationManager(models.Manager):
         return email
     
     @transaction.commit_on_success
-    def create_inactive_user(self, site, send_email=True, **kwargs):
+    def create_inactive_user(self, site, **kwargs):
         email = ProjectRegistrationManager.normalize_email(kwargs['email'])
         profile = EndUser.objects.create(
             first_name=kwargs['first_name'], 

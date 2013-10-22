@@ -150,6 +150,9 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'djcelery',
     'south',
+    'tunobase',
+    'tunobase.core',
+    'tunobase.mailer',
     'unomena',
     'unomena.auth',
     'unomena.core',
@@ -169,6 +172,10 @@ CACHES = {
         'TIMEOUT': 60 * 15
     }
 }
+
+# Debug Toolbar Settings
+
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # Registration Settings
 
@@ -199,11 +206,16 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 # Email Settings
 
+EMAIL_ENABLED = False
 DEFAULT_FROM_EMAIL = 'Unomena <unomena.com>'
 EMAIL_USE_TLS = False
-EMAIL_HOST = 'mail.sa-venues.com'
-EMAIL_HOST_USER = 'bookings_sa_venues_com'
-EMAIL_HOST_PASSWORD = 'hbtybpj7z3'
+EMAIL_HOST = 'mail.unomena.net'
+EMAIL_HOST_USER = 'mailman'
+EMAIL_HOST_PASSWORD = 'AKmiQldQ2e'
+
+# Default Image Settings
+
+DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
 
 
 # A sample logging configuration. The only tangible logging

@@ -14,6 +14,7 @@ from unomena.auth import models, mailers
 def registration_profile_created(sender, **kwargs):
     registration_profile = kwargs.pop('registration_profile', None)
     site = kwargs.pop('site', None)
+    send_email = kwargs.pop('send_email', False)
     
-    if registration_profile is not None and site is not None:
+    if registration_profile is not None and site is not None and send_email:
         mailers.email_account_activation(registration_profile.id, site.id)

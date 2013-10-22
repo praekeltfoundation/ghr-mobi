@@ -5,10 +5,12 @@ Created on 18 Oct 2013
 '''
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
     AdminPasswordChangeForm)
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
 from unomena.auth import models
     
@@ -76,6 +78,12 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     
+class ProjectRegistrationProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'resend_email')
+    search_fields = ('user__email',)
+    
+    def resend_email(self, model):
+        return mark_safe('<a href="%s">Resend email</a>' % reverse('registration_resend_email', args=(model.pk,)))
 
 admin.site.register(models.EndUser, CustomUserAdmin)
-admin.site.register(models.ProjectRegistrationProfile)
+admin.site.register(models.ProjectRegistrationProfile, ProjectRegistrationProfileAdmin)

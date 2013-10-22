@@ -2,6 +2,7 @@ from django.conf import settings
 from django import forms
 from django.contrib.sites.models import get_current_site
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.template import loader
 from django.utils.http import int_to_base36
@@ -32,6 +33,47 @@ class ProjectRegistrationForm(forms.Form):
     mobile = forms.CharField(max_length=16, required=False)
     password1 = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
+    
+    def clean_email(self):
+        """
+        Validate that the supplied email address is unique for the
+        site.
+
+        """
+        User = get_user_model()
+        try:
+            if User.objects.get(email__exact=self.cleaned_data['email']):
+                raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
+        except User.DoesNotExist:
+            return self.cleaned_data['email']
+
+    def clean_password2(self):
+        """
+        Verify that the values entered into the two password fields
+        match. Note that an error here will end up in
+        ``non_field_errors()`` because it doesn't apply to a single
+        field.
+
+        """
+        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
+            if self.cleaned_data['password1'] and self.cleaned_data['password2']:
+                if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+                    raise forms.ValidationError('The password fields didn\'t match: Password confirmation failed.')
+            return self.cleaned_data['password2']
+
+    def clean(self):
+        """
+        Verify that the values entered into the two password fields
+        match. Note that an error here will end up in
+        ``non_field_errors()`` because it doesn't apply to a single
+        field.
+
+        """
+        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
+            if self.cleaned_data['password1'] and self.cleaned_data['password2']:
+                if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+                    raise forms.ValidationError('The two password fields didn\'t match.')
+        return self.cleaned_data
 
     def __init__(self, *args, **kwargs):
         super(ProjectRegistrationForm, self).__init__(*args, **kwargs)
