@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="shortcut icon" href="{{ STATIC_URL }}unomena/img/favicon.ico" />
     <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/style.css" />
-    <script src="{{ STATIC_URL }}unomena/js/libs/modernizr-2.5.3.min.js"></script>
+    <script src="{{ STATIC_URL }}unomena/js/libs/modernizr.js"></script>
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -26,6 +26,9 @@
 </div><!--/Footer-->
 
 <script src="{{ STATIC_URL }}unomena/js/libs/jquery-1.10.2.min.js"></script>
+<script src="{{ STATIC_URL }}unomena/js/libs/jquery.form.js"></script>
+<script src="{{ STATIC_URL }}unomena/js/libs/jquery.formset.js"></script>
+<script src="{{ STATIC_URL }}unomena/js/libs/jquery.validate.js"></script>
 <script src="{{ STATIC_URL }}unomena/js/scripts.js"></script>
 {% block bottom_js %}{% endblock %}
 </body>

@@ -152,7 +152,10 @@ INSTALLED_APPS = (
     'south',
     'tunobase',
     'tunobase.core',
+    'tunobase.console',
     'tunobase.mailer',
+    'tunobase.corporate.company_info',
+    'tunobase.corporate.media',
     'unomena',
     'unomena.auth',
     'unomena.core',
@@ -208,6 +211,7 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 EMAIL_ENABLED = False
 DEFAULT_FROM_EMAIL = 'Unomena <unomena.com>'
+CONTACT_MESSAGE_TO_EMAIL = 'dev@unomena.com'
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.unomena.net'
 EMAIL_HOST_USER = 'mailman'

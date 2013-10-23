@@ -109,13 +109,13 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     @property
     def can_access_console(self):
         "Can the user access the console?"
-        return self.is_console_user or self.is_superuser or self.is_admin
+        return any([self.is_console_user, self.is_superuser, self.is_admin])
     
     def save(self, *args, **kwargs):
-        #from unobase.models import DefaultImage
+        from tunobase.core.models import DefaultImage
         
-        #if not self.image:
-        #    self.image = DefaultImage.permitted.get_random(self.default_image_category)
+        if not self.image:
+            self.image = DefaultImage.permitted.get_random(self.default_image_category)
 
         return super(EndUser, self).save(*args, **kwargs)
 

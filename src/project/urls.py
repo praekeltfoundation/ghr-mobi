@@ -8,6 +8,10 @@ urlpatterns = patterns('',
 
     (r'^', include('%s.urls' % settings.PROJECT_NAME)),
     
+    (r'^', include('tunobase.corporate.company_info.urls')),
+    
+    (r'^console/', include('tunobase.console.urls')),
+    
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     (r'^secure/ckeditor/', include('ckeditor.urls')),

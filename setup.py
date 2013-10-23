@@ -10,12 +10,9 @@ setup(
     packages = find_packages('src'),
     package_dir = {'': 'src'},
     dependency_links = [
-        'http://github.com/unomena/django-photologue/tarball/2.7.praekelt#egg=django-photologue-2.7.praekelt',
-        #'http://git.unomena.net/unomena/tunobase/repository/archive?ref=0.0.1.beta',
-        #'http://git.unomena.net/unomena/unobase/repository/archive?ref=1.3.3.beta'
+        'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
     ],
     install_requires = [
-    	#'tunobase==0.0.1.beta',
         'fabric',
         'South',
 	    'unipath',
@@ -23,7 +20,7 @@ setup(
         'django-debug-toolbar',
         'django-polymorphic',
         'django-ckeditor==3.6.2.1',
-        'django-photologue==2.7.praekelt',
+        'django-photologue==2.8.praekelt',
         'django-registration==1.0',
         'django-preferences',
         'python-memcached',

@@ -8,6 +8,9 @@
             <li><a href="{% url 'secure_register' %}">Register</a>
         {% else %}
             <li>Welcome, {{ user.display_name }}</li>
+            {% if user.can_access_console %}
+            	<li><a href="{% url 'console' %}">Console</a>
+            {% endif %}
             <li><a href="{% url 'auth_logout' %}">Logout</a>
         {% endif %}
     </ul>
