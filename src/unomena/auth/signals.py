@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 from registration import signals as registration_signals
 
-from unomena.auth import mailers
+from unomena.auth import tasks
 
 @receiver(registration_signals.user_registered)
 def registration_profile_created(sender, **kwargs):
@@ -16,4 +16,4 @@ def registration_profile_created(sender, **kwargs):
     send_email = kwargs.pop('send_email', False)
     
     if registration_profile is not None and site is not None and send_email:
-        mailers.email_account_activation(registration_profile.id, site.id)
+        tasks.email_account_activation(registration_profile.id, site.id)

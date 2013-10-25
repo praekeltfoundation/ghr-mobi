@@ -1,3 +1,5 @@
+import datetime
+
 from unipath import FSPath as Path
 
 BUILDOUT_PATH = Path(__file__).parent.parent.parent
@@ -156,6 +158,8 @@ INSTALLED_APPS = (
     'tunobase.mailer',
     'tunobase.corporate.company_info',
     'tunobase.corporate.media',
+    'tunobase.blog',
+    'tunobase.age_gate',
     'unomena',
     'unomena.auth',
     'unomena.core',
@@ -179,6 +183,12 @@ CACHES = {
 # Debug Toolbar Settings
 
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
+
+# Age Gate Settings
+
+AGE_GATE_LOCATION_CHOICES = (('South Africa', 'South Africa'),)
+AGE_GATE_MIN_NUM_YEARS_BACK = 73
+AGE_GATE_MAX_NUM_YEARS_BACK = 0
 
 # Registration Settings
 
