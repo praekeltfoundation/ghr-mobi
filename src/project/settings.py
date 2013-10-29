@@ -160,6 +160,8 @@ INSTALLED_APPS = (
     'tunobase.corporate.media',
     'tunobase.blog',
     'tunobase.age_gate',
+    'tunobase.tagging',
+    'tunobase.commenting',
     'unomena',
     'unomena.auth',
     'unomena.core',
@@ -186,9 +188,12 @@ DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # Age Gate Settings
 
-AGE_GATE_LOCATION_CHOICES = (('South Africa', 'South Africa'),)
+AGE_GATE_LOCATION_CHOICES = (('za', 'South Africa'),)
 AGE_GATE_MIN_NUM_YEARS_BACK = 73
 AGE_GATE_MAX_NUM_YEARS_BACK = 0
+AGE_GATE_COUNTRY_LEGAL_AGES = {
+    'za': 18
+}
 
 # Registration Settings
 
