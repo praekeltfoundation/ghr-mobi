@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     (r'^age-gate/', include('tunobase.age_gate.urls')),
     (r'^blog/', include('tunobase.blog.urls')),
     (r'^commenting/', include('tunobase.commenting.urls')),
+    (r'^tagging/', include('tunobase.tagging.urls')),
     (r'^console/', include('tunobase.console.urls')),
     
     # Uncomment the next line to enable the admin:
