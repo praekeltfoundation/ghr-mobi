@@ -15,7 +15,7 @@ from django.views.decorators.cache import never_cache
 from registration import signals as registration_signals
 from registration.views import RegistrationView as BaseRegistrationView, ActivationView as BaseActivationView
 
-from unomena.auth import forms, models
+from . import forms, models
 
 class ProjectRegistration(BaseRegistrationView):
     

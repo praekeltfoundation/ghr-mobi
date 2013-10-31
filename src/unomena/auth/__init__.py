@@ -1,1 +1,1 @@
-from unomena.auth import signals
+from . import signals

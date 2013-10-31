@@ -8,7 +8,7 @@ from django.template import loader
 from django.utils.http import int_to_base36
 from django.template.loader import render_to_string
 
-from unomena.auth import constants
+from . import constants
 
 # Registration forms
 

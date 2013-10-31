@@ -12,7 +12,7 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
-from unomena.auth import models
+from . import models
     
 class CustomUserCreationForm(UserCreationForm):
     

@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 from registration import signals as registration_signals
 
-from unomena.auth import tasks
+from . import tasks
 
 @receiver(registration_signals.user_registered)
 def registration_profile_created(sender, **kwargs):

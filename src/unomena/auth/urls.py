@@ -7,7 +7,7 @@ from django.conf.urls import patterns, url
 from django.views.generic.base import TemplateView
 from django.contrib.admin.views.decorators import staff_member_required
 
-from unomena.auth import views, forms
+from . import views, forms
 
 urlpatterns = patterns('',
     url(r'^secure/activate/(?P<activation_key>\w+)/$', 
