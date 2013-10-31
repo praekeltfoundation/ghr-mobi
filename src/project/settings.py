@@ -89,6 +89,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -152,6 +153,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'djcelery',
     'south',
+    'compressor',
     'tunobase',
     'tunobase.core',
     'tunobase.console',
@@ -196,13 +198,10 @@ AGE_GATE_COUNTRY_LEGAL_AGES = {
     'za': 18
 }
 
-AGE_GATE_COUNTRY_LEGAL_AGES = {
-    'za': 18
-}
-
 # Commenting Settings
 
-COMMENT_DELAY_MINUTES = 1
+COMMENT_PERIOD_MINUTES = 1
+NUM_COMMENTS_ALLOWED_IN_PERIOD = 5
 
 # Registration Settings
 

@@ -24,6 +24,7 @@ setup(
         'django-registration==1.0',
         'django-preferences',
         'python-memcached',
+        'django_compressor',
         'gunicorn',
         'celery==3.0.15',
         'django-celery==3.0.11',

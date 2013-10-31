@@ -1,3 +1,5 @@
+{% load compress %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <meta charset="utf-8">
@@ -7,10 +9,12 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="shortcut icon" href="{{ STATIC_URL }}unomena/img/favicon.ico" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/jquery.tagit.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/jquery-ui-1.10.3.custom.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/style.css" />
+    {% compress css %}
+	    <link rel="shortcut icon" href="{{ STATIC_URL }}unomena/img/favicon.ico" />
+	    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/jquery.tagit.css" />
+	    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/jquery-ui-1.10.3.custom.css" />
+	    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/style.css" />
+    {% endcompress %}
     <script src="{{ STATIC_URL }}unomena/js/libs/modernizr.js"></script>
     {% block extra_css %}{% endblock %}
 </head>
@@ -26,14 +30,15 @@
     <p class="align-right">Powered by <a href="http://unomena.com/" target="_blank">Unomena</a></p>
     <div class="clear"></div>
 </div><!--/Footer-->
-
-<script src="{{ STATIC_URL }}unomena/js/libs/jquery-1.10.2.min.js"></script>
-<script src="{{ STATIC_URL }}unomena/js/libs/jquery.form.js"></script>
-<script src="{{ STATIC_URL }}unomena/js/libs/jquery.formset.js"></script>
-<script src="{{ STATIC_URL }}unomena/js/libs/jquery.validate.js"></script>
-<script src="{{ STATIC_URL }}unomena/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="{{ STATIC_URL }}unomena/js/libs/tag-it.min.js"></script>
-<script src="{{ STATIC_URL }}unomena/js/scripts.js"></script>
+{% compress js %}
+	<script src="{{ STATIC_URL }}unomena/js/libs/jquery-1.10.2.min.js"></script>
+	<script src="{{ STATIC_URL }}unomena/js/libs/jquery.form.js"></script>
+	<script src="{{ STATIC_URL }}unomena/js/libs/jquery.formset.js"></script>
+	<script src="{{ STATIC_URL }}unomena/js/libs/jquery.validate.js"></script>
+	<script src="{{ STATIC_URL }}unomena/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="{{ STATIC_URL }}unomena/js/libs/tag-it.min.js"></script>
+	<script src="{{ STATIC_URL }}unomena/js/scripts.js"></script>
+{% endcompress %}
 {% block bottom_js %}{% endblock %}
 </body>
 </html>

@@ -5,4 +5,4 @@ Created on 22 Oct 2013
 '''
 from django.contrib import admin
 
-from unomena.core import models
+from . import models
