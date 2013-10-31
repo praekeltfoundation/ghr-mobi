@@ -200,6 +200,10 @@ AGE_GATE_COUNTRY_LEGAL_AGES = {
     'za': 18
 }
 
+# Commenting Settings
+
+COMMENT_DELAY_MINUTES = 1
+
 # Registration Settings
 
 ACCOUNT_ACTIVATION_DAYS = 7
