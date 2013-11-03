@@ -63,7 +63,6 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=16, blank=True, null=True)
     mobile_number = models.CharField(max_length=16, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    newsletter_recipient = models.BooleanField(default=False)
     
     street_address = models.TextField(blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
