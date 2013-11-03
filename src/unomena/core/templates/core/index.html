@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load core_widgets %}
 
 {% block content %}
     <ul>
@@ -15,4 +16,6 @@
         {% endif %}
     </ul>
     <p>Index Page</p>
+    {% content_block_widget 'home' %}
+    {% html_bannerset_widget 'home' %}
 {% endblock %}
