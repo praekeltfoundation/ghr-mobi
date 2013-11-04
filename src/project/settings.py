@@ -159,6 +159,8 @@ INSTALLED_APPS = (
     'tunobase.console',
     'tunobase.mailer',
     'tunobase.corporate.company_info',
+    'tunobase.corporate.company_info.contact',
+    'tunobase.corporate.company_info.newsletter',
     'tunobase.corporate.media',
     'tunobase.blog',
     'tunobase.age_gate',

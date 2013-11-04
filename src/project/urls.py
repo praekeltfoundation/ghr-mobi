@@ -8,8 +8,8 @@ urlpatterns = patterns('',
 
     (r'^', include('%s.urls' % settings.PROJECT_NAME)),
     
-    (r'^', include('tunobase.corporate.company_info.urls')),
-    
+    (r'^', include('tunobase.corporate.company_info.contact.urls')),
+    (r'^newsletter/', include('tunobase.corporate.company_info.newsletter.urls')),
     (r'^age-gate/', include('tunobase.age_gate.urls')),
     (r'^blog/', include('tunobase.blog.urls')),
     (r'^commenting/', include('tunobase.commenting.urls')),

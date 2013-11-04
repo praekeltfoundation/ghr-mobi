@@ -10,6 +10,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from . import views, forms
 
 urlpatterns = patterns('',
+    # Registration and activation
     url(r'^secure/activate/(?P<activation_key>\w+)/$', 
         views.ProjectActivation.as_view(template_name='auth/activate.html'),
         name='secure_activate'
@@ -39,7 +40,8 @@ urlpatterns = patterns('',
         ),
         name='registration_resend_email'
     ),
-                       
+    
+    # Authentication   
     url(r'^secure/password_reset/$',
         'django.contrib.auth.views.password_reset', 
         {'password_reset_form' : forms.ProjectPasswordResetForm },
