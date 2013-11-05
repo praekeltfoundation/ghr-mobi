@@ -128,8 +128,8 @@ def build_project(where, first_deploy=False, instance_type='dev',
     })
     
     with cd(code_dir):
+        run_func('python bootstrap.py')
         run_func(
-            'python bootstrap.py && '
             'bin/buildout buildout:server-names="%(server_name)s" '
             'buildout:server-name="%(server_name)s" '
             'buildout:app-name="%(app_name)s" '
@@ -226,8 +226,9 @@ def build_project(where, first_deploy=False, instance_type='dev',
         run_func('bin/django migrate')
         
 def prep():
-    local('git add . && git commit')
-    local('git push')
+    with settings(warn_only=True):
+        local('git add . && git commit')
+        local('git push')
 
 @roles('dev_server')
 def test_db_exists(db_name):
