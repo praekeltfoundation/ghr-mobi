@@ -94,10 +94,10 @@ def build_project(where, instance_type='dev',
             
             # chmods
             run_func('sudo chmod -R 770 bin')
-            run_func('sudo chmod 774 logs')
+            run_func('sudo chmod -R 774 logs')
             run_func('sudo chmod 660 .installed.cfg')
             run_func('sudo chmod 770 scheduler')
-            run_func('sudo chmod -R 654 static')
+            run_func('sudo chmod -R 644 static')
             run_func('sudo chmod 774 media')
             
             # mkdirs
