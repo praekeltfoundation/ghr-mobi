@@ -1,7 +1,7 @@
 [program:${name}.gunicorn]
 command=${buildout:bin-directory}/${control-script} run_gunicorn -w ${workers} --max-requests=${max-requests} --bind=${host}:${port} 
 user=${user}
-stdout_logfile=supervisor.${log}
+stdout_logfile=${supervisor-log}
 redirect_stderr=true
 stopsignal=TERM
 environment=PYTHON_EGG_CACHE='/var/www/.python-eggs'
