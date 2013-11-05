@@ -110,7 +110,9 @@ def build_project(where, instance_type='dev',
             run_func('sudo chmod 764 media')
             
             # mkdirs
-            run_func('mkdir media/uploads')
+            with settings(warn_only=True):
+                if run("test -d media/uploads").failed:
+                    run_func('mkdir media/uploads')
         
             if nginx_conf_changed:
                 # symlink nginx
@@ -133,6 +135,7 @@ def build_project(where, instance_type='dev',
             run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
             run_func('sudo supervisorctl restart %s.celeryd' % server_name)
             if nginx_conf_changed:
+                run_func('bin/make_cert.sh')
                 run_func('sudo service nginx restart')
         
         # restart memcached
