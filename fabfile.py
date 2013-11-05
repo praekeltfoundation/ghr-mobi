@@ -10,9 +10,9 @@ from fabric.decorators import roles
 from fab_settings import *
 
 env.roledefs.update({
-    'dev_server': ['ubuntu@precise.dev.unomena.net'],
-    'qa_server': ['ubuntu@precise.qa.unomena.net'],
-    'prod_servers': ['ubuntu@web1.prod.unomena.net', 'ubuntu@web2.prod.unomena.net']
+    'dev_server': DEV_SERVERS,
+    'qa_server': QA_SERVERS,
+    'prod_servers': PROD_SERVERS
 })
 
 buildout_config = {
