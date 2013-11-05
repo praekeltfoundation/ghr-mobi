@@ -103,7 +103,7 @@ def build_project(where, instance_type='dev',
             
             # chmods
             run_func('sudo chmod 770 bin')
-            run_func('sudo chmod 760 logs')
+            run_func('sudo chmod 764 logs')
             run_func('sudo chmod 660 .installed.cfg')
             run_func('sudo chmod 760 scheduler')
             run_func('sudo chmod 644 static')
