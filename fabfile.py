@@ -161,6 +161,9 @@ def build_project(where, instance_type='dev',
             if nginx_conf_changed:
                 run_func('bin/make_cert.sh')
                 run_func('sudo service nginx restart')
+                
+        # restart rabbit
+        run_func('sudo service rabbitmq-server restart')
         
         # restart memcached
         run_func('sudo service memcached restart')
