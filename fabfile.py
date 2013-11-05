@@ -101,6 +101,17 @@ def _get_local_settings(instance_type):
     
     return '\n\n'.join(settings_list)
 
+def _get_server_name(instance_type):
+    if instance_type == 'master':
+        return PRODUCTION_SERVER_NAME
+    
+    return '%s.%s.%s' % (PROJECT_NAME, instance_type, IN_HOUSE_DOMAIN)
+
+def restart_supervisor(server_name):
+    run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
+    if USE_CELERY:
+        run_func('sudo supervisorctl restart %s.celeryd' % server_name)
+
 def build_project(where, first_deploy=False, instance_type='dev', 
                   nginx_conf_changed=False, code_dir='.'):
     assert where in ['local', 'remote'], "invalid option to where"
@@ -110,10 +121,7 @@ def build_project(where, first_deploy=False, instance_type='dev',
     elif where == 'remote':
         run_func = run
     
-    if instance_type == 'master':
-        server_name = PRODUCTION_SERVER_NAME
-    else:
-        server_name = '%s.%s.%s' % (PROJECT_NAME, instance_type, IN_HOUSE_DOMAIN)
+    server_name = _get_server_name(instance_type)
         
     buildout_config.update({
         'server_name': server_name
@@ -131,7 +139,7 @@ def build_project(where, first_deploy=False, instance_type='dev',
         )
         
         if where == 'remote':
-            if first_desploy:
+            if first_deploy:
                 # chowns
                 run_func(
                     'sudo chown -R ubuntu:unoweb bin && '
@@ -169,7 +177,7 @@ def build_project(where, first_deploy=False, instance_type='dev',
                     run_func('sudo rm /etc/nginx/sites-enabled/%s' % server_name)
                     run_func('sudo ln -s $PWD/nginx/%s.conf /etc/nginx/sites-enabled/%s.conf' % (server_name, server_name))
             
-            if first_desploy:
+            if first_deploy:
                 with settings(warn_only=True):
                     # symlink supervisor gunicorn
                     run_func('sudo rm /etc/supervisor/conf.d/%s.gunicorn.conf' % server_name)
@@ -194,19 +202,19 @@ def build_project(where, first_deploy=False, instance_type='dev',
                 
                 # reload supervisor config
                 run_func('sudo supervisorctl reload')
+                
+                # make cert file
+                run_func('bin/make_cert.sh')
             else:
                 # restart supervisor processes
-                run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
-                run_func('sudo supervisorctl restart %s.celeryd' % server_name)
+                restart_supervisor(server_name)
                 
             # restart rabbit
             run_func('sudo service rabbitmq-server restart')
                 
-        if nginx_conf_changed:
-            # make cert file
-            run_func('bin/make_cert.sh')
-            # restart nginx
-            run_func('sudo service nginx restart')
+            if nginx_conf_changed:
+                # restart nginx
+                run_func('sudo service nginx restart')
         
         # restart memcached
         run_func('sudo service memcached restart')
@@ -217,7 +225,7 @@ def build_project(where, first_deploy=False, instance_type='dev',
         # run migrations
         run_func('bin/django migrate')
         
-def prepare_deploy():
+def prep():
     local('git add . && git commit')
     local('git push')
 
@@ -233,26 +241,26 @@ def test_repo_exists(code_dir):
         if run("test -d %s" % code_dir).failed:
             run("git clone git@git.unomena.net:%s.git %s" % (REPO_PATH, code_dir))
 
-def deploy(first_desploy, instance_type, code_dir):
+def deploy(first_deploy, instance_type, code_dir):
     run('git checkout %s' % instance_type)
     run('git pull origin %s' % instance_type)
     
     # todo: git diff code to determine if nginx conf changed
     # git diff HEAD:full/path/to/foo full/path/to/bar
     
-    build_project('remote', first_desploy, instance_type, True, code_dir)
+    build_project('remote', first_deploy, instance_type, True, code_dir)
     
     _email_project_deployed(instance_type)
 
 @roles('dev_server')
 def deploy_dev(first_deploy=False):
     code_dir = '/home/ubuntu/dev/%s' % PROJECT_NAME
-    instance_type = 'master'
+    instance_type = 'dev'
     
     test_repo_exists(code_dir)
     
     with cd(code_dir):
-        deploy(first_desploy, instance_type, code_dir)
+        deploy(first_deploy, instance_type, code_dir)
         
 @roles('qa_server')
 def deploy_qa(first_deploy=False):
@@ -262,7 +270,7 @@ def deploy_qa(first_deploy=False):
     test_repo_exists(code_dir)
     
     with cd(code_dir):
-        deploy(first_desploy, instance_type, code_dir)
+        deploy(first_deploy, instance_type, code_dir)
         
 @roles('prod_servers')
 def deploy_prod(first_deploy=False):
@@ -272,5 +280,16 @@ def deploy_prod(first_deploy=False):
     test_repo_exists(code_dir)
     
     with cd(code_dir):
-        deploy(first_desploy, instance_type, code_dir)
+        deploy(first_deploy, instance_type, code_dir)
         
+@roles('dev_server')
+def restart_dev():
+    restart_supervisor('dev')
+
+@roles('qa_server')
+def restart_qa():
+    restart_supervisor('qa')
+    
+@roles('prod_servers')
+def restart_prod():
+    restart_supervisor('master')
