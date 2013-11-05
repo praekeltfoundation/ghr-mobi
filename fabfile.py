@@ -121,17 +121,17 @@ def build_project(where, instance_type='dev',
                     }
                     settings_string = (
                         "DATABASES = {\n"
-                        "    \\'default\\': {\n"
-                        "        \\'ENGINE\\': \\'%(engine)s\\',\n"
-                        "        \\'NAME\\': \\'%(name)s\\',\n"
-                        "        \\'USER\\': \\'%(user)s\\',\n"
-                        "        \\'PASSWORD\\': \\'%(password)s\\',\n"
-                        "        \\'HOST\\': \\'%(host)s\\',\n"
-                        "        \\'PORT\\': \\'%(port)s\\',\n"
+                        "    'default': {\n"
+                        "        'ENGINE': '%(engine)s',\n"
+                        "        'NAME': '%(name)s',\n"
+                        "        'USER': '%(user)s',\n"
+                        "        'PASSWORD': '%(password)s',\n"
+                        "        'HOST': '%(host)s',\n"
+                        "        'PORT': '%(port)s',\n"
                         "    }\n"
                         "}" % settings_dict
                     )
-                    rabbit_mq_string = "BROKER_URL = \\'amqp://%s:%s@127.0.0.1:5672//%s\\'" % (PROJECT_NAME, PROJECT_NAME, PROJECT_NAME)
+                    rabbit_mq_string = "BROKER_URL = \'amqp://%s:%s@127.0.0.1:5672//%s\'" % (PROJECT_NAME, PROJECT_NAME, PROJECT_NAME)
                     
                     run_func("echo -e '%s\n\n%s\n\n%s\n\n%s' > src/project/settings_local.py" % (debug_string, template_debug_string, settings_string, rabbit_mq_string))
         
