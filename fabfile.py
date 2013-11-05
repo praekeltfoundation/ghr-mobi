@@ -88,7 +88,7 @@ def build_project(where, instance_type='dev',
         
         if where == 'remote':
             # chowns
-            run_func('sudo chown ubuntu:unoweb bin')
+            run_func('sudo chown -R ubuntu:unoweb bin')
             run_func('sudo chown ubuntu:unoweb logs')
             run_func('sudo chown ubuntu:unoweb scheduler')
             run_func('sudo chown ubuntu:unoweb static')
@@ -102,7 +102,7 @@ def build_project(where, instance_type='dev',
             run_func('sudo chmod g+s media')
             
             # chmods
-            run_func('sudo chmod 770 bin')
+            run_func('sudo chmod -R 770 bin')
             run_func('sudo chmod 764 logs')
             run_func('sudo chmod 660 .installed.cfg')
             run_func('sudo chmod 760 scheduler')
@@ -111,8 +111,12 @@ def build_project(where, instance_type='dev',
             
             # mkdirs
             with settings(warn_only=True):
-                if run("test -d media/uploads").failed:
+                if run_func("test -d media/uploads").failed:
                     run_func('mkdir media/uploads')
+                    
+                if run_func("test -d src/project/settings_local.py").failed:
+                    run_func('touch src/project/settings_local.py')
+                    run_func("echo -e 'DEBUG = True\nTEMPLATE_DEBUG = DEBUG' > src/project/settings_local.py")
         
             if nginx_conf_changed:
                 # symlink nginx
