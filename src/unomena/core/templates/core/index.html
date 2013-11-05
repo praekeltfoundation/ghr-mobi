@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load core_widgets %}
+{% load core_widgets newsletter_widgets %}
 
 {% block content %}
     <ul>
@@ -18,4 +18,9 @@
     <p>Index Page</p>
     {% content_block_widget 'home' %}
     {% html_bannerset_widget 'home' %}
+    {% newsletter_widget %}
+{% endblock %}
+
+{% block bottom_js %}
+    {% include 'newsletter/includes/newsletter_widget_js.html' %}
 {% endblock %}
