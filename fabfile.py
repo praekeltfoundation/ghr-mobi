@@ -167,9 +167,7 @@ def build_project(where, instance_type='dev',
             run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
             run_func('sudo supervisorctl restart %s.celeryd' % server_name)
             if nginx_conf_changed:
-                with settings(warn_only=True):
-                    if run_func("test -d crt/%s.crt" % server_name).failed:
-                        run_func('bin/make_cert.sh')
+                run_func('bin/make_cert.sh')
                 run_func('sudo service nginx restart')
         
         # restart memcached

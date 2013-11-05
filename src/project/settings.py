@@ -1,12 +1,10 @@
-import datetime
-
 from unipath import FSPath as Path
 
 BUILDOUT_PATH = Path(__file__).parent.parent.parent
 
 APP_NAME = 'Unomena Starter'
 
-PROJECT_NAME = 'unomena'
+PROJECT_NAME = 'app'
 
 DEBUG = False
 
