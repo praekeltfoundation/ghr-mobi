@@ -7,7 +7,7 @@ from email.MIMEText import MIMEText
 from fabric.api import *
 from fabric.decorators import roles
 
-from .fab_settings import *
+from fab_settings import *
 
 env.roledefs.update({
     'dev_server': ['ubuntu@precise.dev.unomena.net'],
@@ -107,7 +107,33 @@ def build_project(where, instance_type='dev',
                     
                 if run_func("test -d src/project/settings_local.py").failed:
                     run_func('touch src/project/settings_local.py')
-                    run_func("echo -e 'DEBUG = True\nTEMPLATE_DEBUG = DEBUG' > src/project/settings_local.py")
+                    
+                    debug_string = 'DEBUG = True'
+                    template_debug_string = 'TEMPLATE_DEBUG = DEBUG'
+                    settings_dict = {
+                        'engine': 'django.db.backends.postgresql_psycopg2',
+                        'name': instance_type in ['dev', 'qa'] and '%s_%s' \
+                            % (PROJECT_NAME, instance_type) or PROJECT_NAME,
+                        'user': PROJECT_NAME,
+                        'password': PROJECT_NAME,
+                        'host': 'localhost',
+                        'port': '5432'        
+                    }
+                    settings_string = (
+                        "DATABASES = {"
+                        "    'default': {"
+                        "        'ENGINE': '%(engine)s',"
+                        "        'NAME': '%(name)s',"
+                        "        'USER': '%(user)s',"
+                        "        'PASSWORD': '%(password)s',"
+                        "        'HOST': '%(host)s',"
+                        "        'PORT': '%(port)s',"
+                        "    }"
+                        "}" % settings_dict
+                    )
+                    rabbit_mq_string = "BROKER_URL = 'amqp://%s:%s@127.0.0.1:5672//%s'" % (PROJECT_NAME, PROJECT_NAME, PROJECT_NAME)
+                    
+                    run_func("echo -e '%s\n%s\n%s\n%s' > src/project/settings_local.py" % (debug_string, template_debug_string, settings_string, rabbit_mq_string))
         
             if nginx_conf_changed:
                 # symlink nginx
@@ -125,6 +151,16 @@ def build_project(where, instance_type='dev',
                 # symlink supervisor celeryd
                 run_func('sudo rm /etc/supervisor/conf.d/%s.celeryd.conf' % server_name)
                 run_func('sudo ln -s $PWD/supervisor/celeryd.conf /etc/supervisor/conf.d/%s.celeryd.conf' % server_name)
+                
+                # create db stuff
+                run_func('sudo -u postgres createuser -D -A -P %s' % PROJECT_NAME)
+                run_func('sudo -u postgres createdb -O %s %s' % (PROJECT_NAME, PROJECT_NAME))
+                
+                # create rabbitmq stuff
+                run_func('sudo rabbitmqctl add_user %s %s' % (PROJECT_NAME, PROJECT_NAME))
+                run_func('sudo rabbitmqctl add_vhost /%s' % PROJECT_NAME)
+                run_func('sudo rabbitmqctl set_permissions -p /%s %s ".*" ".*" ".*"' % (PROJECT_NAME, PROJECT_NAME))
+                
     
             # restart supervisor processes
             run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
