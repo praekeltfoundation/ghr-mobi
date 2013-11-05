@@ -22,7 +22,30 @@ buildout_config = {
     'app_name': APP_NAME
 }
 
-def email_project_deployed(instance_type):
+def _run_as_pg(command):
+    """
+    Run command as 'postgres' user
+    """
+    with cd('~postgres'):
+        return run('sudo -u postgres %s' % command)
+    
+def pg_user_exists(name):
+    """
+    Check if a PostgreSQL user exists.
+    """
+    with settings(hide('running', 'stdout', 'stderr', 'warnings'), warn_only=True):
+        res = _run_as_pg('''psql -t -A -c "SELECT COUNT(*) FROM pg_user WHERE usename = '%(name)s';"''' % locals())
+    return (res == "1")
+
+def pg_database_exists(name):
+    """
+    Check if a PostgreSQL database exists.
+    """
+    with settings(hide('running', 'stdout', 'stderr', 'warnings'),
+                  warn_only=True):
+        return _run_as_pg('''psql -d %(name)s -c ""''' % locals()).succeeded
+
+def _email_project_deployed(instance_type):
     fromaddr = "Unomena <unomena.com>"
     toaddr = "dev@unomena.com"
     msg = MIMEMultipart()
@@ -47,6 +70,36 @@ def email_project_deployed(instance_type):
         smtp_obj.sendmail(fromaddr, toaddr, msg.as_string())  
     except Exception, exc:
         pass
+    
+def _get_local_settings(instance_type):
+    settings_list = []
+    settings_dict = {
+        'engine': 'django.db.backends.postgresql_psycopg2',
+        'name': instance_type in ['dev', 'qa'] and '%s_%s' \
+            % (PROJECT_NAME, instance_type) or PROJECT_NAME,
+        'user': PROJECT_NAME,
+        'password': PROJECT_NAME,
+        'host': 'localhost',
+        'port': '5432'        
+    }
+    
+    settings_list.append('DEBUG = %s' % 'False' if instance_type == 'master' else 'True')
+    settings_list.append('TEMPLATE_DEBUG = DEBUG')
+    settings_list.append(
+        "DATABASES = {\n"
+        "    'default': {\n"
+        "        'ENGINE': '%(engine)s',\n"
+        "        'NAME': '%(name)s',\n"
+        "        'USER': '%(user)s',\n"
+        "        'PASSWORD': '%(password)s',\n"
+        "        'HOST': '%(host)s',\n"
+        "        'PORT': '%(port)s',\n"
+        "    }\n"
+        "}" % settings_dict
+    )
+    settings_list.append("BROKER_URL = 'amqp://%s:%s@127.0.0.1:5672//%s'" % (PROJECT_NAME, PROJECT_NAME, PROJECT_NAME))
+    
+    return '\n\n'.join(settings_list)
 
 def build_project(where, instance_type='dev', 
                   nginx_conf_changed=False, code_dir='.'):
@@ -67,8 +120,8 @@ def build_project(where, instance_type='dev',
     })
     
     with cd(code_dir):
-        run_func('python bootstrap.py')
         run_func(
+            'python bootstrap.py && '
             'bin/buildout buildout:server-names="%(server_name)s" '
             'buildout:server-name="%(server_name)s" '
             'buildout:app-name="%(app_name)s" '
@@ -79,19 +132,22 @@ def build_project(where, instance_type='dev',
         
         if where == 'remote':
             # chowns
-            run_func('sudo chown -R ubuntu:unoweb bin')
-            run_func('sudo chown ubuntu:unoweb logs')
-            run_func('sudo chown ubuntu:unoweb scheduler')
-            run_func('sudo chown ubuntu:unoweb static')
-            run_func('sudo chown ubuntu:unoweb media')
+            run_func(
+                'sudo chown -R ubuntu:unoweb bin && '
+                'sudo chown ubuntu:unoweb logs && ' 
+                'sudo chown ubuntu:unoweb scheduler && '
+                'sudo chown ubuntu:unoweb static && '
+                'sudo chown ubuntu:unoweb media'
+            )
             
             # chmods
-            run_func('sudo chmod -R 2775 bin')
-            run_func('sudo chmod -R 2775 logs')
-            run_func('sudo chmod 660 .installed.cfg')
-            run_func('sudo chmod 2775 scheduler')
-            run_func('sudo chmod -R 2755 static')
-            run_func('sudo chmod 2775 media')
+            run_func('sudo chmod -R 2775 bin && '
+                'sudo chmod -R 2775 logs && '
+                'sudo chmod 660 .installed.cfg && '
+                'sudo chmod 2775 scheduler &&'
+                'sudo chmod -R 2755 static &&'
+                'sudo chmod 2775 media &&'
+            )
             
             # mkdirs
             with settings(warn_only=True):
@@ -99,34 +155,10 @@ def build_project(where, instance_type='dev',
                     run_func('mkdir media/uploads')
                     
                 if run_func("test -d src/project/settings_local.py").failed:
-                    run_func('touch src/project/settings_local.py')
-                    
-                    debug_string = 'DEBUG = %s' % 'False' if instance_type == 'master' else 'True'
-                    template_debug_string = 'TEMPLATE_DEBUG = DEBUG'
-                    settings_dict = {
-                        'engine': 'django.db.backends.postgresql_psycopg2',
-                        'name': instance_type in ['dev', 'qa'] and '%s_%s' \
-                            % (PROJECT_NAME, instance_type) or PROJECT_NAME,
-                        'user': PROJECT_NAME,
-                        'password': PROJECT_NAME,
-                        'host': 'localhost',
-                        'port': '5432'        
-                    }
-                    settings_string = (
-                        "DATABASES = {\n"
-                        "    'default': {\n"
-                        "        'ENGINE': '%(engine)s',\n"
-                        "        'NAME': '%(name)s',\n"
-                        "        'USER': '%(user)s',\n"
-                        "        'PASSWORD': '%(password)s',\n"
-                        "        'HOST': '%(host)s',\n"
-                        "        'PORT': '%(port)s',\n"
-                        "    }\n"
-                        "}" % settings_dict
+                    run_func(
+                        'touch src/project/settings_local.py && '
+                        'echo -e "%s" > src/project/settings_local.py' % _get_local_settings()
                     )
-                    rabbit_mq_string = "BROKER_URL = 'amqp://%s:%s@127.0.0.1:5672//%s'" % (PROJECT_NAME, PROJECT_NAME, PROJECT_NAME)
-                    
-                    run_func('echo -e "%s\n\n%s\n\n%s\n\n%s" > src/project/settings_local.py' % (debug_string, template_debug_string, settings_string, rabbit_mq_string))
         
             if nginx_conf_changed:
                 # symlink nginx
@@ -146,14 +178,17 @@ def build_project(where, instance_type='dev',
                 run_func('sudo ln -s $PWD/supervisor/celeryd.conf /etc/supervisor/conf.d/%s.celeryd.conf' % server_name)
                 
                 # create db stuff
-                run_func('sudo -u postgres createuser -D -A -P %s' % PROJECT_NAME)
-                run_func('sudo -u postgres createdb -O %s %s' % (PROJECT_NAME, PROJECT_NAME))
+                if not pg_user_exists(PROJECT_NAME):
+                    _run_as_pg('createuser -D -A -P %s' % PROJECT_NAME)
+                if not pg_database_exists(PROJECT_NAME):
+                    _run_as_pg('createdb -O %s %s' % (PROJECT_NAME, PROJECT_NAME))
                 
                 # create rabbitmq stuff
-                run_func('sudo rabbitmqctl add_user %s %s' % (PROJECT_NAME, PROJECT_NAME))
-                run_func('sudo rabbitmqctl add_vhost /%s' % PROJECT_NAME)
-                run_func('sudo rabbitmqctl set_permissions -p /%s %s ".*" ".*" ".*"' % (PROJECT_NAME, PROJECT_NAME))
-                
+                run_func(
+                    'sudo rabbitmqctl add_user %s %s' % (PROJECT_NAME, PROJECT_NAME) + ' && '
+                    'sudo rabbitmqctl add_vhost /%s' % PROJECT_NAME + ' && '
+                    'sudo rabbitmqctl set_permissions -p /%s %s ".*" ".*" ".*"' % (PROJECT_NAME, PROJECT_NAME)
+                )
     
             # restart supervisor processes
             run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
@@ -199,7 +234,7 @@ def deploy(instance_type, code_dir):
     
     build_project('remote', instance_type, True, code_dir)
     
-    email_project_deployed(instance_type)
+    _email_project_deployed(instance_type)
 
 @roles('dev_server')
 def deploy_dev():
