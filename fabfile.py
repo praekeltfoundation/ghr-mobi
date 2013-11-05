@@ -101,7 +101,7 @@ def _get_local_settings(instance_type):
     
     return '\n\n'.join(settings_list)
 
-def build_project(where, instance_type='dev', 
+def build_project(where, first_deploy=False, instance_type='dev', 
                   nginx_conf_changed=False, code_dir='.'):
     assert where in ['local', 'remote'], "invalid option to where"
     
@@ -131,34 +131,35 @@ def build_project(where, instance_type='dev',
         )
         
         if where == 'remote':
-            # chowns
-            run_func(
-                'sudo chown -R ubuntu:unoweb bin && '
-                'sudo chown ubuntu:unoweb logs && ' 
-                'sudo chown ubuntu:unoweb scheduler && '
-                'sudo chown ubuntu:unoweb static && '
-                'sudo chown ubuntu:unoweb media'
-            )
-            
-            # chmods
-            run_func('sudo chmod -R 2775 bin && '
-                'sudo chmod -R 2775 logs && '
-                'sudo chmod 660 .installed.cfg && '
-                'sudo chmod 2775 scheduler &&'
-                'sudo chmod -R 2755 static &&'
-                'sudo chmod 2775 media'
-            )
-            
-            # mkdirs
-            with settings(warn_only=True):
-                if run_func("test -d media/uploads").failed:
-                    run_func('mkdir media/uploads')
-                    
-                if run_func("test -d src/project/settings_local.py").failed:
-                    run_func(
-                        'touch src/project/settings_local.py && '
-                        'echo -e "%s" > src/project/settings_local.py' % _get_local_settings()
-                    )
+            if first_desploy:
+                # chowns
+                run_func(
+                    'sudo chown -R ubuntu:unoweb bin && '
+                    'sudo chown ubuntu:unoweb logs && ' 
+                    'sudo chown ubuntu:unoweb scheduler && '
+                    'sudo chown ubuntu:unoweb static && '
+                    'sudo chown ubuntu:unoweb media'
+                )
+                
+                # chmods
+                run_func('sudo chmod -R 2775 bin && '
+                    'sudo chmod -R 2775 logs && '
+                    'sudo chmod 660 .installed.cfg && '
+                    'sudo chmod 2775 scheduler &&'
+                    'sudo chmod -R 2755 static &&'
+                    'sudo chmod 2775 media'
+                )
+                
+                # mkdirs
+                with settings(warn_only=True):
+                    if run_func("test -d media/uploads").failed:
+                        run_func('mkdir media/uploads')
+                        
+                    if run_func("test -d src/project/settings_local.py").failed:
+                        run_func(
+                            'touch src/project/settings_local.py && '
+                            'echo -e "%s" > src/project/settings_local.py' % _get_local_settings(instance_type)
+                        )
         
             if nginx_conf_changed:
                 # symlink nginx
@@ -168,37 +169,44 @@ def build_project(where, instance_type='dev',
                     run_func('sudo rm /etc/nginx/sites-enabled/%s' % server_name)
                     run_func('sudo ln -s $PWD/nginx/%s.conf /etc/nginx/sites-enabled/%s.conf' % (server_name, server_name))
             
-            with settings(warn_only=True):
-                # symlink supervisor gunicorn
-                run_func('sudo rm /etc/supervisor/conf.d/%s.gunicorn.conf' % server_name)
-                run_func('sudo ln -s $PWD/supervisor/gunicorn.conf /etc/supervisor/conf.d/%s.gunicorn.conf' % server_name)
+            if first_desploy:
+                with settings(warn_only=True):
+                    # symlink supervisor gunicorn
+                    run_func('sudo rm /etc/supervisor/conf.d/%s.gunicorn.conf' % server_name)
+                    run_func('sudo ln -s $PWD/supervisor/gunicorn.conf /etc/supervisor/conf.d/%s.gunicorn.conf' % server_name)
+                    
+                    # symlink supervisor celeryd
+                    run_func('sudo rm /etc/supervisor/conf.d/%s.celeryd.conf' % server_name)
+                    run_func('sudo ln -s $PWD/supervisor/celeryd.conf /etc/supervisor/conf.d/%s.celeryd.conf' % server_name)
+                    
+                    # create db stuff
+                    if not pg_user_exists(PROJECT_NAME):
+                        _run_as_pg('createuser -D -A -P %s' % PROJECT_NAME)
+                    if not pg_database_exists(PROJECT_NAME):
+                        _run_as_pg('createdb -O %s %s' % (PROJECT_NAME, PROJECT_NAME))
+                    
+                    # create rabbitmq stuff
+                    run_func(
+                        'sudo rabbitmqctl add_user %s %s' % (PROJECT_NAME, PROJECT_NAME) + ' && '
+                        'sudo rabbitmqctl add_vhost /%s' % PROJECT_NAME + ' && '
+                        'sudo rabbitmqctl set_permissions -p /%s %s ".*" ".*" ".*"' % (PROJECT_NAME, PROJECT_NAME)
+                    )
                 
-                # symlink supervisor celeryd
-                run_func('sudo rm /etc/supervisor/conf.d/%s.celeryd.conf' % server_name)
-                run_func('sudo ln -s $PWD/supervisor/celeryd.conf /etc/supervisor/conf.d/%s.celeryd.conf' % server_name)
+                # reload supervisor config
+                run_func('sudo supervisorctl reload')
+            else:
+                # restart supervisor processes
+                run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
+                run_func('sudo supervisorctl restart %s.celeryd' % server_name)
                 
-                # create db stuff
-                if not pg_user_exists(PROJECT_NAME):
-                    _run_as_pg('createuser -D -A -P %s' % PROJECT_NAME)
-                if not pg_database_exists(PROJECT_NAME):
-                    _run_as_pg('createdb -O %s %s' % (PROJECT_NAME, PROJECT_NAME))
+            # restart rabbit
+            run_func('sudo service rabbitmq-server restart')
                 
-                # create rabbitmq stuff
-                run_func(
-                    'sudo rabbitmqctl add_user %s %s' % (PROJECT_NAME, PROJECT_NAME) + ' && '
-                    'sudo rabbitmqctl add_vhost /%s' % PROJECT_NAME + ' && '
-                    'sudo rabbitmqctl set_permissions -p /%s %s ".*" ".*" ".*"' % (PROJECT_NAME, PROJECT_NAME)
-                )
-    
-            # restart supervisor processes
-            run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
-            run_func('sudo supervisorctl restart %s.celeryd' % server_name)
-            if nginx_conf_changed:
-                run_func('bin/make_cert.sh')
-                run_func('sudo service nginx restart')
-                
-        # restart rabbit
-        run_func('sudo service rabbitmq-server restart')
+        if nginx_conf_changed:
+            # make cert file
+            run_func('bin/make_cert.sh')
+            # restart nginx
+            run_func('sudo service nginx restart')
         
         # restart memcached
         run_func('sudo service memcached restart')
@@ -225,44 +233,44 @@ def test_repo_exists(code_dir):
         if run("test -d %s" % code_dir).failed:
             run("git clone git@git.unomena.net:%s.git %s" % (REPO_PATH, code_dir))
 
-def deploy(instance_type, code_dir):
+def deploy(first_desploy, instance_type, code_dir):
     run('git checkout %s' % instance_type)
     run('git pull origin %s' % instance_type)
     
     # todo: git diff code to determine if nginx conf changed
     # git diff HEAD:full/path/to/foo full/path/to/bar
     
-    build_project('remote', instance_type, True, code_dir)
+    build_project('remote', first_desploy, instance_type, True, code_dir)
     
     _email_project_deployed(instance_type)
 
 @roles('dev_server')
-def deploy_dev():
+def deploy_dev(first_deploy=False):
     code_dir = '/home/ubuntu/dev/%s' % PROJECT_NAME
     instance_type = 'master'
     
     test_repo_exists(code_dir)
     
     with cd(code_dir):
-        deploy(instance_type, code_dir)
+        deploy(first_desploy, instance_type, code_dir)
         
 @roles('qa_server')
-def deploy_qa():
+def deploy_qa(first_deploy=False):
     code_dir = '/home/ubuntu/qa/%s' % PROJECT_NAME
     instance_type = 'qa'
     
     test_repo_exists(code_dir)
     
     with cd(code_dir):
-        deploy(instance_type, code_dir)
+        deploy(first_desploy, instance_type, code_dir)
         
 @roles('prod_servers')
-def deploy_prod():
+def deploy_prod(first_deploy=False):
     code_dir = '/var/www/%s' % PROJECT_NAME
     instance_type = 'master'
     
     test_repo_exists(code_dir)
     
     with cd(code_dir):
-        deploy(instance_type, code_dir)
+        deploy(first_desploy, instance_type, code_dir)
         
