@@ -131,9 +131,9 @@ def build_project(where, instance_type='dev',
                         "    }\n"
                         "}" % settings_dict
                     )
-                    rabbit_mq_string = "BROKER_URL = \'amqp://%s:%s@127.0.0.1:5672//%s\'" % (PROJECT_NAME, PROJECT_NAME, PROJECT_NAME)
+                    rabbit_mq_string = "BROKER_URL = 'amqp://%s:%s@127.0.0.1:5672//%s'" % (PROJECT_NAME, PROJECT_NAME, PROJECT_NAME)
                     
-                    run_func("echo -e '%s\n\n%s\n\n%s\n\n%s' > src/project/settings_local.py" % (debug_string, template_debug_string, settings_string, rabbit_mq_string))
+                    run_func('echo -e "%s\n\n%s\n\n%s\n\n%s" > src/project/settings_local.py' % (debug_string, template_debug_string, settings_string, rabbit_mq_string))
         
             if nginx_conf_changed:
                 # symlink nginx
@@ -166,7 +166,9 @@ def build_project(where, instance_type='dev',
             run_func('sudo supervisorctl restart %s.gunicorn' % server_name)
             run_func('sudo supervisorctl restart %s.celeryd' % server_name)
             if nginx_conf_changed:
-                run_func('bin/make_cert.sh')
+                with settings(warn_only=True):
+                    if run_func("test -d crt/%s.crt" % server_name).failed:
+                        run_func('bin/make_cert.sh')
                 run_func('sudo service nginx restart')
         
         # restart memcached
