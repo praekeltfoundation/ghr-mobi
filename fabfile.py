@@ -85,21 +85,13 @@ def build_project(where, instance_type='dev',
             run_func('sudo chown ubuntu:unoweb static')
             run_func('sudo chown ubuntu:unoweb media')
             
-            # sticky bits
-            run_func('sudo chmod g+s bin')
-            run_func('sudo chmod g+s logs')
-            run_func('sudo chmod +t logs')
-            run_func('sudo chmod g+s scheduler')
-            run_func('sudo chmod g+s static')
-            run_func('sudo chmod g+s media')
-            
             # chmods
-            run_func('sudo chmod -R 770 bin')
-            run_func('sudo chmod -R 774 logs')
+            run_func('sudo chmod -R 2775 bin')
+            run_func('sudo chmod -R 2775 logs')
             run_func('sudo chmod 660 .installed.cfg')
-            run_func('sudo chmod 770 scheduler')
-            run_func('sudo chmod -R 644 static')
-            run_func('sudo chmod 774 media')
+            run_func('sudo chmod 2775 scheduler')
+            run_func('sudo chmod -R 2755 static')
+            run_func('sudo chmod 2775 media')
             
             # mkdirs
             with settings(warn_only=True):

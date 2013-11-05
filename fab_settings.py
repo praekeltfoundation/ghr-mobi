@@ -16,6 +16,8 @@ PRODUCTION_SERVER_NAME = 'unomena-starter.com'
 
 DEPLOY_USER = getpass.getuser()
 
+USE_CELERY = True
+
 DEV_SERVERS = ['ubuntu@precise.dev.unomena.net']
 
 QA_SERVERS = ['ubuntu@precise.qa.unomena.net']
