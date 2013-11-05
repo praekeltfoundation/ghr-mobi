@@ -10,12 +10,12 @@
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     {% compress css %}
-	    <link rel="shortcut icon" href="{{ STATIC_URL }}unomena/img/favicon.ico" />
-	    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/jquery.tagit.css" />
-	    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/jquery-ui-1.10.3.custom.css" />
-	    <link rel="stylesheet" href="{{ STATIC_URL }}unomena/css/style.css" />
+	    <link rel="shortcut icon" href="{{ STATIC_URL }}app/img/favicon.ico" />
+	    <link rel="stylesheet" href="{{ STATIC_URL }}app/css/jquery.tagit.css" />
+	    <link rel="stylesheet" href="{{ STATIC_URL }}app/css/jquery-ui-1.10.3.custom.css" />
+	    <link rel="stylesheet" href="{{ STATIC_URL }}app/css/style.css" />
     {% endcompress %}
-    <script src="{{ STATIC_URL }}unomena/js/libs/modernizr.js"></script>
+    <script src="{{ STATIC_URL }}app/js/libs/modernizr.js"></script>
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -31,13 +31,13 @@
     <div class="clear"></div>
 </div><!--/Footer-->
 {% compress js %}
-	<script src="{{ STATIC_URL }}unomena/js/libs/jquery-1.10.2.min.js"></script>
-	<script src="{{ STATIC_URL }}unomena/js/libs/jquery.form.js"></script>
-	<script src="{{ STATIC_URL }}unomena/js/libs/jquery.formset.js"></script>
-	<script src="{{ STATIC_URL }}unomena/js/libs/jquery.validate.js"></script>
-	<script src="{{ STATIC_URL }}unomena/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
-	<script src="{{ STATIC_URL }}unomena/js/libs/tag-it.min.js"></script>
-	<script src="{{ STATIC_URL }}unomena/js/scripts.js"></script>
+	<script src="{{ STATIC_URL }}app/js/libs/jquery-1.10.2.min.js"></script>
+	<script src="{{ STATIC_URL }}app/js/libs/jquery.form.js"></script>
+	<script src="{{ STATIC_URL }}app/js/libs/jquery.formset.js"></script>
+	<script src="{{ STATIC_URL }}app/js/libs/jquery.validate.js"></script>
+	<script src="{{ STATIC_URL }}app/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="{{ STATIC_URL }}app/js/libs/tag-it.min.js"></script>
+	<script src="{{ STATIC_URL }}app/js/scripts.js"></script>
 {% endcompress %}
 {% block bottom_js %}{% endblock %}
 </body>

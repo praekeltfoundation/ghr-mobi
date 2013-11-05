@@ -96,8 +96,8 @@ def build_project(where, instance_type='dev',
             run_func('sudo chmod -R 770 bin')
             run_func('sudo chmod 774 logs')
             run_func('sudo chmod 660 .installed.cfg')
-            run_func('sudo chmod 760 scheduler')
-            run_func('sudo chmod 644 static')
+            run_func('sudo chmod 770 scheduler')
+            run_func('sudo chmod -R 654 static')
             run_func('sudo chmod 774 media')
             
             # mkdirs
@@ -108,8 +108,7 @@ def build_project(where, instance_type='dev',
                 if run_func("test -d src/project/settings_local.py").failed:
                     run_func('touch src/project/settings_local.py')
                     
-                    debug_string = 'DEBUG = %s' % instance_type == 'prod' \
-                        and 'False' or 'True'
+                    debug_string = 'DEBUG = %s' % 'False' if instance_type == 'master' else 'True'
                     template_debug_string = 'TEMPLATE_DEBUG = DEBUG'
                     settings_dict = {
                         'engine': 'django.db.backends.postgresql_psycopg2',
