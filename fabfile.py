@@ -108,7 +108,8 @@ def build_project(where, instance_type='dev',
                 if run_func("test -d src/project/settings_local.py").failed:
                     run_func('touch src/project/settings_local.py')
                     
-                    debug_string = 'DEBUG = True'
+                    debug_string = 'DEBUG = %s' % instance_type == 'prod' \
+                        and 'False' or 'True'
                     template_debug_string = 'TEMPLATE_DEBUG = DEBUG'
                     settings_dict = {
                         'engine': 'django.db.backends.postgresql_psycopg2',
