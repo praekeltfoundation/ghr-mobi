@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
-    (r'^auth/', include('unomena.auth.urls')),
+    (r'^auth/', include('app.auth.urls')),
     
-    (r'^', include('unomena.core.urls')),
+    (r'^', include('app.core.urls')),
 )
