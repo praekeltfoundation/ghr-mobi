@@ -1,7 +1,5 @@
 import os
 
-import getpass
-
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -9,14 +7,7 @@ from email.MIMEText import MIMEText
 from fabric.api import *
 from fabric.decorators import roles
 
-APP_NAME = 'unomena'
-REPO_PATH = 'unomena/unomena-starter'
-PROJECT_NAME = 'unomena-starter'
-IN_HOUSE_DOMAIN = 'unomena.net'
-FRONTEND_PROXY_PORT = '12000'
-HTTPS_PORT = '443'
-PRODUCTION_SERVER_NAME = 'unomena-starter.com'
-DEPLOY_USER = getpass.getuser()
+from .fab_settings import *
 
 env.roledefs.update({
     'dev_server': ['ubuntu@precise.dev.unomena.net'],

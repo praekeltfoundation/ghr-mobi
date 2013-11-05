@@ -5,4 +5,4 @@ Created on 22 Oct 2013
 '''
 from django.contrib import admin
 
-from . import models
+from app.core import models
