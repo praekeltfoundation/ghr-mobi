@@ -88,6 +88,7 @@ def build_project(where, instance_type='dev',
             # sticky bits
             run_func('sudo chmod g+s bin')
             run_func('sudo chmod g+s logs')
+            run_func('sudo chmod +t logs')
             run_func('sudo chmod g+s scheduler')
             run_func('sudo chmod g+s static')
             run_func('sudo chmod g+s media')
