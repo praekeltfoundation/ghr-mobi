@@ -146,7 +146,7 @@ def build_project(where, instance_type='dev',
                 'sudo chmod 660 .installed.cfg && '
                 'sudo chmod 2775 scheduler &&'
                 'sudo chmod -R 2755 static &&'
-                'sudo chmod 2775 media &&'
+                'sudo chmod 2775 media'
             )
             
             # mkdirs
