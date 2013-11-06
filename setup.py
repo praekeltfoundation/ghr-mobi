@@ -13,7 +13,6 @@ setup(
         'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
     ],
     install_requires = [
-        'fabric',
         'South',
 	    'unipath',
         'django-countries',

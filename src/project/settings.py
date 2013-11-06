@@ -6,7 +6,7 @@ APP_NAME = 'Unomena Starter'
 
 PROJECT_NAME = 'app'
 
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
