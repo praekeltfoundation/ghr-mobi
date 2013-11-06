@@ -310,12 +310,12 @@ def pull_prod(push_first=False):
         
 @roles('dev_server')
 def restart_dev():
-    restart_supervisor('dev')
+    restart_supervisor(_get_server_name('dev'))
 
 @roles('qa_server')
 def restart_qa():
-    restart_supervisor('qa')
+    restart_supervisor(_get_server_name('dev'))
     
 @roles('prod_servers')
 def restart_prod():
-    restart_supervisor('master')
+    restart_supervisor(_get_server_name('dev'))
