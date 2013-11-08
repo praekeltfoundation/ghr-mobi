@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load core_widgets newsletter_widgets %}
+{% load core_widgets newsletter_widgets poll_widgets %}
 
 {% block content %}
     <ul>
@@ -19,8 +19,11 @@
     {% content_block_widget 'home' %}
     {% html_bannerset_widget 'home' %}
     {% newsletter_widget %}
+    {% poll_widget 1 %}
+    {% gallery_widget 'gallery-1' %}
 {% endblock %}
 
 {% block bottom_js %}
     {% include 'newsletter/includes/newsletter_widget_js.html' %}
+    {% include 'poll/includes/poll_widget_js.html' %}
 {% endblock %}

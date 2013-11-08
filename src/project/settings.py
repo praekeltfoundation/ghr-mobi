@@ -109,7 +109,8 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'tunobase.age_gate.middleware.AgeGateMiddleware'
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -165,9 +166,11 @@ INSTALLED_APPS = (
     'tunobase.bulk_loading',
     'tunobase.tagging',
     'tunobase.commenting',
+    'tunobase.poll',
+    'tunobase.social_media.tunosocial',
     'app',
     'app.auth',
-    'app.core',
+    'app.root',
     'ckeditor',
     'photologue',
     #'registration',

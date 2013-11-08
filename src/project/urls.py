@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^blog/', include('tunobase.blog.urls')),
     (r'^commenting/', include('tunobase.commenting.urls')),
     (r'^tagging/', include('tunobase.tagging.urls')),
+    (r'^poll/', include('tunobase.poll.urls')),
     (r'^console/', include('tunobase.console.urls')),
     
     # Uncomment the next line to enable the admin:
