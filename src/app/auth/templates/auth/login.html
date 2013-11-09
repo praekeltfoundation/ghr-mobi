@@ -10,7 +10,7 @@
                 <p>Use the form below to log into your Unomena account</p>
             </div>
             
-            {% include 'core/includes/message_error_header.html' %}
+            {% include 'includes/message_error_header.html' %}
 
             <div class="container">
                 <form id="frmLogin" method="post" action="{% url 'secure_login' %}" class="form-divided">{% csrf_token %}

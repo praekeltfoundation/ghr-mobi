@@ -11,6 +11,7 @@ setup(
     package_dir = {'': 'src'},
     dependency_links = [
         'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
+        'http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2'
     ],
     install_requires = [
         'South',
@@ -18,18 +19,21 @@ setup(
         'django-countries',
         'django-debug-toolbar',
         'django-polymorphic',
-        'django-ckeditor==3.6.2.1',
+        'django-ckeditor==3.6.2.2',
         'django-photologue==2.8.praekelt',
         'django-registration==1.0',
         'django-preferences',
         'python-memcached',
         'django_compressor',
         'gunicorn',
-        'celery==3.0.15',
-        'django-celery==3.0.11',
+        'celery==3.0.23',
+        'django-celery==3.0.23',
         'django-honeypot',
         'Pillow',
         'psycopg2',
+        'facebook-sdk',
+        'twython'
+        'flufl.password==1.2.1',
     ],
     include_package_data=True,
 )

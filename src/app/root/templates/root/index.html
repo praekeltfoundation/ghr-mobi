@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-{% load core_widgets newsletter_widgets poll_widgets %}
+{% load core_widgets newsletter_widgets poll_widgets facebook_widgets %}
 
 {% block content %}
     <ul>
         <li><a href="{% url 'index' %}">Index</a></li>
         {% if not user.is_authenticated %}
+        	<li>{% facebook_login_widget %}</li>
             <li><a href="{% url 'secure_login' %}">Login</a>
             <li><a href="{% url 'secure_register' %}">Register</a>
         {% else %}

@@ -140,7 +140,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
-    #'django.contrib.comments',
+    'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'tunobase.commenting',
     'tunobase.poll',
     'tunobase.social_media.tunosocial',
+    'tunobase.social_media.facebook',
     'app',
     'app.auth',
     'app.root',
@@ -191,6 +192,11 @@ CACHES = {
 # Debug Toolbar Settings
 
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
+
+# Facebook Settings
+
+FACEBOOK_APP_ID = '543622339046716'
+FACEBOOK_APP_SECRET = 'e6eb61a775f3ea6c0208fe8b5a119ef4'
 
 # Age Gate Settings
 
@@ -246,6 +252,12 @@ EMAIL_HOST_PASSWORD = 'AKmiQldQ2e'
 # Default Image Settings
 
 DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'tunobase.social_media.facebook.backends.FacebookBackend'
+)
 
 
 # A sample logging configuration. The only tangible logging

@@ -2,11 +2,12 @@ from django.conf import settings
 from django import forms
 from django.contrib.sites.models import get_current_site
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.tokens import default_token_generator
 from django.template import loader
 from django.utils.http import int_to_base36
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from . import constants
 
@@ -89,6 +90,16 @@ class ProjectRegistrationForm(forms.Form):
     
 class ProjectAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Email address', max_length=75)
+    
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        
+        if get_user_model().objects.filter(email__iexact=username, is_regular_user=False).exists():
+            raise forms.ValidationError(
+                _("This account is not a regular account. Please login with one of our OAuth providers.")
+            )
+
+        return super(ProjectAuthenticationForm, self).clean()
     
 class ProjectPasswordResetForm(PasswordResetForm):
     
