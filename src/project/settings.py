@@ -170,7 +170,7 @@ INSTALLED_APPS = (
     'tunobase.social_media.tunosocial',
     'tunobase.social_media.facebook',
     'app',
-    'app.auth',
+    'app.authentication',
     'app.root',
     'ckeditor',
     'photologue',
