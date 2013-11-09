@@ -59,13 +59,13 @@ class CustomUserChangeForm(UserChangeForm):
     
 class CustomUserAdmin(UserAdmin):
     search_fields = ('first_name', 'last_name', 'email')
-    list_display = ('email', 'password', 'first_name', 'last_name', 'is_admin', 'is_active', 'is_staff', 'is_console_user')
-    list_filter = ('email', 'password', 'first_name', 'last_name', 'is_admin', 'is_active')
+    list_display = ('email', 'username', 'password', 'first_name', 'last_name', 'is_admin', 'is_active', 'is_staff', 'is_console_user')
+    list_filter = ('email', 'username', 'password', 'first_name', 'last_name', 'is_admin', 'is_active')
     ordering = ('email',)
     
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('image', 'title', 'first_name', 'last_name', 'phone_number', 'mobile_number', 'company', 'last_login')}),
+        (_('Personal info'), {'fields': ('image', 'title', 'first_name', 'last_name', 'phone_number', 'mobile_number', 'company', 'city', 'last_login')}),
         (_('Permissions'), {'fields': ('is_superuser', 'is_active', 'is_admin', 'is_console_user', 'groups', 'user_permissions')}),
     )
     add_fieldsets = (

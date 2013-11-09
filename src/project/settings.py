@@ -169,8 +169,9 @@ INSTALLED_APPS = (
     'tunobase.poll',
     'tunobase.social_media.tunosocial',
     'tunobase.social_media.facebook',
+    'tunobase.social_media.twitter',
     'app',
-    'app.auth',
+    'app.authentication',
     'app.root',
     'ckeditor',
     'photologue',
@@ -198,6 +199,11 @@ DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 FACEBOOK_APP_ID = '543622339046716'
 FACEBOOK_APP_SECRET = 'e6eb61a775f3ea6c0208fe8b5a119ef4'
 
+# Twitter Settings
+
+TWITTER_APP_KEY = '2kuPpm9aMHvDzg7AKWpKcg'
+TWITTER_APP_SECRET = 'UX2BqFLztRPrrM7b7kDmVSENuEs208xPTitDKg7OVE'
+
 # Age Gate Settings
 
 AGE_GATE_LOCATION_CHOICES = (('za', 'South Africa'),)
@@ -217,7 +223,7 @@ NUM_COMMENTS_ALLOWED_IN_PERIOD = 5
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/secure/login/'
-AUTH_USER_MODEL = 'auth.EndUser'
+AUTH_USER_MODEL = 'authentication.EndUser'
 SESSION_COOKIE_AGE = 24 * 60 * 60
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -256,7 +262,8 @@ DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'tunobase.social_media.facebook.backends.FacebookBackend'
+    'tunobase.social_media.facebook.backends.FacebookBackend',
+    'tunobase.social_media.twitter.backends.TwitterBackend'
 )
 
 

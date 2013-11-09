@@ -61,7 +61,8 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255, blank=True, null=True)
     job_title = models.CharField(max_length=255, blank=True, null=True)
     company = models.CharField(max_length=255, blank=True, null=True)
-    email = models.EmailField(max_length=255, unique=True, db_index=True)
+    email = models.EmailField(max_length=255, blank=True, null=True, unique=True, db_index=True)
+    username = models.CharField(max_length=255, blank=True, null=True, unique=True, db_index=True)
     phone_number = models.CharField(max_length=16, blank=True, null=True)
     mobile_number = models.CharField(max_length=16, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -100,7 +101,12 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def __unicode__(self):
-        return self.email
+        if self.email is not None:
+            username = self.email
+        else:
+            username = self.username
+            
+        return u'%s' % username
 
     @property
     def is_staff(self):
