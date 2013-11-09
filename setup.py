@@ -32,7 +32,7 @@ setup(
         'Pillow',
         'psycopg2',
         'facebook-sdk',
-        'twython'
+        'twython',
         'flufl.password==1.2.1',
     ],
     include_package_data=True,
