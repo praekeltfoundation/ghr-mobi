@@ -170,6 +170,7 @@ INSTALLED_APPS = (
     'tunobase.social_media.tunosocial',
     'tunobase.social_media.facebook',
     'tunobase.social_media.twitter',
+    'tunobase.social_media.google_plus',
     'app',
     'app.authentication',
     'app.root',
@@ -203,6 +204,19 @@ FACEBOOK_APP_SECRET = 'e6eb61a775f3ea6c0208fe8b5a119ef4'
 
 TWITTER_APP_KEY = '2kuPpm9aMHvDzg7AKWpKcg'
 TWITTER_APP_SECRET = 'UX2BqFLztRPrrM7b7kDmVSENuEs208xPTitDKg7OVE'
+
+# Google Plus Settings
+
+GOOGLE_PLUS_CLIENT_ID = '773698024531.apps.googleusercontent.com'
+GOOGLE_PLUS_CLIENT_SECRET = 'sPNgfuzPWTeUhx94JU0oEnwM'
+
+GOOGLE_PLUS_CLIENT_INFO = {
+    "client_id": GOOGLE_PLUS_CLIENT_ID,
+    "client_secret": GOOGLE_PLUS_CLIENT_SECRET,
+    "redirect_uris": ['http://localhost:8000'],
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://accounts.google.com/o/oauth2/token"
+}
 
 # Age Gate Settings
 
@@ -263,7 +277,8 @@ DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'tunobase.social_media.facebook.backends.FacebookBackend',
-    'tunobase.social_media.twitter.backends.TwitterBackend'
+    'tunobase.social_media.twitter.backends.TwitterBackend',
+    'tunobase.social_media.google_plus.backends.GooglePlusBackend'
 )
 
 
