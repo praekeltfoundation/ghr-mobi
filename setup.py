@@ -31,9 +31,8 @@ setup(
         'django-honeypot',
         'Pillow',
         'psycopg2',
-        'facebook-sdk',
-        'twython',
         'flufl.password==1.2.1',
+        'tunobase'
     ],
     include_package_data=True,
 )
