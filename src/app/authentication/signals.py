@@ -10,7 +10,7 @@ from registration import signals as registration_signals
 from app.authentication import tasks
 
 # A contact message has been saved
-password_was_reset = Signal(providing_args=["sender", "contact_message_id"])
+password_was_reset = Signal(providing_args=["sender", "context"])
 
 @receiver(registration_signals.user_registered)
 def registration_profile_created(sender, **kwargs):

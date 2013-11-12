@@ -29,6 +29,8 @@ def email_account_activation(registration_profile_id, site_id):
             'app_name': settings.APP_NAME
         }
         
+        print registration_profile.user.email
+        
         mailer_utils.send_mail(
             subject='email/subjects/activation_email_subject.txt', 
             html_content='email/html/activation_email.html', 

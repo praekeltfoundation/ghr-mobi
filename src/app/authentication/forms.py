@@ -50,7 +50,57 @@ class UpdateProfileForm(forms.ModelForm):
             )
             
         return self.cleaned_data['email']
+    
+class UpdateProfilePasswordForm(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
+    
+    def __init__(self, user, *args, **kwargs):
+        super(UpdateProfilePasswordForm, self).__init__(*args, **kwargs)
+        self.user = user
         
+    def clean_old_password(self):
+        '''
+        Verify that the values entered into the two password fields
+        match. Note that an error here will end up in
+        ``non_field_errors()`` because it doesn't apply to a single
+        field.
+        '''
+        if not self.user.check_password(self.cleaned_data['old_password']):
+            raise forms.ValidationError('The password supplied does not match your current password.')
+                
+        return self.cleaned_data['old_password']
+        
+    def clean_password2(self):
+        '''
+        Verify that the values entered into the two password fields
+        match. Note that an error here will end up in
+        ``non_field_errors()`` because it doesn't apply to a single
+        field.
+        '''
+        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
+            if self.cleaned_data['password1'] and self.cleaned_data['password2']:
+                if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+                    raise forms.ValidationError('The password fields didn\'t match: Password confirmation failed.')
+            return self.cleaned_data['password2']
+
+    def clean(self):
+        '''
+        Verify that the values entered into the two password fields
+        match. Note that an error here will end up in
+        ``non_field_errors()`` because it doesn't apply to a single
+        field.
+        '''
+        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
+            if self.cleaned_data['password1'] and self.cleaned_data['password2']:
+                if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+                    raise forms.ValidationError('The two password fields didn\'t match.')
+        return self.cleaned_data
+        
+    def save(self):
+        self.user.set_password(self.cleaned_data['password1'])
+        self.user.save()
 
 # Registration forms
 
@@ -80,12 +130,10 @@ class ProjectRegistrationForm(forms.Form):
         Validate that the supplied email address is unique for the
         site.
         '''
-        User = get_user_model()
-        try:
-            if User.objects.filter(email__iexact=self.cleaned_data['email']).exists():
-                raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
-        except User.DoesNotExist:
-            return self.cleaned_data['email']
+        if get_user_model().objects.filter(email__iexact=self.cleaned_data['email']).exists():
+            raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
+        
+        return self.cleaned_data['email']
 
     def clean_password2(self):
         '''

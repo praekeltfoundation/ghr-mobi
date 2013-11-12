@@ -44,5 +44,6 @@
        {{ form.web_address }}{{ form.web_address.errors }}
 	   
 	   <input type="submit" value="Update Profile" />
+	   <a href="{% url 'secure_profile_change_password' %}">Change your password</a>
 	</form>
 {% endblock %}

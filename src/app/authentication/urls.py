@@ -19,6 +19,14 @@ urlpatterns = patterns('',
         ),
         name='secure_profile'
     ),
+                       
+    url(r'^secure/profile/change_password/$', 
+        views.UpdateProfilePassword.as_view(
+            form_class=forms.UpdateProfilePasswordForm,
+            template_name='authentication/profile_change_password.html'
+        ),
+        name='secure_profile_change_password'
+    ),
                                     
     # Registration and activation
     

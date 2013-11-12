@@ -31,9 +31,30 @@ class UpdateProfile(core_mixins.LoginRequiredMixin, generic_views.UpdateView):
         
         return self.render_to_response(self.get_context_data(form=form))
     
+class UpdateProfilePassword(core_mixins.LoginRequiredMixin, generic_views.FormView):
+    
+    def get_form_kwargs(self):
+        kwargs = super(UpdateProfilePassword, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def form_valid(self, form):
+        form.save()
+        
+        messages.success(self.request, 'Password updated.')
+
+        return self.render_to_response(self.get_context_data(form=form))
+    
 # Registration views
 
 class ProjectRegistration(BaseRegistrationView):
+    
+    def get_context_data(self, **kwargs):
+        context = super(ProjectRegistration, self).get_context_data(**kwargs)
+        
+        context['activation_required'] = settings.REGISTRATION_ACTIVATION_REQUIRED
+        
+        return context
     
     def register(self, request, **cleaned_data):
         """
@@ -63,17 +84,28 @@ class ProjectRegistration(BaseRegistrationView):
             site = Site.objects.get_current()
         else:
             site = RequestSite(request)
+        
+        if settings.REGISTRATION_ACTIVATION_REQUIRED:
+            registration_profile = models.ProjectRegistrationProfile.objects.create_inactive_user(
+                site, 
+                **cleaned_data
+            )
+            registration_signals.user_registered.send(
+                sender=self.__class__,
+                registration_profile=registration_profile,
+                request=request,
+                site=site,
+                send_email=True
+            )
             
-        registration_profile = models.ProjectRegistrationProfile.objects.create_inactive_user(site, **cleaned_data)
-        registration_signals.user_registered.send(
-            sender=self.__class__,
-            registration_profile=registration_profile,
-            request=request,
-            site=site,
-            send_email=True
+            return registration_profile.user
+        
+        registration_profile = models.ProjectRegistrationProfile.objects.create_active_user(
+            site, 
+            **cleaned_data
         )
         
-        return registration_profile.user
+        return registration_profile
     
     def registration_allowed(self, request):
         """

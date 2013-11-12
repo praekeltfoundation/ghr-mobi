@@ -85,6 +85,23 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     
     objects = EndUserManager()
     
+    def update(self, **kwargs):
+        if kwargs.has_key('title'):
+            self.title = kwargs['title']
+                                         
+        if kwargs.has_key('phone'):
+            self.phone_number = kwargs['phone']
+            
+        if kwargs.has_key('mobile'):
+            self.mobile_number = kwargs['mobile']
+
+        if kwargs.has_key('password1'):
+            self.set_password(kwargs['password1'])
+        else:
+            self.set_unusable_password()
+
+        self.save()
+    
     @property
     def display_name(self):
         if self.first_name and self.last_name:
@@ -180,7 +197,7 @@ class ProjectRegistrationManager(models.Manager):
             email = '@'.join([email_name, domain_part.lower()])
         return email
     
-    @transaction.commit_on_success
+    @transaction.atomic
     def create_inactive_user(self, site, **kwargs):
         email = ProjectRegistrationManager.normalize_email(kwargs['email'])
         profile = EndUser.objects.create(
@@ -190,26 +207,25 @@ class ProjectRegistrationManager(models.Manager):
             is_active=False
         )
         
-        if kwargs.has_key('title'):
-            profile.title = kwargs['title']
-                                         
-        if kwargs.has_key('phone'):
-            profile.phone_number = kwargs['phone']
-            
-        if kwargs.has_key('mobile'):
-            profile.mobile_number = kwargs['mobile']
-
-        if kwargs.has_key('password1'):
-            profile.set_password(kwargs['password1'])
-        else:
-            profile.set_unusable_password()
-
-        # First save everything before we send signals or emails.
-        profile.save()
+        profile.update(**kwargs)
 
         registration_profile = self.create_profile(profile)
 
         return registration_profile
+    
+    @transaction.atomic
+    def create_active_user(self, site, **kwargs):
+        email = ProjectRegistrationManager.normalize_email(kwargs['email'])
+        profile = EndUser.objects.create(
+            first_name=kwargs['first_name'], 
+            last_name=kwargs['last_name'], 
+            email=email,
+            is_active=True
+        )
+        
+        profile.update(**kwargs)
+
+        return profile
     
     def create_profile(self, user):
         """

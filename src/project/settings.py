@@ -239,7 +239,7 @@ LIKE_PERIOD_LOCKOUT = timezone.timedelta(minutes=1)
 NUM_LIKES_ALLOWED_IN_PERIOD = 5
 
 # Registration Settings
-
+REGISTRATION_ACTIVATION_REQUIRED = True
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/secure/login/'
