@@ -3,7 +3,7 @@
 {% block content %}
     {% include 'includes/message_error_header.html' %}
     <h3>{{ form.instance.display_name }}</h3>
-	<form id="frmUpdateProfile" action="." method="POST" class="validate_form">{% csrf_token %}
+	<form id="frmUpdateProfile" action="." method="POST" enctype="multipart/form-data" class="validate_form">{% csrf_token %}
 	   <label for="id_image">Profile Picture</label>
        {{ form.image }}{{ form.image.errors }}
 	   
