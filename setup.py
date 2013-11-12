@@ -17,7 +17,7 @@ setup(
         'South',
 	    'unipath',
         'django-countries',
-        'django-debug-toolbar',
+        'django-debug-toolbar==0.11.0',
         'django-polymorphic',
         'django-ckeditor==3.6.2.2',
         'django-photologue==2.8.praekelt',

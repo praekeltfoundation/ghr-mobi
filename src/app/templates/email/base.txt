@@ -3,7 +3,7 @@
 {% block footer %}{% endblock %}
 
 Kind regards
-The Unomena Team
+The {{ app_name }} Team
 support@unomena.com
 
-Copyright &copy; Unomena. All Rights Reserved.
+Copyright &copy; {{ app_name }}. All Rights Reserved.

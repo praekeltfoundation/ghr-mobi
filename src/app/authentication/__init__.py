@@ -1,1 +1,1 @@
-from . import signals
+from app.authentication import signals

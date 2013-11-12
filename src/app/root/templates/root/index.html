@@ -1,23 +1,7 @@
 {% extends 'base.html' %}
-{% load core_widgets newsletter_widgets poll_widgets facebook_widgets twitter_widgets google_plus_widgets %}
+{% load core_widgets newsletter_widgets poll_widgets %}
 
 {% block content %}
-    <ul>
-        <li><a href="{% url 'index' %}">Index</a></li>
-        {% if not user.is_authenticated %}
-        	<li>{% facebook_login_widget %}</li>
-        	<li>{% twitter_login_widget %}</li>
-        	<li>{% google_plus_login_widget %}</li>
-            <li><a href="{% url 'secure_login' %}">Login</a>
-            <li><a href="{% url 'secure_register' %}">Register</a>
-        {% else %}
-            <li>Welcome, {{ user.display_name }}</li>
-            {% if user.can_access_console %}
-            	<li><a href="{% url 'console' %}">Console</a>
-            {% endif %}
-            <li><a href="{% url 'auth_logout' %}">Logout</a>
-        {% endif %}
-    </ul>
     <p>Index Page</p>
     {% content_block_widget 'home' %}
     {% html_bannerset_widget 'home' %}

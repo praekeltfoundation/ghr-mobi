@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+    <h2>Logout</h2>
+    <p>You have been logged out</p>
+    
+    <h3>You will be redirected in a few seconds</h3>
+    <p>Please visit us again soon!</p>
+{% endblock %}
+
+{% block bottom_js %}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            setTimeout(function() {
+                  window.location.href = "{% url 'index' %}";
+            }, 5000);
+        });
+    </script>
+{% endblock %}

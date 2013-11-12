@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <h2>Login</h2>
+    <p>Use the form below to log into your Account</p>
+    {% include 'includes/message_error_header.html' %}
+    
+	<form id="frmLogin" method="POST" action="." class="validate_form">{% csrf_token %}
+	    <input type="hidden" name="next" value="{{ next }}"/>
+	    {% for field in form %}
+            {{ field.label_tag }}
+            {{ field.errors }}
+            {{ field }}
+        {% endfor %}
+        <input type="submit" value="Login" />
+        <a href="{% url 'secure_password_reset' %}">Forgot Your Password?</a>
+	</form>
+{% endblock %}

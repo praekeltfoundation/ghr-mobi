@@ -8,13 +8,14 @@ from celery.decorators import task
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.contrib.auth import get_user_model
 
 from tunobase.mailer import utils as mailer_utils
 
 @task(default_retry_delay=10 * 60)
 def email_account_activation(registration_profile_id, site_id):
     try:
-        from unomena.auth import models
+        from app.authentication import models
         registration_profile = models.ProjectRegistrationProfile.objects.get(
             pk=registration_profile_id
         )
@@ -38,3 +39,19 @@ def email_account_activation(registration_profile_id, site_id):
         )
     except Exception, exc:
         raise email_account_activation.retry(exc=exc)
+    
+@task(default_retry_delay=10 * 60)
+def email_password_reset(context):
+    try:
+        user = get_user_model().objects.get(pk=context['user_id'])
+        
+        mailer_utils.send_mail(
+            subject='email/subjects/password_reset_email_subject.txt', 
+            html_content='email/html/password_reset_email.html', 
+            text_content='email/txt/password_reset_email.txt', 
+            context=context,
+            to_addresses=[user.email,],
+            user=user
+        )
+    except Exception, exc:
+        raise email_password_reset.retry(exc=exc)

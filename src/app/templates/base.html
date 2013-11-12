@@ -19,26 +19,25 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-<div id="wrap">
-
-    {% block content %}{% endblock %}
-
-</div><!--/Wrap-->
-
-<div id="bottom">
-    <p class="align-left"><span>&copy; Copyright 2013 &nbsp;&nbsp; </span> <span><a href="http://www.unomena.com/">Unomena.com</a></span></p>
-    <p class="align-right">Powered by <a href="http://unomena.com/" target="_blank">Unomena</a></p>
-    <div class="clear"></div>
-</div><!--/Footer-->
-{% compress js %}
-	<script src="{{ STATIC_URL }}app/js/libs/jquery-1.10.2.min.js"></script>
-	<script src="{{ STATIC_URL }}app/js/libs/jquery.form.js"></script>
-	<script src="{{ STATIC_URL }}app/js/libs/jquery.formset.js"></script>
-	<script src="{{ STATIC_URL }}app/js/libs/jquery.validate.js"></script>
-	<script src="{{ STATIC_URL }}app/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
-	<script src="{{ STATIC_URL }}app/js/libs/tag-it.min.js"></script>
-	<script src="{{ STATIC_URL }}app/js/scripts.js"></script>
-{% endcompress %}
-{% block bottom_js %}{% endblock %}
+    {% block header %}
+        {% include 'root/includes/top_nav.html' %}
+    {% endblock %}
+    
+	{% block content %}{% endblock %}
+	
+	{% block footer %}
+	   {% include 'root/includes/footer.html' %}
+	{% endblock %}
+	
+	{% compress js %}
+		<script src="{{ STATIC_URL }}app/js/libs/jquery-1.10.2.min.js"></script>
+		<script src="{{ STATIC_URL }}app/js/libs/jquery.form.js"></script>
+		<script src="{{ STATIC_URL }}app/js/libs/jquery.formset.js"></script>
+		<script src="{{ STATIC_URL }}app/js/libs/jquery.validate.js"></script>
+		<script src="{{ STATIC_URL }}app/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="{{ STATIC_URL }}app/js/libs/tag-it.min.js"></script>
+		<script src="{{ STATIC_URL }}app/js/scripts.js"></script>
+	{% endcompress %}
+	{% block bottom_js %}{% endblock %}
 </body>
 </html>

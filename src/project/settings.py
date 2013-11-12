@@ -1,4 +1,5 @@
 from unipath import FSPath as Path
+from django.utils import timezone
 
 BUILDOUT_PATH = Path(__file__).parent.parent.parent
 
@@ -204,12 +205,12 @@ FACEBOOK_APP_SECRET = 'e6eb61a775f3ea6c0208fe8b5a119ef4'
 
 TWITTER_APP_KEY = '2kuPpm9aMHvDzg7AKWpKcg'
 TWITTER_APP_SECRET = 'UX2BqFLztRPrrM7b7kDmVSENuEs208xPTitDKg7OVE'
+TWITTER_EMAIL_REQUIRED = True
 
 # Google Plus Settings
 
 GOOGLE_PLUS_CLIENT_ID = '773698024531.apps.googleusercontent.com'
 GOOGLE_PLUS_CLIENT_SECRET = 'sPNgfuzPWTeUhx94JU0oEnwM'
-
 GOOGLE_PLUS_CLIENT_INFO = {
     "client_id": GOOGLE_PLUS_CLIENT_ID,
     "client_secret": GOOGLE_PLUS_CLIENT_SECRET,
@@ -229,8 +230,13 @@ AGE_GATE_COUNTRY_LEGAL_AGES = {
 
 # Commenting Settings
 
-COMMENT_PERIOD_MINUTES = 1
+COMMENT_PERIOD_LOCKOUT = timezone.timedelta(minutes=1)
 NUM_COMMENTS_ALLOWED_IN_PERIOD = 5
+
+# Liking Settings
+
+LIKE_PERIOD_LOCKOUT = timezone.timedelta(minutes=1)
+NUM_LIKES_ALLOWED_IN_PERIOD = 5
 
 # Registration Settings
 
@@ -239,9 +245,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/secure/login/'
 AUTH_USER_MODEL = 'authentication.EndUser'
 SESSION_COOKIE_AGE = 24 * 60 * 60
-
 INTERNAL_IPS = ('127.0.0.1',)
-
 
 # Django Celery Settings
 

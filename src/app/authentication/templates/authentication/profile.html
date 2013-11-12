@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'includes/message_error_header.html' %}
+    <h3>{{ form.instance.display_name }}</h3>
+	<form id="frmUpdateProfile" action="." method="POST" class="validate_form">{% csrf_token %}
+	   <label for="id_image">Profile Picture</label>
+       {{ form.image }}{{ form.image.errors }}
+	   
+	   <label for="id_title">Title <span>*</span></label>
+	   {{ form.title }}{{ form.title.errors }}
+	   
+	   <label for="id_first_name">First Name <span>*</span></label>
+	   {{ form.first_name }}{{ form.first_name.errors }}
+	   
+	   <label for="id_last_name">Last Name <span>*</span></label>
+	   {{ form.last_name }}{{ form.last_name.errors }}
+	   
+	   <label for="id_email">Email <span>*</span></label>
+	   {{ form.email }}{{ form.email.errors }}
+	   
+	   <label for="id_phone_number">Phone Number</label>
+	   {{ form.phone_number }}{{ form.phone_number.errors }}
+	   
+	   <label for="id_mobile_number">Mobile Number</label>
+	   {{ form.mobile_number }}{{ form.mobile_number.errors }}
+	   
+	   <label for="id_country">Country</label>
+       {{ form.country }}{{ form.country.errors }}
+       
+       <label for="id_city">City</label>
+       {{ form.city }}{{ form.city.errors }}
+       
+       <label for="id_street_address">Street Address</label>
+       {{ form.street_address }}{{ form.street_address.errors }}
+       
+       <label for="id_state_province">State/Province</label>
+       {{ form.state_province }}{{ form.state_province.errors }}
+       
+       <label for="id_zip_postal_code">Zip/Postal Code</label>
+       {{ form.zip_postal_code }}{{ form.zip_postal_code.errors }}
+       
+       <label for="id_web_address">Website Address</label>
+       {{ form.web_address }}{{ form.web_address.errors }}
+	   
+	   <input type="submit" value="Update Profile" />
+	</form>
+{% endblock %}

@@ -8,13 +8,54 @@ from django.template import loader
 from django.utils.http import int_to_base36
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
 
-from . import constants
+from tunobase.mailer import utils as mailer_utils
+
+from app.authentication import signals, constants
+
+# Profile Update Form
+
+class UpdateProfileForm(forms.ModelForm):
+    
+    class Meta:
+        model = get_user_model()
+        fields = [
+            'title', 'first_name', 'last_name', 
+            'email', 'phone_number', 'mobile_number',
+            'image', 'country', 'city', 'street_address',
+            'state_province', 'zip_postal_code', 'web_address'
+        ]
+        
+    def __init__(self, *args, **kwargs):
+        super(UpdateProfileForm, self).__init__(*args, **kwargs)
+        
+        self.fields['title'].widget.attrs.update({'class': 'required'})
+        self.fields['first_name'].widget.attrs.update({'class': 'required'})
+        self.fields['last_name'].widget.attrs.update({'class': 'required'})
+        self.fields['email'].widget.attrs.update({'readonly': 'readonly'})
+        
+        
+    def clean_email(self):
+        '''
+        Validate that the supplied email address is unique for the
+        site.
+        '''
+        if get_user_model().objects.filter(email__iexact=self.cleaned_data['email'])\
+           .exclude(email__iexact=self.instance.email).exists():
+            raise forms.ValidationError(
+                'This email address is already in use. '
+                'Please supply a different email address.'
+            )
+            
+        return self.cleaned_data['email']
+        
 
 # Registration forms
 
 class ProjectRegistrationForm(forms.Form):
-    """
+    '''
     Form for registering a new user account.
     
     Validates that the requested username is not already in use, and
@@ -24,8 +65,7 @@ class ProjectRegistrationForm(forms.Form):
     need, but should avoid defining a ``save()`` method -- the actual
     saving of collected user data is delegated to the active
     registration backend.
-    
-    """
+    '''
     title = forms.ChoiceField(choices=constants.TITLE_CHOICES)
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
@@ -36,26 +76,24 @@ class ProjectRegistrationForm(forms.Form):
     password2 = forms.CharField(widget=forms.PasswordInput())
     
     def clean_email(self):
-        """
+        '''
         Validate that the supplied email address is unique for the
         site.
-
-        """
+        '''
         User = get_user_model()
         try:
-            if User.objects.get(email__exact=self.cleaned_data['email']):
+            if User.objects.filter(email__iexact=self.cleaned_data['email']).exists():
                 raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
         except User.DoesNotExist:
             return self.cleaned_data['email']
 
     def clean_password2(self):
-        """
+        '''
         Verify that the values entered into the two password fields
         match. Note that an error here will end up in
         ``non_field_errors()`` because it doesn't apply to a single
         field.
-
-        """
+        '''
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] and self.cleaned_data['password2']:
                 if self.cleaned_data['password1'] != self.cleaned_data['password2']:
@@ -63,13 +101,12 @@ class ProjectRegistrationForm(forms.Form):
             return self.cleaned_data['password2']
 
     def clean(self):
-        """
+        '''
         Verify that the values entered into the two password fields
         match. Note that an error here will end up in
         ``non_field_errors()`` because it doesn't apply to a single
         field.
-
-        """
+        '''
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] and self.cleaned_data['password2']:
                 if self.cleaned_data['password1'] != self.cleaned_data['password2']:
@@ -104,16 +141,24 @@ class ProjectAuthenticationForm(AuthenticationForm):
 class ProjectPasswordResetForm(PasswordResetForm):
     
     def save(self, domain_override=None,
-             subject_template_name='auth/password_reset_subject.txt',
-             email_template_name='auth/password_reset_email.html',
-             txt_email_template_name='auth/password_reset_email.txt',
+             subject_template_name='authentication/password_reset_subject.txt',
+             email_template_name='authentication/password_reset_email.html',
+             txt_email_template_name='authentication/password_reset_email.txt',
              use_https=False, token_generator=default_token_generator,
              from_email=None, request=None):
-        """
+        '''
         Generates a one-use only link for resetting password and sends to the
         user.
-        """
-        for user in self.users_cache:
+        '''
+        UserModel = get_user_model()
+        email = self.cleaned_data["email"]
+        active_users = UserModel._default_manager.filter(
+            email__iexact=email, is_active=True)
+        for user in active_users:
+            # Make sure that no email is sent to a user that actually has
+            # a password marked as unusable
+            if not user.has_usable_password():
+                continue
             if not domain_override:
                 current_site = get_current_site(request)
                 site_name = current_site.name
@@ -123,17 +168,16 @@ class ProjectPasswordResetForm(PasswordResetForm):
             c = {
                 'email': user.email,
                 'domain': domain,
-                'site': site_name,
-                'uid': int_to_base36(user.id),
-                'user': user,
+                'site_name': site_name,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'user_id': user.id,
                 'token': token_generator.make_token(user),
-                'protocol': use_https and 'https' or 'http',
+                'protocol': 'https' if use_https else 'http',
             }
-            subject = loader.render_to_string(subject_template_name, c)
-            # Email subject *must not* contain newlines
-            subject = ''.join(subject.splitlines())
             
-            text_content = render_to_string('auth/activation_email.txt', c)
+            signals.password_was_reset.send(
+                sender=self.__class__,
+                context=c
+            )
             
-#            unobase_utils.send_mail(email_template_name, c, subject, text_content, 
-#                            settings.DEFAULT_FROM_EMAIL, [user.email,], None)
+            

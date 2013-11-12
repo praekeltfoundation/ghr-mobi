@@ -3,11 +3,14 @@ Created on 21 Oct 2013
 
 @author: michael
 '''
-from django.dispatch import receiver
+from django.dispatch import Signal, receiver
 
 from registration import signals as registration_signals
 
-from . import tasks
+from app.authentication import tasks
+
+# A contact message has been saved
+password_was_reset = Signal(providing_args=["sender", "contact_message_id"])
 
 @receiver(registration_signals.user_registered)
 def registration_profile_created(sender, **kwargs):
@@ -17,3 +20,10 @@ def registration_profile_created(sender, **kwargs):
     
     if registration_profile is not None and site is not None and send_email:
         tasks.email_account_activation(registration_profile.id, site.id)
+        
+@receiver(password_was_reset)
+def password_reset(sender, **kwargs):
+    context = kwargs.pop('context', None)
+    
+    if context is not None:
+        tasks.email_password_reset(context)

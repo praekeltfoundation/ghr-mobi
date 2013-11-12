@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+   <h1>Register</h1>
+   <h2>Please enter your details in the form below</h2>
+   <form id="frmRegister" action="." method="POST" class="validate_form">{% csrf_token %}
+       <div class="note">Fields marked with <span>*</span> are required</div>
+       <div class="field">
+           <label for="id_title">Title <span>*</span></label>
+           {{ form.title }}{{ form.title.errors }}
+       </div>
+       <div class="field">
+           <label for="id_first_name">First Name <span>*</span></label>
+           {{ form.first_name }}{{ form.first_name.errors }}
+       </div>
+       <div class="field">
+           <label for="id_last_name">Last Name <span>*</span></label>
+           {{ form.last_name }}{{ form.last_name.errors }}
+       </div>
+       <div class="field">
+           <label for="id_phone_number">Phone Number</label>
+           {{ form.phone }}{{ form.phone.errors }}
+       </div>
+       <div class="field">
+           <label for="id_mobile_number">Mobile Number</label>
+           {{ form.mobile }}{{ form.mobile.errors }}
+       </div>
+       <div class="field">
+           <label for="id_email">Email Address <span>*</span></label>
+           {{ form.email }}{{ form.email.errors }}
+       </div>
+       <div class="field">
+           <label for="id_password1">Password <span>*</span></label>
+           {{ form.password1 }}{{ form.password1.errors }}
+       </div>
+       <div class="field">
+           <label for="id_password2">Confirm Password <span>*</span></label>
+           {{ form.password2 }}{{ form.password2.errors }}
+       </div>
+       <input type="submit" value="Create an Account" />
+       <p>Already have an account? <a href="{% url 'secure_login' %}">Sign In</a></p>
+       <div class="footnote">By signing up, you agree to our <a href="/terms/">Terms of Use</a> and <a href="/privacy/">Privacy Policy</a></div>
+   </form>
+{% endblock %}

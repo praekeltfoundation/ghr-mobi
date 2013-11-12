@@ -18,7 +18,7 @@ from django_countries import CountryField
 
 from photologue.models import ImageModel
 
-from . import constants
+from app.authentication import constants
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
 

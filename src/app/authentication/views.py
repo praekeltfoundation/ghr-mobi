@@ -15,7 +15,23 @@ from django.views.decorators.cache import never_cache
 from registration import signals as registration_signals
 from registration.views import RegistrationView as BaseRegistrationView, ActivationView as BaseActivationView
 
-from . import forms, models
+from tunobase.core import mixins as core_mixins
+
+from app.authentication import forms, models
+
+class UpdateProfile(core_mixins.LoginRequiredMixin, generic_views.UpdateView):
+    
+    def get_object(self):
+        return self.request.user
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        
+        messages.success(self.request, 'Profile details updated')
+        
+        return self.render_to_response(self.get_context_data(form=form))
+    
+# Registration views
 
 class ProjectRegistration(BaseRegistrationView):
     
