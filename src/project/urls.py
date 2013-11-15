@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     
     (r'^', include('tunobase.corporate.company_info.contact.urls')),
     (r'^eula/', include('tunobase.eula.urls')),
+    (r'^bulk-loading/', include('tunobase.bulk_loading.urls')),
     (r'^newsletter/', include('tunobase.corporate.company_info.newsletter.urls')),
     (r'^corporate/media/', include('tunobase.corporate.media.urls')),
     (r'^age-gate/', include('tunobase.age_gate.urls')),

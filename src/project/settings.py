@@ -269,7 +269,7 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 EMAIL_ENABLED = False
 DEFAULT_FROM_EMAIL = 'Unomena <unomena.com>'
-CONTACT_MESSAGE_TO_EMAIL = 'dev@unomena.com'
+CONTACT_MESSAGE_TO_EMAIL = 'michael@unomena.com'
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.unomena.net'
 EMAIL_HOST_USER = 'mailman'
@@ -326,8 +326,12 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'unomena': {
+        'console': {
             'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'mail': {
+            'handlers': ['mail_admins'],
             'level': 'DEBUG',
         },
     }
