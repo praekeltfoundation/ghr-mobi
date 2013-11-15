@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'tunobase.tagging',
     'tunobase.commenting',
     'tunobase.poll',
+    'tunobase.eula',
     'tunobase.social_media.tunosocial',
     'tunobase.social_media.facebook',
     'tunobase.social_media.twitter',
@@ -239,6 +240,7 @@ LIKE_PERIOD_LOCKOUT = timezone.timedelta(minutes=1)
 NUM_LIKES_ALLOWED_IN_PERIOD = 5
 
 # Registration Settings
+
 REGISTRATION_ACTIVATION_REQUIRED = True
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
@@ -272,12 +274,14 @@ EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.unomena.net'
 EMAIL_HOST_USER = 'mailman'
 EMAIL_HOST_PASSWORD = 'AKmiQldQ2e'
+EMAIL_EXTRA_BCC_LIST = ['dev@unomena.com']
 
 # Default Image Settings
 
 DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
 
-# Authentication backends
+# Authentication Backend Settings
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'tunobase.social_media.facebook.backends.FacebookBackend',
