@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     (r'^twitter/', include('tunobase.social_media.twitter.urls')),
     (r'^google-plus/', include('tunobase.social_media.google_plus.urls')),
     (r'^console/', include('tunobase.console.urls')),
+    (r'^console/media/', include('tunobase.corporate.media.console.urls')),
     
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
