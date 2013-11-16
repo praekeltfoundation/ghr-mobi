@@ -140,7 +140,7 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
         from tunobase.core.models import DefaultImage
         
         if not self.image:
-            self.image = DefaultImage.permitted.get_random(self.default_image_category)
+            self.image = DefaultImage.objects.permitted().get_random(self.default_image_category)
 
         return super(EndUser, self).save(*args, **kwargs)
 

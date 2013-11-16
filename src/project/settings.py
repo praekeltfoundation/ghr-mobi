@@ -175,6 +175,7 @@ INSTALLED_APPS = (
     'tunobase.social_media.google_plus',
     'app',
     'app.authentication',
+    'app.bulk_load_tester',
     'app.root',
     'ckeditor',
     'photologue',
