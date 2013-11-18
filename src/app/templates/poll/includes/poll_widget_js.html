@@ -1,0 +1,39 @@
+<script>
+	$('.poll_results').hide();
+
+	function show_poll($el){
+		$el.parent().parent().parent().hide();
+		$el.parent().parent().parent().prev('.poll').fadeIn();
+	}
+	
+	function show_poll_results($el){
+		$el.parent().parent().parent().parent().hide();
+		$el.parent().parent().parent().parent().next('.poll_results').fadeIn();
+	}
+	
+	$('.poll a').click(function(e){
+		show_poll_results($(this));
+	});
+	
+	$('.poll_results a').click(function(e){
+		show_poll($(this));
+	});
+
+	$('.poll_form').each(function(){
+		$(this).validate({
+	        submitHandler: function(form){
+	            $(form).ajaxSubmit({
+	                success: function(data){
+	                    data = JSON.parse(data);
+	                    if(data.success){
+	                        $(form).parent().next('.poll_results').find('.content').html(data.results);
+	                        show_poll_results($(form).parent().find('a'));
+	                    } else{
+	                        alert(data.reason);
+	                    }
+	                }
+	            });
+	        }
+	    });	
+	});
+</script>

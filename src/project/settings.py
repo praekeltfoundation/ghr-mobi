@@ -154,6 +154,9 @@ INSTALLED_APPS = (
     'djcelery',
     'south',
     'compressor',
+    'app',
+    'app.authentication',
+    'app.root',
     'tunobase',
     'tunobase.core',
     'tunobase.corporate.media',
@@ -164,9 +167,6 @@ INSTALLED_APPS = (
     'tunobase.social_media.facebook',
     'tunobase.social_media.twitter',
     'tunobase.social_media.google_plus',
-    'app',
-    'app.authentication',
-    'app.root',
     'ckeditor',
     'photologue',
     'haystack',
@@ -248,7 +248,7 @@ ANONYMOUS_USER_ID = -1
 # Authentication Backend Settings
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+    'app.authentication.backends.MobileUsernameBackend',
     'guardian.backends.ObjectPermissionBackend',
 )
 

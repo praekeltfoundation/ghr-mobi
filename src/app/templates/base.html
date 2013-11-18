@@ -1,3 +1,4 @@
+{% load compress %}
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"> 
     <head> 
@@ -8,15 +9,9 @@
     </head>
     <body>
         <a name="top"></a>
-        <div class="header">
-            <div class="logo">
-                <a href="{% url 'index' %}"><img src="#" /></a>
-            </div>
-            <div class="deets">
-                <a href="{% url 'login' %}">Sign In</a>
-                <a href="#menu">Menu</a>
-            </div>                    
-        </div><!--/header-->
+        {% block header %}
+	        {% include 'includes/header.html' %}
+	    {% endblock %}
         
         <div class="content">
             {% block content %}{% endblock %}
@@ -54,5 +49,15 @@
 	            </ul>
 	        </div><!--/footer-->
         {% endblock %}
+        {% compress js %}
+	        <script src="{{ STATIC_URL }}app/js/libs/jquery-1.10.2.min.js"></script>
+	        <script src="{{ STATIC_URL }}app/js/libs/jquery.form.js"></script>
+	        <script src="{{ STATIC_URL }}app/js/libs/jquery.formset.js"></script>
+	        <script src="{{ STATIC_URL }}app/js/libs/jquery.validate.js"></script>
+	        <script src="{{ STATIC_URL }}app/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
+	        <script src="{{ STATIC_URL }}app/js/libs/tag-it.min.js"></script>
+	        <script src="{{ STATIC_URL }}app/js/scripts.js"></script>
+	    {% endcompress %}
+        {% block bottom_js %}{% endblock %}
     </body>
 </html>

@@ -44,6 +44,20 @@ class UpdateProfileForm(forms.ModelForm):
             
         return self.cleaned_data['username']
     
+    def clean_mobile_number(self):
+        '''
+        Validate that the supplied email address is unique for the
+        site.
+        '''
+        if get_user_model().objects.filter(mobile_number__iexact=self.cleaned_data['mobile_number'])\
+           .exclude(mobile_number__iexact=self.instance.mobile_number).exists():
+            raise forms.ValidationError(
+                'This mobile number is already in use. '
+                'Please supply a different mobile number.'
+            )
+            
+        return self.cleaned_data['mobile_number']
+    
 class UpdateProfilePasswordForm(forms.Form):
     old_password = forms.CharField(widget=forms.PasswordInput)
     password = forms.CharField(widget=forms.PasswordInput)
@@ -95,6 +109,19 @@ class ProjectRegistrationForm(forms.Form):
             raise forms.ValidationError('This username address is already in use. Please supply a different username.')
         
         return self.cleaned_data['username']
+    
+    def clean_mobile(self):
+        '''
+        Validate that the supplied email address is unique for the
+        site.
+        '''
+        if get_user_model().objects.filter(mobile_number__iexact=self.cleaned_data['mobile']):
+            raise forms.ValidationError(
+                'This mobile number is already in use. '
+                'Please supply a different mobile number.'
+            )
+            
+        return self.cleaned_data['mobile']
 
     def __init__(self, *args, **kwargs):
         super(ProjectRegistrationForm, self).__init__(*args, **kwargs)
@@ -107,11 +134,6 @@ class ProjectRegistrationForm(forms.Form):
     
 class ProjectAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Username', max_length=75)
-    
-    def clean(self):
-        username = self.cleaned_data.get('username')
-
-        return super(ProjectAuthenticationForm, self).clean()
     
 class ProjectPasswordResetForm(PasswordResetForm):
     

@@ -77,6 +77,9 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
 
     def __unicode__(self):
         return u'%s' % self.username
+    
+    def get_short_name(self):
+        return self.username
 
     @property
     def is_staff(self):

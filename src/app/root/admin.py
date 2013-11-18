@@ -29,3 +29,4 @@ except:
     pass
 
 admin.site.register(FlatPage, FlatPageAdmin)
+admin.site.register(models.SitePreferences)

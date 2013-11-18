@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
-
 {% block content %}
-    <h2>Login</h2>
-    <p>Use the form below to log into your Account</p>
-    {% include 'includes/message_error_header.html' %}
-    
-	<form id="frmLogin" method="POST" action="." class="validate_form">{% csrf_token %}
-	    <input type="hidden" name="next" value="{{ next }}"/>
-	    {% for field in form %}
-            {{ field.label_tag }}
-            {{ field.errors }}
-            {{ field }}
-        {% endfor %}
-        <input type="submit" value="Login" />
-        <a href="{% url 'secure_password_reset' %}">Forgot Your Password?</a>
-	</form>
+    <div class="block">
+        <div class="title">Sign In <span><a href="{% url 'register' %}">Sign Up</a></span></div>
+        <form id="frmLogin" method="post" action=".">{% csrf_token %}
+            <div class="field">
+                <label>Username / Mobile</label>
+                {{ form.username }}{{ form.username.errors }}
+            </div>
+            <div class="field">
+                <label>PIN</label>
+                {{ form.password }}{{ form.password.errors }}
+            </div>
+            <div class="btn">
+                <input type="submit" value="Sign In" />
+            </div>
+            <p><input type="checkbox" name="remember" />Remember me</p>
+            <p><a href="{% url 'forgot_password' %}">Forgot your PIN?</a></p>
+            <p>Don't have an account?</p>
+            <p><a href="{% url 'register' %}">Sign up now</a></p>                
+        </form>
+    </div><!--/block-->
 {% endblock %}

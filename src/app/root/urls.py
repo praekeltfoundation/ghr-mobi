@@ -6,8 +6,8 @@ from app.root import views
 
 urlpatterns = patterns('',
     url(r'^$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/index.html',
+        views.Index.as_view(
+            template_name='root/index.html',
         ),
         name='index'
     ),
