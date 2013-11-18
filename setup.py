@@ -16,7 +16,8 @@ setup(
     install_requires = [
         'South',
 	    'unipath',
-        'django-countries',
+        'Whoosh==2.4.1',
+        'django-haystack==2.0.0',
         'django-debug-toolbar==0.11.0',
         'django-polymorphic',
         'django-ckeditor==3.6.2.2',
@@ -24,6 +25,7 @@ setup(
         'django-registration==1.0',
         'django-preferences',
         'python-memcached',
+        'django-guardian',
         'django_compressor',
         'gunicorn',
         'celery==3.0.23',

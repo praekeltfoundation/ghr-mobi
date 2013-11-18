@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+            
+	<div class="block">
+	    <div class="title"> 
+	        <div class="breadcrumbs"><a href="{% url 'index' %}">Home</a> &raquo; <a href="/">Galleries</a></div>
+	    </div>
+	    <div class="head">
+	        <img src="" />
+	        <p><a href="#">21 Comments</a> | <a href="#">8 Likes</a> | <a href="#">Likes</a></p>
+	        <h2>Lorem ipsum dolor sit amet, consectetur heading</h2>
+	    </div>
+	    <div class="share">
+	        <ul>
+	            <li>Share:</li>
+	            <li><a href="#">tweet</a></li>
+	            <li><a href="#">facebook</a></li>
+	            <li><a href="#">+1</a></li>
+	        </ul>
+	    </div>
+	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Haec quo modo conveniant, non sane intellego. Quae cum essent dicta, discessimus. Sequitur disserendi ratio cognitioque naturae; Quid censes in Latino fore? Duo Reges: constructio interrete. </p>
+	    <p>Polemoni et iam ante Aristoteli ea prima visa sunt, quae paulo ante dixi. Quis enim potest ea, quae probabilia videantur ei, non probare? Estne, quaeso, inquam, sitienti in bibendo voluptas? Hoc ille tuus non vult omnibusque ex rebus voluptatem quasi mercedem exigit. Si quicquam extra virtutem habeatur in bonis. Iam contemni non poteris. Ad quorum et cognitionem et usum iam corroborati natura ipsa praeeunte deducimur. Re mihi non aeque satisfacit, et quidem locis pluribus. Hic ambiguo ludimur. Quod cum accidisset ut alter alterum necopinato videremus, surrexit statim. </p>
+	    <div class="images">
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	        <a href="{% url 'gallery' %}"><img src="" /></a>
+	    </div>
+	</div>
+	<!--/block-->
+	
+	<div class="block">
+	    <div class="titles">21 Comments <a href="#">Add yours</a></div>
+	    <div class="head_mini">
+	        <ul>
+	            <li><img src="" /></li>
+	            <li class="user"><a href="#">indrani</a></li>
+	            <li class="date">01 Jul '13 16:09</li>
+	            <li><a href="#">Report</a></li>
+	        </ul>
+	        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Haec quo modo conveniant, non sane intellego. Quae cum essent dicta, discessimus. Sequitur disserendi ratio cognitioque naturae; Quid censes in Latino fore? Duo Reges: constructio interrete. </p>
+	    </div>
+	    <div class="head_mini">
+	        <ul>
+	            <li><img src="" /></li>
+	            <li class="user"><a href="#">indrani</a></li>
+	            <li class="date">01 Jul '13 16:09</li>
+	            <li><a href="#">Report</a></li>
+	        </ul>
+	        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Haec quo modo conveniant, non sane intellego. Quae cum essent dicta, discessimus. Sequitur disserendi ratio cognitioque naturae; Quid censes in Latino fore? Duo Reges: constructio interrete. </p>
+	    </div>
+	    <div class="head_mini">
+	        <ul>
+	            <li><img src="" /></li>
+	            <li class="user"><a href="#">indrani</a></li>
+	            <li class="date">01 Jul '13 16:09</li>
+	            <li><a href="#">Report</a></li>
+	        </ul>
+	        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Haec quo modo conveniant, non sane intellego. Quae cum essent dicta, discessimus. Sequitur disserendi ratio cognitioque naturae; Quid censes in Latino fore? Duo Reges: constructio interrete. </p>
+	    </div>
+	</div><!--/block-->
+	<div class="pagination">
+	     <ul>
+	        <li><a href="">&laquo; prev</a></li>
+	        <li><a href="">next &raquo;</a></li>
+	        <li><a href="">show all</a></li>
+	     </ul>
+	</div><!--/pagination-->
+            
+{% endblock %}

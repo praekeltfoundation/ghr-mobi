@@ -18,35 +18,27 @@ class CustomUserCreationForm(UserCreationForm):
     
     class Meta:
         model = models.EndUser
-        fields = ("email",)
+        fields = ("username",)
         
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
         
         self.fields['username'].required = False
         
-    def clean_email(self):
+    def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
-        email = self.cleaned_data["email"]
+        username = self.cleaned_data["username"]
         try:
-            models.EndUser.objects.get(email=email)
+            models.EndUser.objects.get(username__iexact=username)
         except models.EndUser.DoesNotExist:
-            return email
-        raise forms.ValidationError("A user with that email address already exists.")
-        
-    def clean_username(self):
-        return self.cleaned_data["username"]
+            return username
+        raise forms.ValidationError("A user with that username already exists.")
 
 class CustomUserChangeForm(UserChangeForm):
     
     class Meta:
         model = models.EndUser
-        
-    def __init__(self, *args, **kwargs):
-        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
-        
-        self.fields['username'].required = False
         
     def is_valid(self):
         """
@@ -58,32 +50,24 @@ class CustomUserChangeForm(UserChangeForm):
         return self.is_bound and not bool(self.errors)
     
 class CustomUserAdmin(UserAdmin):
-    search_fields = ('first_name', 'last_name', 'email')
-    list_display = ('email', 'username', 'password', 'first_name', 'last_name', 'is_admin', 'is_active', 'is_staff', 'is_console_user')
-    list_filter = ('email', 'username', 'password', 'first_name', 'last_name', 'is_admin', 'is_active')
-    ordering = ('email',)
+    search_fields = ('username', 'mobile_number')
+    list_display = ('username', 'mobile_number', 'is_admin', 'is_active', 'is_staff')
+    list_filter = ('username', 'mobile_number', 'is_admin', 'is_active')
+    ordering = ('username',)
     
     fieldsets = (
-        (None, {'fields': ('email', 'username', 'password')}),
-        (_('Personal info'), {'fields': ('image', 'title', 'first_name', 'last_name', 'phone_number', 'mobile_number', 'company', 'city', 'last_login')}),
-        (_('Permissions'), {'fields': ('is_superuser', 'is_active', 'is_admin', 'is_console_user', 'groups', 'user_permissions')}),
+        (None, {'fields': ('username', 'password')}),
+        (_('Personal info'), {'fields': ('image', 'mobile_number', 'last_login')}),
+        (_('Permissions'), {'fields': ('is_superuser', 'is_active', 'is_admin', 'groups', 'user_permissions')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')}
+            'fields': ('username', 'password',)}
         ),
     )
     
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
-    
-class ProjectRegistrationProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'resend_email')
-    search_fields = ('user__email',)
-    
-    def resend_email(self, model):
-        return mark_safe('<a href="%s">Resend email</a>' % reverse('registration_resend_email', args=(model.pk,)))
 
 admin.site.register(models.EndUser, CustomUserAdmin)
-admin.site.register(models.ProjectRegistrationProfile, ProjectRegistrationProfileAdmin)

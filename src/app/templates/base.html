@@ -1,43 +1,58 @@
-{% load compress %}
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    {% block extra_meta %}{% endblock %}
-    <title>Unomena Starter</title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    {% compress css %}
-	    <link rel="shortcut icon" href="{{ STATIC_URL }}app/img/favicon.ico" />
-	    <link rel="stylesheet" href="{{ STATIC_URL }}app/css/jquery.tagit.css" />
-	    <link rel="stylesheet" href="{{ STATIC_URL }}app/css/jquery-ui-1.10.3.custom.css" />
-	    <link rel="stylesheet" href="{{ STATIC_URL }}app/css/style.css" />
-    {% endcompress %}
-    <script src="{{ STATIC_URL }}app/js/libs/modernizr.js"></script>
-    {% block extra_css %}{% endblock %}
-</head>
-<body>
-    {% block header %}
-        {% include 'includes/top_nav.html' %}
-    {% endblock %}
-    
-	{% block content %}{% endblock %}
-	
-	{% block footer %}
-	   {% include 'includes/footer.html' %}
-	{% endblock %}
-	
-	{% compress js %}
-		<script src="{{ STATIC_URL }}app/js/libs/jquery-1.10.2.min.js"></script>
-		<script src="{{ STATIC_URL }}app/js/libs/jquery.form.js"></script>
-		<script src="{{ STATIC_URL }}app/js/libs/jquery.formset.js"></script>
-		<script src="{{ STATIC_URL }}app/js/libs/jquery.validate.js"></script>
-		<script src="{{ STATIC_URL }}app/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="{{ STATIC_URL }}app/js/libs/tag-it.min.js"></script>
-		<script src="{{ STATIC_URL }}app/js/scripts.js"></script>
-	{% endcompress %}
-	{% block bottom_js %}{% endblock %}
-</body>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <title>{% block title %} Girl Hub Rwanda{% endblock %}</title> 
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+        <link href="{{ STATIC_URL }}app/css/styles.css?v=1" rel="stylesheet" type="text/css" /> 
+    </head>
+    <body>
+        <a name="top"></a>
+        <div class="header">
+            <div class="logo">
+                <a href="{% url 'index' %}"><img src="#" /></a>
+            </div>
+            <div class="deets">
+                <a href="{% url 'login' %}">Sign In</a>
+                <a href="#menu">Menu</a>
+            </div>                    
+        </div><!--/header-->
+        
+        <div class="content">
+            {% block content %}{% endblock %}
+            
+            <div class="block">
+                <div class="title"><a href="#top">Back to top</a></div>
+            </div><!--/block-->
+            
+            {% block menu %}
+                <div class="menu"><a name="menu"></a>
+                    <h1>Menu</h1>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'articles' %}">Articles</a></li>
+                        <li><a href="{% url 'galleries' %}">Galleries</a></li>
+                        <li><a href="{% url 'discussions' %}">Discussions</a></li>
+                        <li><a href="{% url 'directory' %}">Directory</a></li>
+                        <li><a href="{% url 'faq' %}">FAQ</a></li>
+                        <li><a href="{% url 'contact_category' %}">Ni Nyampinga Contacts</a></li>
+                        <li><a href="{% url 'newsfeed' %}">Newsfeed</a></li>
+                        <li><a href="{% url 'research_tool' %}">Research Tool</a></li>
+                    </ul>
+                </div><!--/menu-->
+            {% endblock %}
+            
+        </div><!--/content-->
+        
+        {% block footer %}
+	        <div class="footer">
+	            <p>&copy; Nike Foundation</p>
+	            <ul>
+	                <li><a href="{% url 'terms' %}">Terms</a></li>
+	                <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+	                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+	            </ul>
+	        </div><!--/footer-->
+        {% endblock %}
+    </body>
 </html>

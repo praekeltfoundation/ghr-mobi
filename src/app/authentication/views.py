@@ -12,8 +12,7 @@ from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 
-from registration import signals as registration_signals
-from registration.views import RegistrationView as BaseRegistrationView, ActivationView as BaseActivationView
+from registration.views import RegistrationView as BaseRegistrationView
 
 from tunobase.core import mixins as core_mixins
 
@@ -49,13 +48,6 @@ class UpdateProfilePassword(core_mixins.LoginRequiredMixin, generic_views.FormVi
 
 class ProjectRegistration(BaseRegistrationView):
     
-    def get_context_data(self, **kwargs):
-        context = super(ProjectRegistration, self).get_context_data(**kwargs)
-        
-        context['activation_required'] = settings.REGISTRATION_ACTIVATION_REQUIRED
-        
-        return context
-    
     def register(self, request, **cleaned_data):
         """
         Given a username, email address and password, register a new
@@ -80,48 +72,12 @@ class ProjectRegistration(BaseRegistrationView):
         class of this backend as the sender.
 
         """
-        if Site._meta.installed:
-            site = Site.objects.get_current()
-        else:
-            site = RequestSite(request)
-        
-        if settings.REGISTRATION_ACTIVATION_REQUIRED:
-            registration_profile = models.ProjectRegistrationProfile.objects.create_inactive_user(
-                site, 
-                **cleaned_data
-            )
-            registration_signals.user_registered.send(
-                sender=self.__class__,
-                registration_profile=registration_profile,
-                request=request,
-                site=site,
-                send_email=True
-            )
-            
-            return registration_profile.user
-        
-        registration_profile = models.ProjectRegistrationProfile.objects.create_active_user(
-            site, 
+        registration_profile = models.EndUser.objects.create_user(
             **cleaned_data
         )
         
         return registration_profile
     
-    def registration_allowed(self, request):
-        """
-        Indicate whether account registration is currently permitted,
-        based on the value of the setting ``REGISTRATION_OPEN``. This
-        is determined as follows:
-
-        * If ``REGISTRATION_OPEN`` is not specified in settings, or is
-          set to ``True``, registration is permitted.
-
-        * If ``REGISTRATION_OPEN`` is both specified and set to
-          ``False``, registration is not permitted.
-        
-        """
-        return getattr(settings, 'REGISTRATION_OPEN', True)
-
     def get_success_url(self, request, user):
         """
         Return the name of the URL to redirect to after successful
@@ -129,58 +85,10 @@ class ProjectRegistration(BaseRegistrationView):
         
         """
         return ('registration_complete', (), {})
-    
-class ProjectActivation(BaseActivationView):
-    def activate(self, request, activation_key):
-        """
-        Given an an activation key, look up and activate the user
-        account corresponding to that key (if possible).
-
-        After successful activation, the signal
-        ``registration.signals.user_activated`` will be sent, with the
-        newly activated ``User`` as the keyword argument ``user`` and
-        the class of this backend as the sender.
-        
-        """
-        activated_user = models.ProjectRegistrationProfile.objects.activate_user(activation_key)
-        if activated_user:
-            registration_signals.user_activated.send(
-                sender=self.__class__,
-                user=activated_user,
-                request=request
-            )
-            
-        return activated_user
-
-    def get_success_url(self, request, user):
-        return ('registration_activation_complete', (), {})
-    
-class ResendRegistrationEmail(generic_views.TemplateView):
-    
-    def get(self, request, *args, **kwargs):
-        if Site._meta.installed:
-            site = Site.objects.get_current()
-        else:
-            site = RequestSite(request)
-        
-        registration_profile = get_object_or_404(models.ProjectRegistrationProfile, pk=self.kwargs['pk'])
-        
-        registration_signals.user_registered.send(
-            sender=self.__class__,
-            registration_profile=registration_profile,
-            request=request,
-            site=site,
-            send_email=True
-        )
-        
-        messages.success(request, 'Email resent successfully.')
-        
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
 
 @csrf_protect
 @never_cache
-def login(request, template_name='auth/login.html',
+def login(request, template_name='authentication/login.html',
           redirect_field_name=REDIRECT_FIELD_NAME,
           authentication_form=forms.ProjectAuthenticationForm,
           current_app=None, extra_context=None):
@@ -237,7 +145,7 @@ def login(request, template_name='auth/login.html',
     )
     
 def logout(request, next_page=None,
-           template_name='registration/logged_out.html',
+           template_name='authentication/logged_out.html',
            redirect_field_name=REDIRECT_FIELD_NAME,
            current_app=None, extra_context=None):
     """

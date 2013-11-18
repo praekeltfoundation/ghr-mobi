@@ -29,20 +29,6 @@ urlpatterns = patterns('',
     ),
                                     
     # Registration and activation
-    
-    url(r'^secure/activate/(?P<activation_key>\w+)/$', 
-        views.ProjectActivation.as_view(
-            template_name='authentication/activate.html'
-        ),
-        name='secure_activate'
-    ),
-                       
-    url(r'^activate/complete/$',
-        TemplateView.as_view(
-             template_name='authentication/activation_complete.html'
-        ),
-        name='registration_activation_complete'
-    ),
                        
     url(r'^secure/register/$',
         views.ProjectRegistration.as_view(
@@ -57,13 +43,6 @@ urlpatterns = patterns('',
             template_name='authentication/registration_complete.html'
         ),
         name='registration_complete'
-    ),
-                       
-    url(r'^register/resend_email/(?P<pk>\d+)/$',
-        staff_member_required(
-            views.ResendRegistrationEmail.as_view()
-        ),
-        name='registration_resend_email'
     ),
     
     # Authentication

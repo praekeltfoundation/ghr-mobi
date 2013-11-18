@@ -191,11 +191,6 @@ def build(where='local', first_deploy=False, instance_type='dev',
                   nginx_conf_changed=False, code_dir='.'):
     assert where in ['local', 'remote'], "invalid option to where"
     
-    if where == 'local':
-        env.run_cmd = local
-    elif where == 'remote':
-        env.run_cmd = run
-    
     server_name = _get_server_name(instance_type)
     instanced_project_name = _get_instanced_project_name(instance_type)
         

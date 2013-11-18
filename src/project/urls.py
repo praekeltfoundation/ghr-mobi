@@ -8,23 +8,11 @@ urlpatterns = patterns('',
 
     (r'^', include('%s.urls' % settings.PROJECT_NAME)),
     
-    (r'^', include('tunobase.corporate.company_info.contact.urls')),
-    (r'^eula/', include('tunobase.eula.urls')),
-    (r'^bulk-loading/', include('tunobase.bulk_loading.urls')),
-    (r'^newsletter/', include('tunobase.corporate.company_info.newsletter.urls')),
     (r'^corporate/media/', include('tunobase.corporate.media.urls')),
-    (r'^age-gate/', include('tunobase.age_gate.urls')),
-    (r'^blog/', include('tunobase.blog.urls')),
     (r'^commenting/', include('tunobase.commenting.urls')),
     (r'^tagging/', include('tunobase.tagging.urls')),
     (r'^poll/', include('tunobase.poll.urls')),
     (r'^tunosocial/', include('tunobase.social_media.tunosocial.urls')),
-    (r'^facebook/', include('tunobase.social_media.facebook.urls')),
-    (r'^twitter/', include('tunobase.social_media.twitter.urls')),
-    (r'^google-plus/', include('tunobase.social_media.google_plus.urls')),
-    (r'^console/', include('tunobase.console.urls')),
-    (r'^console/', include('tunobase.eula.console.urls')),
-    (r'^console/media/', include('tunobase.corporate.media.console.urls')),
     
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
