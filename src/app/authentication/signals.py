@@ -4,6 +4,7 @@ Created on 21 Oct 2013
 @author: michael
 '''
 from django.dispatch import Signal, receiver
+from django.conf import settings
 
 from registration import signals as registration_signals
 
@@ -19,11 +20,17 @@ def registration_profile_created(sender, **kwargs):
     send_email = kwargs.pop('send_email', False)
     
     if registration_profile is not None and site is not None and send_email:
-        tasks.email_account_activation(registration_profile.id, site.id)
+        if settings.USE_CELERY:
+            tasks.email_account_activation.delay(registration_profile.id, site.id)
+        else:
+            tasks.email_account_activation(registration_profile.id, site.id)
         
 @receiver(password_was_reset)
 def password_reset(sender, **kwargs):
     context = kwargs.pop('context', None)
     
     if context is not None:
-        tasks.email_password_reset(context)
+        if settings.USE_CELERY:
+            tasks.email_password_reset.delay(context)
+        else:
+            tasks.email_password_reset(context)

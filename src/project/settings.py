@@ -247,13 +247,14 @@ NUM_LIKES_ALLOWED_IN_PERIOD = 5
 REGISTRATION_ACTIVATION_REQUIRED = True
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/auth/secure/login/'
+LOGIN_URL = '/authentication/secure/login/'
 AUTH_USER_MODEL = 'authentication.EndUser'
 SESSION_COOKIE_AGE = 24 * 60 * 60
 INTERNAL_IPS = ('127.0.0.1',)
 
 # Django Celery Settings
 
+USE_CELERY = False
 BROKER_URL = 'amqp://unomena:unomena@127.0.0.1:5672//unomena'
 
 # Honeypot Settings
@@ -272,7 +273,7 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 EMAIL_ENABLED = False
 DEFAULT_FROM_EMAIL = 'Unomena <unomena.com>'
-CONTACT_MESSAGE_TO_EMAIL = 'michael@unomena.com'
+CONTACT_MESSAGE_TO_EMAIL = 'dev@unomena.com'
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.unomena.net'
 EMAIL_HOST_USER = 'mailman'
