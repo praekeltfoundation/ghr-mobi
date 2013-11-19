@@ -1,0 +1,9 @@
+{% load honeypot %}
+
+<form id="frmComment" action="{% url 'post_comment' %}" method="POST" {% if hidden %}class="hidden"{% endif %}>{% csrf_token %}
+    <input type="hidden" id="id_comment_content_type_id" name="comment_content_type_id" value="{{ content_type_id }}" />
+    <input type="hidden" id="id_comment_object_pk" name="comment_object_pk" value="{{ object.pk }}" />
+    {% render_honeypot_field %}
+    <textarea id="id_comment_box" name="comment_box" class="required" maxlength="50"></textarea>
+    <input type="submit" value="Comment" />
+</form>

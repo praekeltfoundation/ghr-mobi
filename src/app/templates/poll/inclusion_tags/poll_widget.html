@@ -1,7 +1,9 @@
+{% load commenting_tags tunosocial_tags %}
 {% if not error %}
 	<div class="poll">
 	    <form class="poll_form" action="{% url 'poll_answer' form.poll.pk %}" method="post">{% csrf_token %}
-	        <img src="{{ form.poll.get_200x200_url }}">
+	        <img src="{{ form.poll.get_100x100_url }}">
+	        {% num_comments form.poll %}{% num_likes form.poll %}
 	        <p class="question">{{ form.poll.question }}:</p>
 	        {{ form.answers }}
 	        <div class="btns">

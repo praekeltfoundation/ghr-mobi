@@ -1,0 +1,9 @@
+{% load core_widgets %}
+
+{% include 'commenting/includes/comment_form.html' with hidden=True %}
+
+{% comment %}<p><span id="comment_widget_comment_count">{{ object_list.paginator.count }}</span> <span id="comment_widget_comment_description">Comment{{ object_list.paginator.count|pluralize }}</span></p>{% endcomment %}
+<div id="comment_widget_container">
+    {% include 'commenting/includes/comments.html' %}
+    {% ajax_more_pagination_widget page_obj load_more_url %}
+</div>

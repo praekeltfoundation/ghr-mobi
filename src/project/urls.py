@@ -7,8 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     (r'^', include('%s.urls' % settings.PROJECT_NAME)),
-    
-    (r'^corporate/media/', include('tunobase.corporate.media.urls')),
+
     (r'^commenting/', include('tunobase.commenting.urls')),
     (r'^tagging/', include('tunobase.tagging.urls')),
     (r'^poll/', include('tunobase.poll.urls')),

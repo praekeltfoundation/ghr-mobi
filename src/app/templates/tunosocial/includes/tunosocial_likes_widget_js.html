@@ -1,0 +1,59 @@
+<script>
+	$('body').on('click', '.tunosocial_like_button', function(e){
+		var self = this,
+		    already_liked = $(self).attr('data-already-liked'),
+			content_type_id = $(self).attr('data-content-type-id'),
+			object_pk = $(self).attr('data-object-pk');
+		
+		if(already_liked === 'True'){
+			$.post(
+				"{% url 'tunosocial_remove_like' %}", 
+				{
+					'csrfmiddlewaretoken': '{{ csrf_token }}',
+					'content_type_id': content_type_id,
+					'object_pk': object_pk
+				},
+				function(data){
+					data = JSON.parse(data);
+					
+					if(data.success){
+						var num_likes = parseInt($(self).parent().find('.num_likes').html());
+						num_likes--;
+						
+						var num_likes_text = num_likes == 1 ? 'like' : 'likes';
+						
+						$(self).parent().find('.num_likes').html(num_likes);
+						$(self).parent().find('.num_likes_text').html(num_likes_text);
+						$(self).attr('data-already-liked', 'False').html('Like');
+					} else{
+						alert(data.reason);
+					}
+				}
+			);
+		} else{
+			$.post(
+				"{% url 'tunosocial_add_like' %}", 
+				{
+					'csrfmiddlewaretoken': '{{ csrf_token }}',
+					'content_type_id': content_type_id,
+					'object_pk': object_pk
+				},
+				function(data){
+					data = JSON.parse(data);
+					
+					if(data.success){
+						var num_likes = parseInt($(self).parent().find('.num_likes').html());
+						num_likes++;
+						var num_likes_text = num_likes == 1 ? 'like' : 'likes';
+						
+						$(self).parent().find('.num_likes').html(num_likes);
+						$(self).parent().find('.num_likes_text').html(num_likes_text);
+						$(self).attr('data-already-liked', 'True').html('Unlike');
+					} else{
+                        alert(data.reason);
+                    }
+				}
+			);
+		}
+	});
+</script>

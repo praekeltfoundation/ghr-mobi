@@ -1,0 +1,8 @@
+{% load commenting_tags tunosocial_tags %}
+
+<div class="head">
+    <p>Article: {% num_comments object %} <span>{% num_likes object %}</span></p>
+    <div class="clear"></div>
+    <img src="{{ object.get_100x100_url }}" />
+    <p><a href="{% url 'article_detail' object.slug %}">{{ object.title }}</a></p>
+</div>

@@ -80,6 +80,10 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     
     def get_short_name(self):
         return self.username
+    
+    @property
+    def display_name(self):
+        return self.username
 
     @property
     def is_staff(self):

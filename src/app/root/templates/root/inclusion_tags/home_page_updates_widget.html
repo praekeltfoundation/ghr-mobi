@@ -1,0 +1,5 @@
+{% for object in object_list %}
+	{% include 'articles/includes/article.html' %}
+{% empty %}
+    <p>There are no updates to list</p>
+{% endfor %}

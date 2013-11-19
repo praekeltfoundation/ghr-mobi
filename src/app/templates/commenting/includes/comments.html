@@ -1,0 +1,5 @@
+{% for comment in object_list %}
+    {% include 'commenting/includes/comment.html' %}
+{% empty %}
+    <p>There are no comments yet</p>
+{% endfor %}

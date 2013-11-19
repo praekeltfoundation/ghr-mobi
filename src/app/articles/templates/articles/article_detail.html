@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load social_media_widgets commenting_widgets %}
+
+{% block content %}
+    {% include 'includes/message_error_header.html' %}
+    <h3>{{ object.title }}</h3>
+    {% social_media_share_widget 'facebook' 'twitter' 'google' %}
+    <a href="{% url 'discussion_post_comment' object.slug %}" class="add_comment">Add a comment</a>
+    {% commenting_widget object %}
+{% endblock %}
+
+{% block bottom_js %}
+    {% include 'commenting/includes/commenting_widget_js.html' %}
+{% endblock %}
