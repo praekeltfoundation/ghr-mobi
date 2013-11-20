@@ -1,0 +1,14 @@
+<div class="social_media_share_widget hidden">
+    <p>Share:</p>
+    {% if facebook %}
+        {% include 'facebook/includes/share_button.html' %}
+    {% endif %}
+    
+    {% if twitter %}
+        {% include 'twitter/includes/share_button.html' %}
+    {% endif %}
+    
+    {% if google %}
+        {% include 'google_plus/includes/share_button.html' %}
+    {% endif %}
+</div>

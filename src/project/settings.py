@@ -158,6 +158,7 @@ INSTALLED_APPS = (
     'app.authentication',
     'app.articles',
     'app.discussions',
+    'app.galleries',
     'app.root',
     'tunobase',
     'tunobase.core',

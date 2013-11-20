@@ -2,21 +2,23 @@
 	$('.poll_results').hide();
 
 	function show_poll($el){
-		$el.parent().parent().parent().hide();
-		$el.parent().parent().parent().prev('.poll').fadeIn();
+		$el.parent().parent().hide();
+		$el.parent().parent().prev('.poll').fadeIn();
 	}
 	
 	function show_poll_results($el){
-		$el.parent().parent().parent().parent().hide();
-		$el.parent().parent().parent().parent().next('.poll_results').fadeIn();
+		$el.parent().parent().parent().hide();
+		$el.parent().parent().parent().next('.poll_results').fadeIn();
 	}
 	
 	$('.poll a').click(function(e){
 		show_poll_results($(this));
+		return false;
 	});
 	
 	$('.poll_results a').click(function(e){
 		show_poll($(this));
+		return false;
 	});
 
 	$('.poll_form').each(function(){

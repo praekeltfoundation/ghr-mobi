@@ -5,8 +5,6 @@ Created on 18 Oct 2013
 '''
 from django.conf.urls import patterns, url
 
-from tunobase.commenting import forms as commenting_forms
-
 from app.discussions import views
 
 urlpatterns = patterns('',
@@ -23,15 +21,13 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/$', 
         views.DiscussionDetail.as_view(
             template_name='discussions/discussion_detail.html',
+            paginate_by=3
         ),
         name='discussion_detail'
     ),
                        
     url(r'^post-comment/(?P<slug>[-\w]+)/$', 
-        views.PostComment.as_view(
-            template_name='discussions/post_comment.html',
-            form_class=commenting_forms.CommentForm
-        ),
+        views.PostComment.as_view(),
         name='discussion_post_comment'
     ),
 )

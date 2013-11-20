@@ -1,4 +1,4 @@
 <div class="likes">
 <p><span class='num_likes'>{{ num_likes }}</span> <span class='num_likes_text'>like{{ num_likes|pluralize }}</span></p>
-<a data-already-liked="{{ already_liked }}" data-content-type-id="{{ content_type_id }}" data-object-pk="{{ object.pk }}" class="tunosocial_like_button" href="javascript: void(0);">{% if already_liked %}Liked{% else %}Like{% endif %}</a>
+<a data-already-liked="{{ already_liked }}" data-content-type-id="{{ content_type_id }}" data-object-pk="{{ object.pk }}" class="tunosocial_like_button" href="{% if already_liked %}{% url 'tunosocial_remove_like' %}?content_type_id={{ content_type_id }}&object_pk={{ object.pk }}{% else %}{% url 'tunosocial_add_like' %}?content_type_id={{ content_type_id }}&object_pk={{ object.pk }}{% endif %}">{% if already_liked %}Liked{% else %}Like{% endif %}</a>
 </div>

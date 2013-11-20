@@ -21,20 +21,7 @@
             </div><!--/block-->
             
             {% block menu %}
-                <div class="menu"><a name="menu"></a>
-                    <h1>Menu</h1>
-                    <ul>
-                        <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'articles' %}">Articles</a></li>
-                        <li><a href="{% url 'galleries' %}">Galleries</a></li>
-                        <li><a href="{% url 'discussions' %}">Discussions</a></li>
-                        <li><a href="{% url 'directory' %}">Directory</a></li>
-                        <li><a href="{% url 'faq' %}">FAQ</a></li>
-                        <li><a href="{% url 'contact_category' %}">Ni Nyampinga Contacts</a></li>
-                        <li><a href="{% url 'newsfeed' %}">Newsfeed</a></li>
-                        <li><a href="{% url 'research_tool' %}">Research Tool</a></li>
-                    </ul>
-                </div><!--/menu-->
+                {% include 'includes/menu.html' %}
             {% endblock %}
             
         </div><!--/content-->

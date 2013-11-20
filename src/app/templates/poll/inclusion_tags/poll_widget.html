@@ -1,24 +1,18 @@
-{% load commenting_tags tunosocial_tags %}
 {% if not error %}
 	<div class="poll">
-	    <form class="poll_form" action="{% url 'poll_answer' form.poll.pk %}" method="post">{% csrf_token %}
-	        <img src="{{ form.poll.get_100x100_url }}">
-	        {% num_comments form.poll %}{% num_likes form.poll %}
+	    <form class="poll_form" action="{% url 'poll_answer' form.poll.pk %}" method="post">
+	    	{% csrf_token %}
 	        <p class="question">{{ form.poll.question }}:</p>
 	        {{ form.answers }}
-	        <div class="btns">
-	            <input type="submit" id="submit" value="Vote">
-	            <p><a href="javascript: void(0);">See Results</a></p>
-	        </div>
+	        <input type="submit" id="submit" value="Vote">
+            <p><a href="{% url 'poll_results' form.poll.pk %}">See Results</a></p>
 	    </form>
 	</div>
-	<div class="poll_results">
-		<div class="content">
-			{% include 'poll/includes/poll_results.html' %}
+	<div class="poll_results hidden">
+	    <div class="content">
+		  {% include 'poll/includes/poll_results.html' %}
 		</div>
-		<div class="btns">
-	        <p><a href="javascript: void(0);">See Poll</a></p>
-	    </div>
+		<p><a href="javascript: void(0);">See Poll</a></p>
 	</div>
 {% else %}
 	{% if user.is_admin %}<p style="color: red">Please load a Poll Question with pk {{ pk }} in the database.{% endif %}

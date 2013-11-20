@@ -1,5 +1,12 @@
+{% load core_tags %}
 {% for object in object_list %}
-	{% include 'articles/includes/article.html' %}
+    {% with model_class=object|class_name %}
+	    {% if model_class == 'Article' %}
+		   {% include 'articles/includes/article.html' %}
+		{% elif model_class == 'Gallery' %}
+		   <p>Gallery</p>
+		{% endif %}
+    {% endwith %}
 {% empty %}
     <p>There are no updates to list</p>
 {% endfor %}

@@ -20,7 +20,18 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/$', 
         views.ArticleDetail.as_view(
             template_name='articles/article_detail.html',
+            paginate_by=3
         ),
         name='article_detail'
+    ),
+                       
+    url(r'^(?P<slug>[-\w]+)/all-comments/$', 
+        views.ArticleDetail.as_view(),
+        name='article_all_comments'
+    ),
+                       
+    url(r'^post-comment/(?P<slug>[-\w]+)/$', 
+        views.PostComment.as_view(),
+        name='article_post_comment'
     ),
 )

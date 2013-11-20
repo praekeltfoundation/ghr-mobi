@@ -4,9 +4,9 @@
 {% block content %}
 	<ul>
 	    {% for object in object_list %}
-	        <li>{% include 'discussions/includes/discussion.html' %}</li>
+	        <li>{% include 'galleries/includes/gallery.html' %}</li>
 	    {% empty %}
-	       <li>There are no discussions to list</li>
+	       <li>There are no galleries to list</li>
 	    {% endfor %}
 	</ul>
 	{% pagination_widget page_obj %}

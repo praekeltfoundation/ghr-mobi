@@ -16,7 +16,7 @@
 					data = JSON.parse(data);
 					if(data.success){
 						$('#id_comment_box').val('');
-						$('#comment_widget_comment_count').html(data.num_comments);
+						$('.comment_widget_comment_count').html(data.num_comments);
 						
 						if($('.commenting_comment').length > 0){
 							$('#comment_widget_container').prepend(data.comment);
@@ -26,9 +26,9 @@
 						
 						
 						if(data.num_comments == 0 || data.num_comments > 1){
-							$('#comment_widget_comment_description').html('Comments');
+							$('.comment_widget_comment_description').html('Comments');
 						}else{
-							$('#comment_widget_comment_description').html('Comment');
+							$('.comment_widget_comment_description').html('Comment');
 						}
 						
 						var load_more_pagination_link = '#pagination_load_more';

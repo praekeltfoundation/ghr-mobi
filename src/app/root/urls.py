@@ -68,33 +68,33 @@ urlpatterns = patterns('',
         name='my_profile_public'
     ), 
                        
-    url(r'^articles/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/list_view.html',
-        ),
-        name='articles'
-    ),    
+#     url(r'^articles/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/list_view.html',
+#         ),
+#         name='articles'
+#     ),    
                        
-    url(r'^galleries/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/galleries.html',
-        ),
-        name='galleries'
-    ),      
+#     url(r'^galleries/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/galleries.html',
+#         ),
+#         name='galleries'
+#     ),      
                        
-    url(r'^gallery/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/gallery_detail.html',
-        ),
-        name='gallery'
-    ),              
-                       
-    url(r'^discussions/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/discussions.html',
-        ),
-        name='discussions'
-    ),              
+#     url(r'^gallery/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/gallery_detail.html',
+#         ),
+#         name='gallery'
+#     ),              
+#                        
+#     url(r'^discussions/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/discussions.html',
+#         ),
+#         name='discussions'
+#     ),              
                        
     url(r'^directory/$',
         generic_views.TemplateView.as_view(
