@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load core_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Newsfeed' 'newsfeed' %}
+{% endblock %}
+
+{% block content %}
+	<ul>
+	    {% for object in object_list %}
+	        <li>
+	            <p>{{ object.source_name }}</p>
+	            <p>{{ object.publish_at|date:"j M Y" }}</p>
+	            <a href="{% url 'newsfeed_detail' object.slug %}">{{ object.title }}</a>
+	        </li>
+	    {% empty %}
+	       <li>There are no Newsfeeds to list</li>
+	    {% endfor %}
+	</ul>
+	{% pagination_widget page_obj %}
+{% endblock %}

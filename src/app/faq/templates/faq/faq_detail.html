@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load core_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'FAQ' 'faq' %}
+{% endblock %}
+
+{% block content %}
+    <h3>{{ object.title }}</h3>
+    {{ object.rich_content|safe }}
+    <a href="{% url 'faq' %}">Go back</a>
+{% endblock %}

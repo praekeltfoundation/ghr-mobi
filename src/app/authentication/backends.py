@@ -7,6 +7,8 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
+import phonenumbers
+
 class MobileUsernameBackend(ModelBackend):
     
     def authenticate(self, username=None, password=None, **kwargs):
@@ -14,6 +16,13 @@ class MobileUsernameBackend(ModelBackend):
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD)
         try:
+            try:
+                username = phonenumbers.format_number(phonenumbers.parse(
+                    username
+                ), phonenumbers.PhoneNumberFormat.NATIONAL)
+            except phonenumbers.phonenumberutil.NumberParseException:
+                pass
+            
             user = UserModel._default_manager.get(
                 Q(username=username) | 
                 Q(mobile_number=username)

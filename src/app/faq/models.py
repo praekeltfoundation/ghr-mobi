@@ -6,9 +6,8 @@ Created on 21 Oct 2013
 from django.db import models
 
 from tunobase.core import models as core_models
-
-class Discussion(core_models.ContentModel):
     
-    def __unicode__(self):
-        return u'%s' % self.title
-
+class FAQ(core_models.ContentModel):
+    
+    class Meta:
+        verbose_name_plural = 'Frequently Asked Questions'

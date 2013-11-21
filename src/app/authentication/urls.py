@@ -62,36 +62,18 @@ urlpatterns = patterns('',
     # Authentication
     
     url(r'^secure/password_reset/$',
-        'django.contrib.auth.views.password_reset', 
-        {
-            'template_name': 'authentication/password_reset_form.html',
-            'password_reset_form': forms.ProjectPasswordResetForm
-        },
+        views.ProjectPasswordReset.as_view(
+            template_name='authentication/password_reset_form.html',
+            form_class=forms.ProjectPasswordResetForm
+        ),
         name='secure_password_reset'
     ),
-
-    url(r'^secure/reset/(?P<uidb64>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        'django.contrib.auth.views.password_reset_confirm',
-        {
-            'template_name': 'authentication/password_reset_confirm.html'
-        },
-        name='secure_password_reset_confirm'
-    ),
                        
-    url(r'^password_reset/done/$', 
-        'django.contrib.auth.views.password_reset_done', 
-        {
-            'template_name': 'authentication/password_reset_done.html'
-        },
+    url(r'^password_reset/done/$',
+        TemplateView.as_view(
+            template_name='authentication/password_reset_done.html'
+        ),
         name='password_reset_done'
-    ),
-                       
-    url(r'^reset/done/$', 
-        'django.contrib.auth.views.password_reset_complete', 
-        {
-            'template_name': 'authentication/password_reset_complete.html'
-        },
-        name='password_reset_complete'
     ),
        
     url(r'^secure/login/$',

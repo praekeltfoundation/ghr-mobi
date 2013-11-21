@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load core_widgets poll_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Research Tool' 'research_tool' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'includes/message_error_header.html' %}
+    {% if object %}
+	    <img src="{{ object.get_100x100_url }}">
+	    <h3>{{ object.title }}</h3>
+	    {% poll_widget object.poll.pk True %}
+	    {{ object.rich_content|safe }}
+	{% else %}
+	   <p style="color: red;">Please load a Research Tool in the Preferences Admin</p>
+	{% endif %}
+{% endblock %}
+
+{% block bottom_js %}
+    {% include 'poll/includes/poll_widget_js.html' %}
+{% endblock %}

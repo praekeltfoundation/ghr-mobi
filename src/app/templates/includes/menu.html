@@ -8,7 +8,7 @@
         <li><a href="{% url 'directory_categories' %}">Directory</a></li>
         {% if user.is_admin or user.is_ni_nyampinga_journalist or user.is_ambassador %}
 	        <li><a href="{% url 'faq' %}">FAQ</a></li>
-	        <li><a href="{% url 'contact_category' %}">Ni Nyampinga Contacts</a></li>
+	        <li><a href="{% url 'contact_categories' %}">Ni Nyampinga Contacts</a></li>
 	        <li><a href="{% url 'newsfeed' %}">Newsfeed</a></li>
 	        <li><a href="{% url 'research_tool' %}">Research Tool</a></li>
 	    {% endif %}

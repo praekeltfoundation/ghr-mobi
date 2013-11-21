@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load core_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Ni Nyampinga Contacts' 'contact_categories' %}
+{% endblock %}
+
+{% block content %}
+    <h3>{{ object.title }}</h3>
+    
+    {% for contact in object_list %}
+        <h4>{{ contact.title }}</h4>
+        <p>{{ contact.role }}</p>
+        <p>{{ contact.name }}</p>
+        <p>T: {{ contact.tel_number }}</p>
+        <p>E: {{ contact.email }}</p>
+    {% empty %}
+        <p>There are no contacts to list</p>
+    {% endfor %}
+    <a href="{% url 'contact_categories' %}">Go back</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load core_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Newsfeed' 'newsfeed' %}
+{% endblock %}
+
+{% block content %}
+    <p>{{ object.source_name }}</p>
+    <p>{{ object.publish_at|date:"j M Y" }}</p>
+    <h3>{{ object.title }}</h3>
+    {{ object.rich_content|safe }}
+{% endblock %}

@@ -1,3 +1,5 @@
+import random
+
 from django.conf import settings
 from django import forms
 from django.contrib.sites.models import get_current_site
@@ -10,8 +12,9 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.db.models import Q
 
-from app.authentication import signals, constants
+import phonenumbers
 
 # Profile Update Form
 
@@ -55,14 +58,24 @@ class UpdateProfileForm(forms.ModelForm):
         Validate that the supplied email address is unique for the
         site.
         '''
-        if get_user_model().objects.filter(mobile_number__iexact=self.cleaned_data['mobile_number'])\
+        try:
+            mobile_number = phonenumbers.format_number(phonenumbers.parse(
+                self.cleaned_data['mobile_number']
+            ), phonenumbers.PhoneNumberFormat.NATIONAL)
+        except phonenumbers.phonenumberutil.NumberParseException:
+            raise forms.ValidationError(
+                'This mobile number is not in the correct format. '
+                'Eg +27 71 555 1234.'
+            )
+        
+        if get_user_model().objects.filter(mobile_number__iexact=mobile_number)\
            .exclude(mobile_number__iexact=self.instance.mobile_number).exists():
             raise forms.ValidationError(
                 'This mobile number is already in use. '
                 'Please supply a different mobile number.'
             )
             
-        return self.cleaned_data['mobile_number']
+        return mobile_number
     
     def save(self, commit=True):
         obj = super(UpdateProfileForm, self).save(commit=False)
@@ -111,7 +124,10 @@ class ProjectRegistrationForm(forms.Form):
     registration backend.
     '''
     username = forms.CharField(max_length=75)
-    mobile = forms.CharField(max_length=16, required=False)
+    mobile_number = forms.CharField(
+        max_length=16,
+        help_text='Should be in the format +27 71 555 1234'
+    )
     password = forms.CharField(max_length=4, widget=forms.PasswordInput())
     
     def clean_username(self):
@@ -119,76 +135,83 @@ class ProjectRegistrationForm(forms.Form):
         Validate that the supplied email address is unique for the
         site.
         '''
-        if get_user_model().objects.filter(username__iexact=self.cleaned_data['user']).exists():
-            raise forms.ValidationError('This username address is already in use. Please supply a different username.')
+        if get_user_model().objects.filter(username__iexact=self.cleaned_data['username']).exists():
+            raise forms.ValidationError(
+                'This username address is already in use. Please supply a different username.'
+            )
         
         return self.cleaned_data['username']
     
-    def clean_mobile(self):
+    def clean_password(self):
+        try:
+            int(self.cleaned_data['password'])
+        except ValueError:
+            raise forms.ValidationError(
+                'PIN entered is not a number.'
+            )
+        
+        return self.cleaned_data['password']
+    
+    def clean_mobile_number(self):
         '''
         Validate that the supplied email address is unique for the
         site.
         '''
-        if get_user_model().objects.filter(mobile_number__iexact=self.cleaned_data['mobile']):
+        try:
+            mobile_number = phonenumbers.format_number(phonenumbers.parse(
+                self.cleaned_data['mobile_number']
+            ), phonenumbers.PhoneNumberFormat.NATIONAL)
+        except phonenumbers.phonenumberutil.NumberParseException:
+            raise forms.ValidationError(
+                'This mobile number is not in the correct format. '
+                'Eg +27 71 555 1234.'
+            )
+        
+        if get_user_model().objects.filter(mobile_number__iexact=mobile_number):
             raise forms.ValidationError(
                 'This mobile number is already in use. '
                 'Please supply a different mobile number.'
             )
             
-        return self.cleaned_data['mobile']
+        return mobile_number
 
     def __init__(self, *args, **kwargs):
         super(ProjectRegistrationForm, self).__init__(*args, **kwargs)
-
-        self.user = None
-
+        
         self.fields['username'].widget.attrs.update({'class':'required'})
-        self.fields['mobile'].widget.attrs.update({'class':'required'})
-        self.fields['password'].widget.attrs.update({'class':'required'})
+        self.fields['mobile_number'].widget.attrs.update({'class':'required'})
+        self.fields['password'].widget.attrs.update({'class':'required number'})
     
 class ProjectAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Username', max_length=75)
     
-class ProjectPasswordResetForm(PasswordResetForm):
+class ProjectPasswordResetForm(forms.Form):
+    username = forms.CharField(max_length=75)
     
-    def save(self, domain_override=None,
-             subject_template_name='authentication/password_reset_subject.txt',
-             email_template_name='authentication/password_reset_email.html',
-             txt_email_template_name='authentication/password_reset_email.txt',
-             use_https=False, token_generator=default_token_generator,
-             from_email=None, request=None):
-        '''
-        Generates a one-use only link for resetting password and sends to the
-        user.
-        '''
+    def clean_username(self):
+        try:
+            username = phonenumbers.format_number(phonenumbers.parse(
+                self.cleaned_data['username']
+            ), phonenumbers.PhoneNumberFormat.NATIONAL)
+        except phonenumbers.phonenumberutil.NumberParseException:
+            username = self.cleaned_data['username']
+        
         UserModel = get_user_model()
-        mobile = self.cleaned_data["mobile"]
-        active_users = UserModel._default_manager.filter(
-            mobile_number=mobile, is_active=True)
-        for user in active_users:
-            # Make sure that no email is sent to a user that actually has
-            # a password marked as unusable
-            if not user.has_usable_password():
-                continue
-            if not domain_override:
-                current_site = get_current_site(request)
-                site_name = current_site.name
-                domain = current_site.domain
-            else:
-                site_name = domain = domain_override
-            c = {
-                'mobile': user.mobile_number,
-                'domain': domain,
-                'site_name': site_name,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'user_id': user.id,
-                'token': token_generator.make_token(user),
-                'protocol': 'https' if use_https else 'http',
-            }
-            
-            signals.password_was_reset.send(
-                sender=self.__class__,
-                context=c
+        try:
+            user = UserModel.objects.get(
+                Q(username=username) | 
+                Q(mobile_number=username)
+            )
+        except UserModel.DoesNotExist:
+            raise forms.ValidationError(
+                'Username does not exist'
             )
             
-            
+        return user
+        
+    
+    def save(self):
+        new_password = str(random.randint(1000, 9999))
+        self.cleaned_data['username'].set_password(new_password)
+        
+        # Call VUMI API with new_password to SMS

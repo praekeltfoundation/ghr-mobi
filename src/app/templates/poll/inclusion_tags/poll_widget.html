@@ -2,18 +2,21 @@
 	<div class="poll">
 	    <form class="poll_form" action="{% url 'poll_answer' form.poll.pk %}" method="post">
 	    	{% csrf_token %}
+	    	{% if multiple_answers %}
+	    	  {{ form.multiple_answers }}
+	    	{% endif %}
 	        <p class="question">{{ form.poll.question }}:</p>
 	        {{ form.answers }}
 	        <input type="submit" id="submit" value="Vote">
             <p><a href="{% url 'poll_results' form.poll.pk %}">See Results</a></p>
 	    </form>
 	</div>
-	<div class="poll_results hidden">
+	<div class="poll_results">
 	    <div class="content">
 		  {% include 'poll/includes/poll_results.html' %}
 		</div>
 		<p><a href="javascript: void(0);">See Poll</a></p>
 	</div>
 {% else %}
-	{% if user.is_admin %}<p style="color: red">Please load a Poll Question with pk {{ pk }} in the database.{% endif %}
+	{% if user.is_admin %}<p style="color: red">{% if pk %}Please load a Poll Question with pk {{ pk }} in the database.{% else %}Please set the Active Poll in Site preferences admin{% endif %}</p>{% endif %}
 {% endif %}

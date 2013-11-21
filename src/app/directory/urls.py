@@ -8,8 +8,6 @@ from django.conf.urls import patterns, url
 from app.directory import views
 
 urlpatterns = patterns('',
-    # Update profile
-    
     url(r'^$', 
         views.DirectoryCategories.as_view(
             template_name='directory/directory_categories.html',

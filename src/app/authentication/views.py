@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
+from django.core.urlresolvers import reverse
 
 from registration.views import RegistrationView as BaseRegistrationView
 
@@ -88,9 +89,13 @@ class ProjectRegistration(BaseRegistrationView):
         class of this backend as the sender.
 
         """
-        registration_profile = models.EndUser.objects.create_user(
+        password = cleaned_data.pop('password')
+        registration_profile = models.EndUser.objects.create(
             **cleaned_data
         )
+        registration_profile.is_active = True
+        registration_profile.set_password(password)
+        registration_profile.save()
         
         return registration_profile
     
@@ -101,6 +106,16 @@ class ProjectRegistration(BaseRegistrationView):
         
         """
         return ('registration_complete', (), {})
+    
+class ProjectPasswordReset(generic_views.FormView):
+    
+    def get_success_url(self):
+        return reverse('password_reset_done')
+    
+    def form_valid(self, form):
+        form.save()
+        
+        return redirect(self.get_success_url())
 
 @csrf_protect
 @never_cache

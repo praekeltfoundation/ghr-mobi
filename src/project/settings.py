@@ -160,6 +160,10 @@ INSTALLED_APPS = (
     'app.discussions',
     'app.galleries',
     'app.directory',
+    'app.contacts',
+    'app.faq',
+    'app.newsfeed',
+    'app.research_tool',
     'app.root',
     'tunobase',
     'tunobase.core',
@@ -195,6 +199,7 @@ DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # Poll Settings
 
+ALLOW_CERTAIN_POLL_MULTIPLE_ANSWERS = True
 ANONYMOUS_POLL_VOTES_ALLOWED = True
 
 # Whoosh Settings
