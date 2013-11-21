@@ -6,6 +6,8 @@ Created on 16 Jan 2013
 from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
+from django.contrib.flatpages.models import FlatPage
+from django.contrib.sites.models import Site
 
 #==============================================================================
 class Command(BaseCommand):
@@ -24,3 +26,26 @@ class Command(BaseCommand):
         print 'Creating Groups'
         Group.objects.create(name='Ni Nyampinga Journalists')
         Group.objects.create(name='Ambassadors')
+        
+        print 'Creating Flatpages'
+        site = Site.objects.get_current()
+        terms = FlatPage.objects.create(
+            url='/terms/',
+            title='Terms & Conditions',
+            content='<p>Terms &amp; Conditions</p>'
+        )
+        terms.sites.add(site)
+        
+        privacy_policy = FlatPage.objects.create(
+            url='/privacy/',
+            title='Privacy Policy',
+            content='<p>Privacy Policy</p>'
+        )
+        privacy_policy.sites.add(site)
+        
+        contact = FlatPage.objects.create(
+            url='/contact/',
+            title='Contact Us',
+            content='<p>Contact Us</p>'
+        )
+        contact.sites.add(site)

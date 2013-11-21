@@ -96,19 +96,19 @@ urlpatterns = patterns('',
 #         name='discussions'
 #     ),              
                        
-    url(r'^directory/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/directory.html',
-        ),
-        name='directory'
-    ),              
-                       
-    url(r'^directory_detail/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/directory_detail.html',
-        ),
-        name='directory_detail'
-    ),                
+#     url(r'^directory/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/directory.html',
+#         ),
+#         name='directory'
+#     ),              
+#                        
+#     url(r'^directory_detail/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/directory_detail.html',
+#         ),
+#         name='directory_detail'
+#     ),                
                        
     url(r'^faq/$',
         generic_views.TemplateView.as_view(
@@ -166,25 +166,25 @@ urlpatterns = patterns('',
         name='research_tool_results'
     ),
                        
-    url(r'^contact/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/contact.html',
-        ),
-        name='contact'
-    ),  
-                       
-    url(r'^terms/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/terms.html',
-        ),
-        name='terms'
-    ),   
-                       
-    url(r'^privacy/$',
-        generic_views.TemplateView.as_view(
-            template_name='ghr/privacy.html',
-        ),
-        name='privacy'
-    ),    
+#     url(r'^contact/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/contact.html',
+#         ),
+#         name='contact'
+#     ),  
+#                        
+#     url(r'^terms/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/terms.html',
+#         ),
+#         name='terms'
+#     ),   
+#                        
+#     url(r'^privacy/$',
+#         generic_views.TemplateView.as_view(
+#             template_name='ghr/privacy.html',
+#         ),
+#         name='privacy'
+#     ),    
     
 )
