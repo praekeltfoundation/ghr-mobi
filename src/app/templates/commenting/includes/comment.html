@@ -1,7 +1,7 @@
 <div class="commenting_comment">
     {% if comment.user %}
         <img src="{{ comment.user.get_100x100_url }}">
-        <a href="#">{{ comment.user }}</a>
+        <a href="{% url 'user_profile' comment.user.pk %}">{{ comment.user }}</a>
     {% else %}
         <p>Anonymous</p>
     {% endif %}
