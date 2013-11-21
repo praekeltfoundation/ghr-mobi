@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load core_widgets %}
 
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Articles' 'articles' %}
+{% endblock %}
+
 {% block content %}
     <ul>
         {% for object in object_list %}

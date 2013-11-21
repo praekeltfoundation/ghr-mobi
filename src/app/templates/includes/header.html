@@ -5,6 +5,8 @@
     <div class="deets">
         {% if not user.is_authenticated %}
             <a href="{% url 'secure_login' %}">Sign In</a>
+        {% else %}
+            <a href="{% url 'profile' %}">My Profile</a>
         {% endif %}
         <a href="#menu">Menu</a>
     </div>                    

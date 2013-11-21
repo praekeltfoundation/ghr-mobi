@@ -5,6 +5,7 @@ Created on 16 Jan 2013
 '''
 from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
+from django.contrib.auth.models import Group
 
 #==============================================================================
 class Command(BaseCommand):
@@ -19,3 +20,7 @@ class Command(BaseCommand):
         site.domain = 'localhost:8000'
         site.name = 'localhost'
         site.save()
+        
+        print 'Creating Groups'
+        Group.objects.create(name='Ni Nyampinga Journalists')
+        Group.objects.create(name='Ambassadors')

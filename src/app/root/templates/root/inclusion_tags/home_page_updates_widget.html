@@ -4,7 +4,7 @@
 	    {% if model_class == 'Article' %}
 		   {% include 'articles/includes/article.html' %}
 		{% elif model_class == 'Gallery' %}
-		   <p>Gallery</p>
+		   {% include 'galleries/includes/gallery.html' %}
 		{% endif %}
     {% endwith %}
 {% empty %}

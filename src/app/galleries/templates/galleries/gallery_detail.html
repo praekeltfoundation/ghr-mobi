@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets %}
 
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}
+{% endblock %}
+
 {% block content %}
     {% include 'includes/message_error_header.html' %}
     <img src="{{ object.get_100x100_url }}">

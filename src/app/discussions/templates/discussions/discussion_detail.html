@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load core_widgets social_media_widgets commenting_widgets %}
 
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Discussions' 'discussions' %}
+{% endblock %}
+
 {% block content %}
     {% include 'includes/message_error_header.html' %}
     <h3>{{ object.title }}</h3>

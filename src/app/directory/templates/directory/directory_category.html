@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load core_widgets social_media_widgets commenting_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Directory' 'directory' %}
+{% endblock %}
+
+{% block content %}
+    <h3>{{ object.title }}</h3>
+    
+    {% for directory_item in object_list %}
+        <h4>{{ directory_item.title }}</h4>
+        <p>{{ directory_item.address }}</p>
+        <p>{{ directory_item.name }}</p>
+        <p>T: {{ directory_item.tel_number }}</p>
+        <p>E: {{ directory_item.email }}</p>
+    {% empty %}
+        <p>There are no directory items to list</p>
+    {% endfor %}
+    <a href="{% url 'directory_categories' %}">Go back</a>
+{% endblock %}

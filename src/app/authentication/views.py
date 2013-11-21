@@ -15,8 +15,24 @@ from django.views.decorators.cache import never_cache
 from registration.views import RegistrationView as BaseRegistrationView
 
 from tunobase.core import mixins as core_mixins
+from tunobase.commenting import models as comment_models
 
 from app.authentication import forms, models
+
+class UserProfile(generic_views.DetailView):
+    
+    def get_context_data(self, **kwargs):
+        context = super(UserProfile, self).get_context_data(**kwargs)
+        context['num_comments'] = \
+            comment_models.CommentModel.objects.filter(user=self.object).count()
+        
+        return context
+    
+    def get_object(self):
+        return get_object_or_404(models.EndUser, pk=self.kwargs['pk'])
+    
+class Profile(core_mixins.LoginRequiredMixin, generic_views.TemplateView):
+    pass
 
 class UpdateProfile(core_mixins.LoginRequiredMixin, generic_views.UpdateView):
     

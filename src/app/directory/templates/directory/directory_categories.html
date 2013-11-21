@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load core_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Directory' 'directory' %}
+{% endblock %}
+
+{% block content %}
+	<ul>
+	    {% for object in object_list %}
+	        <li><a href="{% url 'directory_category' object.slug %}">{{ object.title }}</a></li>
+	    {% empty %}
+	       <li>There are no directories to list</li>
+	    {% endfor %}
+	</ul>
+{% endblock %}

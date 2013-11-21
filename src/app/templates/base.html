@@ -14,6 +14,9 @@
 	    {% endblock %}
         
         <div class="content">
+            {% block breadcrumbs %}
+                <a href="{% url 'index' %}">Home</a>
+            {% endblock %}
             {% block content %}{% endblock %}
             
             <div class="block">

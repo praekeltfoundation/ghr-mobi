@@ -1,5 +1,3 @@
-import hashlib
-import random
 import re
 import datetime
 
@@ -52,11 +50,13 @@ class EndUserManager(BaseUserManager):
 class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True, db_index=True)
     mobile_number = models.CharField(max_length=16, blank=True, null=True)
+    about_me = models.TextField(blank=True, null=True)
     
     date_joined = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_special_guest = models.BooleanField(default=False)
     
     default_image_category = 'user'
     
@@ -90,6 +90,14 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+    
+    @property
+    def is_ni_nyampinga_journalist(self):
+        return self.groups.filter(name='Ni Nyampinga Journalists').exists()
+    
+    @property
+    def is_ambassador(self):
+        return self.groups.filter(name='Ambassadors').exists()
     
     @property
     def can_access_console(self):

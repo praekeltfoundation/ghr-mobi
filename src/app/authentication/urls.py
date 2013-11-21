@@ -10,14 +10,28 @@ from django.contrib.admin.views.decorators import staff_member_required
 from app.authentication import views, forms
 
 urlpatterns = patterns('',
-    # Update profile
+    # Profile stuff
     
-    url(r'^secure/profile/$', 
-        views.UpdateProfile.as_view(
-            form_class=forms.UpdateProfileForm,
+    url(r'^user-profile/(?P<pk>\d+)/$', 
+        views.UserProfile.as_view(
+            template_name='authentication/user_profile.html'
+        ),
+        name='user_profile'
+    ),
+    
+    url(r'^profile/$', 
+        views.Profile.as_view(
             template_name='authentication/profile.html'
         ),
-        name='secure_profile'
+        name='profile'
+    ),
+    
+    url(r'^secure/profile/edit/$', 
+        views.UpdateProfile.as_view(
+            form_class=forms.UpdateProfileForm,
+            template_name='authentication/profile_edit.html'
+        ),
+        name='secure_profile_edit'
     ),
                        
     url(r'^secure/profile/change_password/$', 

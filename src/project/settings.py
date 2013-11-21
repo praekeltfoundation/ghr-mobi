@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     'app.articles',
     'app.discussions',
     'app.galleries',
+    'app.directory',
     'app.root',
     'tunobase',
     'tunobase.core',
@@ -192,6 +193,10 @@ CACHES = {
 
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
+# Poll Settings
+
+ANONYMOUS_POLL_VOTES_ALLOWED = True
+
 # Whoosh Settings
 
 WHOOSH_PATH = BUILDOUT_PATH.child('whoosh')
@@ -207,11 +212,13 @@ HAYSTACK_CONNECTIONS = {
 
 # Commenting Settings
 
+ANONYMOUS_COMMENTS_ALLOWED = True
 COMMENT_PERIOD_LOCKOUT = timezone.timedelta(minutes=1)
 NUM_COMMENTS_ALLOWED_IN_PERIOD = 5
 
 # Liking Settings
 
+ANONYMOUS_LIKES_ALLOWED = True
 LIKE_PERIOD_LOCKOUT = timezone.timedelta(minutes=1)
 NUM_LIKES_ALLOWED_IN_PERIOD = 5
 

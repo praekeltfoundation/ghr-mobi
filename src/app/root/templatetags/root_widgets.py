@@ -7,6 +7,8 @@ from copy import copy
 
 from django import template
 
+from tunobase.core import models as core_models
+
 from app.articles import models as article_models
 from app.discussions import models as discussion_models
 
@@ -24,11 +26,7 @@ def home_page_discussion_widget(context):
 def home_page_updates_widget(context):
     context = copy(context)
     articles = list(article_models.Article.objects.permitted()[:4])
-    
-    for article in articles:
-        print article.__class__.__name__
-    
-    galleries = []
+    galleries = list(core_models.Gallery.objects.permitted()[:4])
     
     context.update({
         'object_list': articles + galleries,

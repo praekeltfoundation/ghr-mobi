@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-{% load core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets %}
+{% load core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets poll_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Articles' 'articles' %}
+{% endblock %}
 
 {% block content %}
     {% include 'includes/message_error_header.html' %}
@@ -7,6 +11,9 @@
     <span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span>
     <h3>{{ object.title }}</h3>
     {% social_media_share_widget 'facebook' 'twitter' 'google' %}
+    {% if object.poll %}
+        {% poll_widget object.poll.pk %}
+    {% endif %}
     {{ object.rich_content|safe }}
     <div>
 	    {% num_comments object %}
@@ -20,4 +27,5 @@
     {% include 'commenting/includes/commenting_widget_js.html' %}
     {% include 'core/includes/ajax_pagination_js.html' %}
     {% include 'tunosocial/includes/tunosocial_likes_widget_js.html' %}
+    {% include 'poll/includes/poll_widget_js.html' %}
 {% endblock %}

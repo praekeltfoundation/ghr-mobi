@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
+{% load commenting_tags %}
 
 {% block breadcrumbs %}
-    <p>My Profile</p>
+    <p>User Profile</p>
 {% endblock %}
 
 {% block content %}
     <img src="{{ user.get_200x200_url }}">
     <p>{{ user.username }}</p>
-    <p>Mobile No: {{ user.mobile_number }}</p>
+    <p>Join Date: {{ user.date_joined|date:"j/m/Y" }}</p>
+    <p>{{ num_comments }} Comment{{ num_comments|pluralize }} Made</p>
     
-    <h4>About me</h4>
+    <h4>About {{ user.username }}</h4>
     <p>{% if user.about_me %}{{ user.about_me }}{% else %}Not set{% endif %}</p>
-    
-    <a href="{% url 'secure_profile_edit' %}">Edit My profile</a>
-    <a href="{% url 'secure_profile_change_password' %}">Edit My Pin</a>
 {% endblock %}

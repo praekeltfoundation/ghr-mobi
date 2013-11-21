@@ -16,11 +16,17 @@ from app.authentication import signals, constants
 # Profile Update Form
 
 class UpdateProfileForm(forms.ModelForm):
+    password = forms.CharField(
+        max_length=4,
+        widget=forms.PasswordInput, 
+        required=False,
+        help_text='Leave this blank unless you want to'
+    )
     
     class Meta:
         model = get_user_model()
         fields = [
-            'username', 'mobile_number', 'image'
+            'username', 'mobile_number', 'image', 'about_me'
         ]
         
     def __init__(self, *args, **kwargs):
@@ -36,7 +42,7 @@ class UpdateProfileForm(forms.ModelForm):
         site.
         '''
         if get_user_model().objects.filter(username__iexact=self.cleaned_data['username'])\
-           .exclude(username__iexact=self.instance.email).exists():
+           .exclude(username__iexact=self.instance.username).exists():
             raise forms.ValidationError(
                 'This username is already in use. '
                 'Please supply a different username.'
@@ -58,9 +64,17 @@ class UpdateProfileForm(forms.ModelForm):
             
         return self.cleaned_data['mobile_number']
     
+    def save(self, commit=True):
+        obj = super(UpdateProfileForm, self).save(commit=False)
+        if self.cleaned_data['password']:
+            obj.set_password(self.cleaned_data['password'])
+        obj.save()
+        
+        return obj
+    
 class UpdateProfilePasswordForm(forms.Form):
-    old_password = forms.CharField(widget=forms.PasswordInput)
-    password = forms.CharField(widget=forms.PasswordInput)
+    old_password = forms.CharField(max_length=4, widget=forms.PasswordInput)
+    password = forms.CharField(max_length=4, widget=forms.PasswordInput)
     
     def __init__(self, user, *args, **kwargs):
         super(UpdateProfilePasswordForm, self).__init__(*args, **kwargs)
