@@ -1,0 +1,6 @@
+{% extends 'discussions/discussion_detail.html' %}
+{% load core_widgets %}
+
+{% block breadcrumbs %}
+    {{ block.super }} {% breadcrumb_url_widget 'Ni Nyampinga Discussions' 'ni_nyampinga_discussions' %}
+{% endblock %}

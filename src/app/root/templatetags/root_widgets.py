@@ -17,8 +17,24 @@ register = template.Library()
 @register.inclusion_tag('root/inclusion_tags/home_page_discussion_widget.html', takes_context=True)
 def home_page_discussion_widget(context):
     context = copy(context)
+    user = context['request'].user
+    if user.is_authenticated() and any([user.is_admin, user.is_ni_nyampinga_journalist, user.is_ambassador]):
+        try:
+            ni_nyampinga_discussion = discussion_models.Discussion.objects.permitted()\
+                .filter(for_ni_nyampinga_journalists_only=True)[0]
+        except IndexError:
+            ni_nyampinga_discussion = None
+    else:
+        ni_nyampinga_discussion = None
+            
+    discussions = list(discussion_models.Discussion.objects.permitted()\
+        .filter(for_ni_nyampinga_journalists_only=False)[:4])
+
+    if ni_nyampinga_discussion is not None:
+        discussions.insert(0, ni_nyampinga_discussion)
+    
     context.update({
-        'object_list': discussion_models.Discussion.objects.permitted()[:4],
+        'object_list': discussions,
     })
     return context
 

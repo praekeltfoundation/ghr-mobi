@@ -7,7 +7,6 @@ from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 from django.contrib.flatpages.models import FlatPage
-from django.contrib.sites.models import Site
 
 #==============================================================================
 class Command(BaseCommand):

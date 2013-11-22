@@ -26,6 +26,22 @@ urlpatterns = patterns('',
         name='discussion_detail'
     ),
                        
+    url(r'^ni-nyampinga/$', 
+        views.NiNyampingaDiscussions.as_view(
+            template_name='discussions/ni_nyampinga_discussions.html',
+            paginate_by=5,
+        ),
+        name='ni_nyampinga_discussions'
+    ),
+                       
+    url(r'^ni-nyampinga/(?P<slug>[-\w]+)/$', 
+        views.NiNyampingaDiscussionDetail.as_view(
+            template_name='discussions/ni_nyampinga_discussion_detail.html',
+            paginate_by=3
+        ),
+        name='ni_nyampinga_discussion_detail'
+    ),
+                       
     url(r'^post-comment/(?P<slug>[-\w]+)/$', 
         views.PostComment.as_view(),
         name='discussion_post_comment'

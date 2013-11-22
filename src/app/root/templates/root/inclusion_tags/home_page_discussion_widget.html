@@ -1,7 +1,7 @@
 <ul>
     {% for object in object_list %}
-	    <li>{% include 'discussions/includes/discussion.html' %}</li>
+        <li>{% include 'discussions/includes/discussion.html' %}</li>
 	{% empty %}
-	   <li>There are no discussions to list</li>
+	    <li>There are no discussions to list</li>
 	{% endfor %}
 </ul>

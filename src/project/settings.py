@@ -111,7 +111,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    #'tunobase.age_gate.middleware.AgeGateMiddleware'
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -148,7 +147,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
-    'guardian',
     'polymorphic',
     'debug_toolbar',
     'djcelery',

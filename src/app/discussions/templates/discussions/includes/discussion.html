@@ -1,1 +1,5 @@
-<a href="{% url 'discussion_detail' object.slug %}">{{ object.title }}</a>
+{% if object.for_ni_nyampinga_journalists_only %}
+    <a href="{% url 'ni_nyampinga_discussion_detail' object.slug %}">{{ object.title }}</a>
+{% else %}
+    <a href="{% url 'discussion_detail' object.slug %}">{{ object.title }}</a>
+{% endif %}
