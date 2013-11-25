@@ -18,16 +18,12 @@
                 <a href="{% url 'index' %}">Home</a>
             {% endblock %}
             {% block content %}{% endblock %}
-            
-            <div class="block">
-                <div class="title"><a href="#top">Back to top</a></div>
-            </div><!--/block-->
-            
-            {% block menu %}
-                {% include 'includes/menu.html' %}
-            {% endblock %}
-            
+            <div class="top"><a href="#top">Back to top</a></div>
         </div><!--/content-->
+
+        {% block menu %}
+            {% include 'includes/menu.html' %}
+        {% endblock %}
         
         {% block footer %}
 	        <div class="footer">
