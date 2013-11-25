@@ -22,3 +22,5 @@ settings_local.py
 *.sh~
 /eggs
 /crt/
+ez_setup.py
+setuptools-0.8.tar.gz
