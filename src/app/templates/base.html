@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
         <title>{% block title %} Girl Hub Rwanda{% endblock %}</title> 
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+        <link rel="shortcut icon" href="{{ STATIC_URL }}app/img/favicon.ico" />
         <link href="{{ STATIC_URL }}app/css/styles.css?v=1" rel="stylesheet" type="text/css" /> 
     </head>
     <body>
@@ -27,12 +28,8 @@
         
         {% block footer %}
 	        <div class="footer">
-	            <p>&copy; Nike Foundation</p>
-	            <ul>
-	                <li><a href="/terms/">Terms</a></li>
-	                <li><a href="/privacy/">Privacy Policy</a></li>
-	                <li><a href="/contact/">Contact Us</a></li>
-	            </ul>
+	            <p><a href="/terms/">Terms</a> | <a href="/privacy/">Privacy Policy</a> | <a href="/contact/">Contact Us</a></p>
+                <p><span>&copy; Nike Foundation</span></p>
 	        </div><!--/footer-->
         {% endblock %}
         {% compress js %}

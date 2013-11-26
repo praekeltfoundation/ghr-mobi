@@ -24,12 +24,18 @@
 /*  MENU */
 
 	.menu { background: #019b93; }
+		.menu p { margin: 0; padding: 0; }
+		.menu ul { margin: 0; padding: 0; list-style: none; }
+		.menu ul li { background: #1cb4ac; }
 
 
 /**************************************************************************************************************************************/
 /*  FOOTER */
 
-	.footer { background: #019b93; }
+	.footer { padding: 10px; background: #019b93; color: #fff; text-align: center; text-transform: uppercase; }
+		.footer p { margin: 0; padding: 0; color: #3dd4cc; }
+		.footer p a { font-weight: bold; }
+		.footer p span { color: #fff; }
 
 
 /**************************************************************************************************************************************/
