@@ -4,21 +4,20 @@
 
 {% block content %}
     <div class="block">
-        <div class="title">Sign In <span><a href="{% url 'secure_register' %}">Sign Up</a></span></div>
+        <div class="title">Sign In</div>
         <form id="frmLogin" method="post" action=".">{% csrf_token %}
             <div class="field">
                 <label>Username / Mobile</label>
                 {{ form.username }}{{ form.username.errors }}
             </div>
             <div class="field">
-                <label>PIN</label>
+                <label>PIN<a href="{% url 'secure_password_reset' %}">Forgot your PIN?</a></label>
                 {{ form.password }}{{ form.password.errors }}
             </div>
             <div class="btn">
                 <input type="submit" value="Sign In" />
             </div>
             <p><input type="checkbox" name="remember" />Remember me</p>
-            <p><a href="{% url 'secure_password_reset' %}">Forgot your PIN?</a></p>
             <p>Don't have an account?</p>
             <p><a href="{% url 'secure_register' %}">Sign up now</a></p>                
         </form>
