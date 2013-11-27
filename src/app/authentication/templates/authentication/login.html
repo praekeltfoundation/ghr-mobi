@@ -16,10 +16,10 @@
             </div>
             <div class="btn">
                 <input type="submit" value="Sign In" />
+                <p class="align-right"><input type="checkbox" name="remember" />Remember me</p>
             </div>
-            <p><input type="checkbox" name="remember" />Remember me</p>
-            <p>Don't have an account?</p>
-            <p><a href="{% url 'secure_register' %}">Sign up now</a></p>                
+            <hr />
+            <p class="note">Don't have an account?<br /><a href="{% url 'secure_register' %}">Sign up now</a></p>                
         </form>
     </div><!--/block-->
 {% endblock %}

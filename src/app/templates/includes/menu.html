@@ -3,8 +3,8 @@
     <ul>
         <li><a href="{% url 'index' %}">Home</a></li>
         <li><a href="{% url 'articles' %}">Articles</a></li>
-        <li><a href="{% url 'galleries' %}">Galleries</a></li>
         <li><a href="{% url 'discussions' %}">Discussions</a></li>
+        <li><a href="{% url 'galleries' %}">Galleries</a></li>
         <li><a href="{% url 'directory_categories' %}">Directory</a></li>
         {% if user.is_admin or user.is_ni_nyampinga_journalist or user.is_ambassador %}
 	        <li><a href="{% url 'faq' %}">FAQ</a></li>

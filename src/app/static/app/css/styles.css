@@ -65,4 +65,12 @@
 		.block form { padding: 10px; }
 		.block form .field { padding: 0 0 5px 0; font-size: 90%; font-weight: bold; }
 		.block form .field label { display: block; }
-		.block form .field input { width: 95%; padding: 5px; border: 1px solid #ccc; }
+		.block form .field label a { float: right; font-size: 90%; color: #019b93; }
+		.block form .field input { width: 94%; padding: 5px; border: 1px solid #ccc; }
+		.block form .btn { padding: 2px 0; }
+		.block form .btn input { padding: 5px 10px; border: 0; background: #1cb4ac; font-size: 90%; font-weight: bold; color: #fff; text-transform: uppercase; }
+		.block form .btn .align-right { padding: 6px 0; margin: 0; font-size: 80%; text-transform: uppercase; }
+		.block form .btn .align-right input { float: right; margin: 3px 0 0 5px; }
+		.block form hr { clear: both; margin: 10px 0; border-style: none; border-top: 1px solid #cdcdcd; }
+		.block form .note { padding: 10; margin: 0; }
+		.block form .note a { color: #1cb4ac; font-weight: bold; text-transform: uppercase; }
