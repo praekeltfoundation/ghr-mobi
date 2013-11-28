@@ -2,20 +2,24 @@
 {% load core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets poll_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Articles' 'articles' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Articles' 'articles' %}</div>
 {% endblock %}
 
 {% block content %}
     {% include 'includes/message_error_header.html' %}
-    <img src="{{ object.get_100x100_url }}">
-    <span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span>
-    <h3>{{ object.title }}</h3>
-    {% social_media_share_widget 'facebook' 'twitter' 'google' %}
-    {% if object.poll %}
-        {% poll_widget object.poll_id %}
-    {% endif %}
-    {{ object.rich_content|safe }}
-    <div>
+    <div class="block">
+        <div class="item">
+            <img src="{{ object.get_50x50_url }}">
+            <div class="words">
+                <div class="lead">{{ object.title }}</div>
+                <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
+            </div>
+            {% if object.poll %}
+                {% poll_widget object.poll_id %}
+            {% endif %}
+            {{ object.rich_content|safe }}
+            {% social_media_share_widget 'facebook' 'twitter' 'google' %}
+        </div>
 	    {% num_comments object %}
 	    <a href="{% url 'article_post_comment' object.slug %}" class="add_comment">Add yours</a>
     </div>

@@ -2,10 +2,13 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget flatpage.title %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget flatpage.title %}</div>
 {% endblock %}
 
 {% block content %}
-    <h3>{{ flatpage.title }}</h3>
-    {{ flatpage.content|safe }}
+	<div class="block">
+		<div class="rich">
+    		{{ flatpage.content|safe }}
+    	</div>
+    </div>
 {% endblock %}

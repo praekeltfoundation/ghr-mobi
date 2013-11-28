@@ -2,16 +2,16 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}</div>
 {% endblock %}
 
 {% block content %}
-	<ul>
+	<div class="block">
 	    {% for object in object_list %}
-	        <li>{% include 'galleries/includes/gallery.html' %}</li>
+	        {% include 'galleries/includes/gallery.html' %}
 	    {% empty %}
-	       <li>There are no galleries to list</li>
+	        <p>There are no galleries to list</p>
 	    {% endfor %}
-	</ul>
-	{% pagination_widget page_obj %}
+	    {% pagination_widget page_obj %}
+	</div>
 {% endblock %}
