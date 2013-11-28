@@ -173,6 +173,7 @@ INSTALLED_APPS = (
     'tunobase.social_media.facebook',
     'tunobase.social_media.twitter',
     'tunobase.social_media.google_plus',
+    'tunobase.api.vumi',
     'ckeditor',
     'photologue',
     'haystack',
@@ -254,15 +255,17 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
 
-# Guardian Settings
+# Vumi API Settings
 
-ANONYMOUS_USER_ID = -1
+VUMI_ACCOUNT_KEY = 'ac54c74494294690b7978edb00a3635e'
+VUMI_CONVERSATION_KEY = 'a5d15db32af345a1aa5b1db662df8f19'
+VUMI_URL = 'https://go.vumi.org/api/v1/go/http_api/%s/messages.json' % VUMI_CONVERSATION_KEY
+VUMI_ACCESS_TOKEN = 'thairo7xielaiseivoo2naengoec3Yik'
 
 # Authentication Backend Settings
 
 AUTHENTICATION_BACKENDS = (
     'app.authentication.backends.MobileUsernameBackend',
-    'guardian.backends.ObjectPermissionBackend',
 )
 
 

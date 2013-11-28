@@ -12,7 +12,7 @@
     <h3>{{ object.title }}</h3>
     {% social_media_share_widget 'facebook' 'twitter' 'google' %}
     {% if object.poll %}
-        {% poll_widget object.poll.pk %}
+        {% poll_widget object.poll_id %}
     {% endif %}
     {{ object.rich_content|safe }}
     <div>

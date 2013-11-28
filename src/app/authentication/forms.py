@@ -14,6 +14,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.db.models import Q
 
+from tunobase.api.vumi import vumi_api
+
 import phonenumbers
 
 # Profile Update Form
@@ -212,6 +214,12 @@ class ProjectPasswordResetForm(forms.Form):
     
     def save(self):
         new_password = str(random.randint(1000, 9999))
-        self.cleaned_data['username'].set_password(new_password)
+        user = self.cleaned_data['username']
+        user.set_password(new_password)
+        user.save()
         
-        # Call VUMI API with new_password to SMS
+        # SMS user new pin
+        vumi_api.send_sms(
+            'Your new GHR PIN is %s' % new_password,
+            [user.mobile_number]
+        )
