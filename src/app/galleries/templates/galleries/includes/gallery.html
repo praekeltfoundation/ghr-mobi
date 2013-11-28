@@ -1,8 +1,10 @@
 {% load commenting_tags tunosocial_tags %}
 
-<div class="head">
-    <p>Gallery: <span>{% num_comments object %}</span> <span>{% num_likes object %}</span></p>
-    <div class="clear"></div>
-    <img src="{{ object.get_100x100_url }}" />
-    <p><a href="{% url 'gallery_detail' object.slug %}">{{ object.title }}</a></p>
+<div class="item">
+	<a href="{% url 'gallery_detail' object.slug %}"><img src="{{ object.get_50x50_url }}" /></a>
+	<div class="words">
+		<div class="type">Gallery</div>
+		<div class="lead"><a href="{% url 'gallery_detail' object.slug %}">{{ object.title }}</a></div>
+    	<div class="meta"><span class="meta_comments">{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span class="meta_likes">{% num_likes object %}</span></div>
+    </div>
 </div>

@@ -74,3 +74,13 @@
 		.block form hr { clear: both; margin: 10px 0; border-style: none; border-top: 1px solid #cdcdcd; }
 		.block form .note { padding: 10; margin: 0; }
 		.block form .note a { color: #1cb4ac; font-weight: bold; text-transform: uppercase; }
+		/* block - item */
+		.block .item { padding: 10px; border-bottom: 1px solid #cdcdcd; }
+		.block .item:last-child { border: 0; }
+		.block .item img { width: 50px; float: left; }
+		.block .item .words { margin: 0 0 0 60px; }
+		.block .item .words .type { font-size: 90%; font-weight: bold; text-transform: uppercase; color: #1cb4ac; }
+		.block .item .words .lead { font-weight: bold; color: #000; }
+		.block .item .words .lead a { color: #000; }
+		.block .item .words .meta { font-size: 90%; color: #ee1f99; }
+		.block .item .words .meta span { color: #878686; }
