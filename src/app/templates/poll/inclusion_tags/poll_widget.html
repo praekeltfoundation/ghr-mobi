@@ -1,15 +1,19 @@
 {% if not error %}
-	<div class="poll">
-	    <form class="poll_form" action="{% url 'poll_answer' form.poll.pk %}" method="post">
-	    	{% csrf_token %}
-	    	{% if multiple_answers %}
-	    	  {{ form.multiple_answers }}
-	    	{% endif %}
-	        <p class="question">{{ form.poll.question }}:</p>
-	        {{ form.answers }}
-	        <input type="submit" id="submit" value="Vote">
-            <p><a href="{% url 'poll_results' form.poll.pk %}">See Results</a></p>
-	    </form>
+	<div class="block">
+		<div class="poll">
+		    <form class="poll_form" action="{% url 'poll_answer' form.poll.pk %}" method="post">
+		    	{% csrf_token %}
+		    	{% if multiple_answers %}
+		    	  {{ form.multiple_answers }}
+		    	{% endif %}
+		        <div class="lead">{{ form.poll.question }}:</div>
+		        {{ form.answers }}
+		        <div class="btn">
+		        	<input type="submit" id="submit" value="Vote"> &nbsp; 
+	            	<a href="{% url 'poll_results' form.poll.pk %}">See Results</a>
+	            </div>
+		    </form>
+	    </div>
 	</div>
 	<div class="poll_results">
 	    <div class="content">

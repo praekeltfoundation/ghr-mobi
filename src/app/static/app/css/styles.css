@@ -79,6 +79,7 @@
 		.block form .btn input { padding: 5px 10px; border: 0; background: #1cb4ac; font-size: 90%; font-weight: bold; color: #fff; text-transform: uppercase; }
 		.block form .btn .align-right { padding: 6px 0; margin: 0; font-size: 80%; text-transform: uppercase; }
 		.block form .btn .align-right input { float: right; margin: 3px 0 0 5px; }
+		.block form .btn a { color: #1cb4ac; font-size: 80%; font-weight: bold; text-transform: uppercase; }
 		.block form hr { clear: both; margin: 10px 0; border-style: none; border-top: 1px solid #cdcdcd; }
 		.block form .note { padding: 10; margin: 0; }
 		.block form .note a { color: #1cb4ac; font-weight: bold; text-transform: uppercase; }
@@ -96,6 +97,9 @@
 		.block .item .meta a { color: #1cb4ac; }
 		.block .item .desc { color: #878686; }
 		.block .item .part { padding: 0 0 10px 0; }
+		/* block - poll */
+		.block .poll .lead { font-weight: bold; color: #000; }
+		.block .poll ul { margin: 0; padding: 10px 0; list-style: none; }
 
 
 /**************************************************************************************************************************************/
