@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 
-{% block breadcrumbs %}
-    <p>My Profile</p>
-{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs">My Profile</div>{% endblock %}
 
 {% block content %}
-    <img src="{{ user.get_200x200_url }}">
-    <p>{{ user.username }}</p>
-    <p>Mobile No: {{ user.mobile_number }}</p>
-    
-    <h4>About me</h4>
-    <p>{% if user.about_me %}{{ user.about_me }}{% else %}Not set{% endif %}</p>
-    
-    <a href="{% url 'secure_profile_edit' %}">Edit My profile</a>
-    <a href="{% url 'secure_profile_change_password' %}">Edit My Pin</a>
+	<div class="block">
+		<div class="item">
+		    <img src="{{ user.get_100x100_url }}">
+	    	<div class="part">
+		    	<div class="lead">{{ user.username }}</div>
+		    	<div class="desc">Mobile No: {{ user.mobile_number }}</div>
+		    </div>
+		    <div class="part">
+		    	<div class="lead">About me</div>
+		    	<div class="desc">{% if user.about_me %}{{ user.about_me }}{% else %}Tell us about yourself{% endif %}</div>
+		    </div>
+		    <div class="part">
+		    	<div class="meta"><a href="{% url 'secure_profile_edit' %}">Edit My profile</a> &nbsp;&bull;&nbsp; <a href="{% url 'secure_profile_change_password' %}">Edit My Pin</a></div>
+		    </div>
+		</div>
+    </div>
 {% endblock %}

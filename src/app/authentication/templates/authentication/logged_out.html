@@ -2,12 +2,16 @@
 
 {% block title %}Logout{% endblock %}
 
+{% block breadcrumbs %}<div class="breadcrumbs">Logout</div>{% endblock %}
+
 {% block content %}
-    <h2>Logout</h2>
-    <p>You have been logged out</p>
-    
-    <h3>You will be redirected in a few seconds</h3>
-    <p>Please visit us again soon!</p>
+    <div class="block">
+        <div class="rich">
+            <p>You have been logged out</p>
+            <p>You will be redirected in a few seconds</p>
+            <p>Please visit us again soon!</p>
+        </div>
+    </div>
 {% endblock %}
 
 {% block bottom_js %}

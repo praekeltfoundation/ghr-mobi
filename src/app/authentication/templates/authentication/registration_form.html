@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 
-{% block breadcrumbs %}
-    <p>Sign Up</p>
-    <a href="{% url 'secure_login' %}">Sign In</a>
-{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs">Sign Up</div>{% endblock %}
 
 {% block content %}
-   <form id="frmRegister" action="." method="POST" class="validate_form">{% csrf_token %}
-       <label for="id_username">Choose a username</label>
-       {{ form.username }}{{ form.username.errors }}
-       
-       <label for="id_password">Choose a 4 digit PIN</label>
-       {{ form.password }}{{ form.password.errors }}
-       
-       <label for="id_mobile_number">Your Mobile Number</label>
-       {{ form.mobile_number }}{{ form.mobile_number.errors }}{{ form.mobile.help_text }}
-       
-       <input type="submit" value="Sign Up" />
-   </form>
+    <div class="block">
+        <form id="frmRegister" action="." method="POST" class="validate_form">{% csrf_token %}
+            <div class="field">
+                <label for="id_username">Choose a username</label>
+                {{ form.username }}{{ form.username.errors }}
+            </div>
+            <div class="field">
+                <label for="id_password">Choose a 4 digit PIN</label>
+                {{ form.password }}{{ form.password.errors }}
+            </div>
+            <div class="field">
+                <label for="id_mobile_number">Your Mobile Number</label>
+                {{ form.mobile_number }}{{ form.mobile_number.errors }}{{ form.mobile.help_text }}
+            </div>
+            <div class="btn">
+                <input type="submit" value="Sign Up" />
+            </div>
+        </form>
+    </div>
 {% endblock %}

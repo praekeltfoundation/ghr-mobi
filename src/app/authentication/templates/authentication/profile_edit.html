@@ -1,24 +1,35 @@
 {% extends 'base.html' %}
 
+{% block breadcrumbs %}<div class="breadcrumbs">{{ form.instance.display_name }}</div>{% endblock %}
+
 {% block content %}
-    {% include 'includes/message_error_header.html' %}
-    <h3>{{ form.instance.display_name }}</h3>
-	<form id="frmUpdateProfile" action="." method="POST" enctype="multipart/form-data" class="validate_form">{% csrf_token %}
-	   <label for="id_username">Username</label>
-       {{ form.username }}{{ form.username.errors }}
-	   
-	   <label for="id_mobile_number">Mobile Number</label>
-	   {{ form.mobile_number }}{{ form.mobile_number.errors }}
-	   
-	   <label for="id_image">Your picture</label>
-       {{ form.image }}{{ form.image.errors }}
-       
-       <label for="id_about_me">About me</label>
-       {{ form.about_me }}{{ form.about_me.errors }}
-	   
-	   <label for="id_password">PIN</label>
-       {{ form.password }}{{ form.password.errors }}{{ form.password.help_text }}
-	   
-	   <input type="submit" value="Save" />
-	</form>
+	<div class="block">
+	    {% include 'includes/message_error_header.html' %}
+		<form id="frmUpdateProfile" action="." method="POST" enctype="multipart/form-data" class="validate_form">{% csrf_token %}
+			<div class="field">
+				<label for="id_username">Username</label>
+				{{ form.username }}{{ form.username.errors }}
+			</div>
+			<div class="field">
+				<label for="id_mobile_number">Mobile Number</label>
+				{{ form.mobile_number }}{{ form.mobile_number.errors }}
+			</div>
+			<div class="field">
+				<label for="id_image">Your picture</label>
+				{{ form.image }}{{ form.image.errors }}
+			</div>
+			<div class="field">
+				<label for="id_about_me">About me</label>
+				{{ form.about_me }}{{ form.about_me.errors }}
+			</div>
+			<div class="field">
+				<label for="id_password">PIN</label>
+				{{ form.password }}{{ form.password.errors }}
+				<div class="helptext">{{ form.password.help_text }}</div>
+			</div>
+			<div class="btn">
+				<input type="submit" value="Save" />
+			</div>
+		</form>
+	</div>
 {% endblock %}

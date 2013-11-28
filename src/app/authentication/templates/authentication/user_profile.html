@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 {% load commenting_tags %}
 
-{% block breadcrumbs %}
-    <p>User Profile</p>
-{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs">User Profile</div>{% endblock %}
 
 {% block content %}
-    <img src="{{ user.get_200x200_url }}">
-    <p>{{ user.username }}</p>
-    <p>Join Date: {{ user.date_joined|date:"j/m/Y" }}</p>
-    <p>{{ num_comments }} Comment{{ num_comments|pluralize }} Made</p>
-    
-    <h4>About {{ user.username }}</h4>
-    <p>{% if user.about_me %}{{ user.about_me }}{% else %}Not set{% endif %}</p>
+	<div class="block">
+		<div class="item">
+		    <img src="{{ user.get_200x200_url }}">
+		    <div class="words">
+			    <div class="lead">{{ user.username }}</div>
+			    <p>Join Date: {{ user.date_joined|date:"j/m/Y" }}</p>
+			    <p>{{ num_comments }} Comment{{ num_comments|pluralize }} Made</p>
+			    <h4>About {{ user.username }}</h4>
+			    <p>{% if user.about_me %}{{ user.about_me }}{% else %}Not set{% endif %}</p>
+		    </div>
+	    </div>
+    </div>
 {% endblock %}

@@ -12,6 +12,7 @@
 	ul li a { color: #fff; }
 	.hidden { display: none; }
 	.align-right { float: right; }
+	.no-bord { border: 0!important; }
 
 
 /**************************************************************************************************************************************/
@@ -65,12 +66,15 @@
 		/* pagination */
 		.pagination { padding: 10px; font-size: 90%; }
 		.pagination p { margin: 0; padding: 0; }
+		/* intro */
+		.intro { margin: 0; padding: 0 0 5px 0; }
 		/* block - form */
 		.block form { padding: 10px; }
 		.block form .field { padding: 0 0 5px 0; font-size: 90%; font-weight: bold; }
 		.block form .field label { display: block; }
 		.block form .field label a { float: right; font-size: 90%; color: #019b93; }
-		.block form .field input { width: 94%; padding: 5px; border: 1px solid #ccc; }
+		.block form .field input,
+		.block form .field textarea { width: 94%; padding: 5px; border: 1px solid #ccc; }
 		.block form .btn { padding: 2px 0; }
 		.block form .btn input { padding: 5px 10px; border: 0; background: #1cb4ac; font-size: 90%; font-weight: bold; color: #fff; text-transform: uppercase; }
 		.block form .btn .align-right { padding: 6px 0; margin: 0; font-size: 80%; text-transform: uppercase; }
@@ -78,6 +82,7 @@
 		.block form hr { clear: both; margin: 10px 0; border-style: none; border-top: 1px solid #cdcdcd; }
 		.block form .note { padding: 10; margin: 0; }
 		.block form .note a { color: #1cb4ac; font-weight: bold; text-transform: uppercase; }
+		.block form .helptext { font-weight: normal; color: #878686; }
 		/* block - item */
 		.block .item { padding: 10px; border-bottom: 1px solid #cdcdcd; }
 		.block .item:last-child { border: 0; }
@@ -88,6 +93,9 @@
 		.block .item .lead a { color: #000; }
 		.block .item .meta { font-size: 90%; color: #ee1f99; }
 		.block .item .meta span { color: #878686; }
+		.block .item .meta a { color: #1cb4ac; }
+		.block .item .desc { color: #878686; }
+		.block .item .part { padding: 0 0 10px 0; }
 
 
 /**************************************************************************************************************************************/
@@ -97,3 +105,9 @@
 	.block .rich p,
 	.block .rich ul,
 	.block .rich ol { margin: 10px 0; }
+
+
+/**************************************************************************************************************************************/
+/*  ERRORS */
+
+	ul.errorlist { margin: 10px 0; padding: 5px 10px; list-style: none; background: #ff0000; font-size: 90%; font-weight: normal; color: #fff; }
