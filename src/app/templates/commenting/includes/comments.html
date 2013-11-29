@@ -1,5 +1,7 @@
 {% for comment in object_list %}
     {% include 'commenting/includes/comment.html' %}
 {% empty %}
-    <p>There are no comments yet</p>
+    <div class="commenting_comment">
+        <p>There are no comments yet</p>
+    </div>
 {% endfor %}

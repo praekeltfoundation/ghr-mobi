@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block breadcrumbs %}
+    <div class="breadcrumbs"><a href="{% url 'index' %}">Home</a></div>
+{% endblock %}
+
 {% block content %}
     {% include 'includes/message_error_header.html' %}
     {% include 'commenting/includes/comment_form.html' %}

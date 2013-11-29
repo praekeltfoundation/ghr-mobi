@@ -3,11 +3,11 @@
         <img src="{{ comment.user.get_100x100_url }}">
         <a {% if comment.user.is_special_guest %}class="special"{% endif %} href="{% url 'user_profile' comment.user.pk %}">{{ comment.user }}</a>
     {% else %}
-        <p>Anonymous</p>
+        <span>Anonymous</span>
     {% endif %}
-	<p>{{ comment.publish_at }}</p>
+	<span>{{ comment.publish_at }}</span>&nbsp;&bull;&nbsp;
 	{% if user.is_authenticated %}
-       <a class="report_comment" href="{% url 'report_comment' comment.pk %}">Report</a>
+       <a class="report_comment" href="{% url 'report_comment' comment.pk %}"> Report</a>
     {% endif %}
 	{% if not comment.is_removed %}
 		<p>{{ comment.comment }}</p>

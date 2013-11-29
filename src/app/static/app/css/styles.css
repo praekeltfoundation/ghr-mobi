@@ -115,3 +115,25 @@
 /*  ERRORS */
 
 	ul.errorlist { margin: 10px 0; padding: 5px 10px; list-style: none; background: #ff0000; font-size: 90%; font-weight: normal; color: #fff; }
+	
+/**************************************************************************************************************************************/
+/*  SHARE */ 
+    .social_media_share_widget { padding: 10px; background: #fff8b1; }   
+    .social_media_share_widget P { float: left; margin: 0; padding: 0 10px 0 0; font-weight: bold; text-transform: uppercase; font-size: 13px; }
+	
+/**************************************************************************************************************************************/
+/*  COMMENT */	
+	
+	.comment_widget_comment_count { padding: 0 0 0 10px; }
+	.add_comment { float: right; padding: 0 10px; color: #019b93; }
+    #comment_widget_container { padding: 10px 0; }
+    .commenting_comment img { width: 50px; float: left; }
+    .commenting_comment a { display: inline-block; color: #000; }
+    .commenting_comment span { display: inline-block; color: #878686; }
+    .commenting_comment { padding: 10px; color: #ee1f99; border-bottom: 1px solid #cdcdcd; }
+    .commenting_comment p { color: #000; }
+    form textarea { width: 98%; }
+    
+    
+    
+	

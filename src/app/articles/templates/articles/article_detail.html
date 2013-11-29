@@ -20,10 +20,12 @@
             {{ object.rich_content|safe }}
             {% social_media_share_widget 'facebook' 'twitter' 'google' %}
         </div>
-	    {% num_comments object %}
-	    <a href="{% url 'article_post_comment' object.slug %}" class="add_comment">Add yours</a>
-        {% commenting_widget object 3 page_obj %}
-        <a href="{% url 'article_all_comments' object.slug %}">Show All</a>
+        <div class="item">
+		    {% num_comments object %}
+		    <a href="{% url 'article_post_comment' object.slug %}" class="add_comment">Add yours</a>
+        </div>
+	        {% commenting_widget object 3 page_obj %}
+	        <a href="{% url 'article_all_comments' object.slug %}">Show All</a>
     </div>
 {% endblock %}
 
