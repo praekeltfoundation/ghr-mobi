@@ -22,7 +22,7 @@ env.buildout_config = {
     'app_name': APP_NAME
 }
 
-env.run_cmd = local
+env.run_cmd = run
 
 def _email_project_deployed(instance_type):
     fromaddr = "Unomena <unomena.com>"
