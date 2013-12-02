@@ -2,11 +2,17 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'FAQ' 'faq' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'FAQ' 'faq' %}</div>
 {% endblock %}
 
 {% block content %}
-    <h3>{{ object.title }}</h3>
-    {{ object.rich_content|safe }}
-    <a href="{% url 'faq' %}">Go back</a>
+	<div class="block">
+		<div class="item">
+	    	<div class="lead">{{ object.title }}</div>
+	    	{{ object.rich_content|safe }}
+	    </div>
+	    <div class="item">
+	    	<a href="{% url 'faq' %}" class="navver">Back to FAQs</a>
+	    </div>
+    </div>
 {% endblock %}

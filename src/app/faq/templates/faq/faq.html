@@ -2,15 +2,17 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'FAQ' 'faq' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'FAQ' 'faq' %}</div>
 {% endblock %}
 
 {% block content %}
-	<ul>
+	<div class="block">
 	    {% for object in object_list %}
-	        <li><a href="{% url 'faq_detail' object.slug %}">{{ object.title }}</a></li>
+	        <div class="item">
+    			<div class="lead"><a href="{% url 'faq_detail' object.slug %}">{{ object.title }}</a></div>
+    		</div>
 	    {% empty %}
-	       <li>There are no Frequently Asked Questions to list</li>
+	       <p>There are no Frequently Asked Questions to list</p>
 	    {% endfor %}
-	</ul>
+	</div>
 {% endblock %}

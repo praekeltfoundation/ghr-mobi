@@ -2,15 +2,17 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Ni Nyampinga Contacts' 'contact_categories' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Ni Nyampinga Contacts' 'contact_categories' %}</div>
 {% endblock %}
 
 {% block content %}
-	<ul>
-	    {% for object in object_list %}
-	        <li><a href="{% url 'contact_category' object.slug %}">{{ object.title }}</a></li>
-	    {% empty %}
-	       <li>There are no contacts to list</li>
-	    {% endfor %}
-	</ul>
+	<div class="block">
+		<ul>
+		    {% for object in object_list %}
+		        <li><a href="{% url 'contact_category' object.slug %}">{{ object.title }}</a></li>
+		    {% empty %}
+		       <li>There are no contacts to list</li>
+		    {% endfor %}
+		</ul>
+	</div>
 {% endblock %}
