@@ -1,15 +1,17 @@
 {% load honeypot %}
 
-<form id="frmComment" action="{% url 'post_comment' %}" method="POST" {% if hidden %}class="hidden"{% endif %}>{% csrf_token %}
-    <input type="hidden" id="id_next" name="next" value="{{ next }}" />
-    <input type="hidden" id="id_comment_content_type_id" name="comment_content_type_id" value="{{ content_type_id }}" />
-    <input type="hidden" id="id_comment_object_pk" name="comment_object_pk" value="{{ object.pk }}" />
-    {% render_honeypot_field %}
-    <textarea id="id_comment_box" name="comment_box" class="required" maxlength="50"></textarea><br />
-    {% if user.is_authenticated %}
-        <input type="checkbox" id="id_anonymous" name="anonymous" /> Post Anonymously<br />
-    {% endif %}
-    <div class="btn">
-       <input type="submit" value="Comment" />
-    </div>
-</form>
+<div class="comment_form">
+    <form id="frmComment" action="{% url 'post_comment' %}" method="POST" {% if hidden %}class="hidden"{% endif %}>{% csrf_token %}
+        <input type="hidden" id="id_next" name="next" value="{{ next }}" />
+        <input type="hidden" id="id_comment_content_type_id" name="comment_content_type_id" value="{{ content_type_id }}" />
+        <input type="hidden" id="id_comment_object_pk" name="comment_object_pk" value="{{ object.pk }}" />
+        {% render_honeypot_field %}
+        <div><textarea id="id_comment_box" name="comment_box" class="required"></textarea></div>
+        {% if user.is_authenticated %}
+            <div class="anon"><input type="checkbox" id="id_anonymous" name="anonymous" /> Post Anonymously</div>
+        {% endif %}
+        <div class="btn">
+           <input type="submit" value="Comment" />
+        </div>
+    </form>
+</div>

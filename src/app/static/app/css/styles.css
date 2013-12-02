@@ -63,9 +63,6 @@
 		/* titles */
 		.title,
 		.breadcrumbs { padding: 7px 10px; background: #ec008b; font-weight: bold; text-transform: uppercase; color: #fff; }
-		/* pagination */
-		.pagination { padding: 10px; font-size: 90%; }
-		.pagination p { margin: 0; padding: 0; }
 		/* intro */
 		.intro { margin: 0; padding: 0 0 5px 0; }
 		/* block - form */
@@ -93,13 +90,48 @@
 		.block .item .lead { font-weight: bold; color: #000; }
 		.block .item .lead a { color: #000; }
 		.block .item .meta { font-size: 90%; color: #ee1f99; }
-		.block .item .meta span { color: #878686; }
+		.block .item .meta span { color: #878686; font-weight: normal; }
 		.block .item .meta a { color: #1cb4ac; }
 		.block .item .desc { color: #878686; }
 		.block .item .part { padding: 0 0 10px 0; }
 		/* block - poll */
 		.block .poll .lead { font-weight: bold; color: #000; }
 		.block .poll ul { margin: 0; padding: 10px 0; list-style: none; }
+		/* comments */	
+		.comments { position: relative; }
+		.comment_widget_comment_count,
+		.comment_widget_comment_description,
+		.commentor { font-weight: bold; }
+		.commentor,
+		.comment_date,
+		.report_comment { font-size: 90%; }
+		.commentor { padding: 0 10px 0 0; }
+		.commenting_comment { min-height: 30px; padding: 10px; color: #ee1f99; border-bottom: 1px solid #cdcdcd; font-size: 90%; }
+		    .commenting_comment img { width: 30px; float: left; padding: 0 10px 0 0; border: 0; }
+		    .commenting_comment a { display: inline-block; color: #000; }
+		    .commenting_comment span { display: inline-block; color: #878686; }
+		    .commenting_comment .commenting_text { font-size: 100%; color: #000; }
+	    .add_comment { float: right; padding: 0 0 0 10px; color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; }
+	    .comment_form form { border-bottom: 1px solid #cdcdcd; }
+	    .comment_form form textarea { width: 94%; padding: 5px; border: 1px solid #ccc; }
+	    .comment_form .anon { font-size: 90%; color: #878686; }
+
+
+/**************************************************************************************************************************************/
+/*  SHARE */ 
+
+    .social_media_share_widget { padding: 10px; background: #fff8b1; }   
+    .social_media_share_widget p { float: left; margin: 0; padding: 0 10px 0 0; font-weight: bold; text-transform: uppercase; }
+
+
+/**************************************************************************************************************************************/
+/*  PAGINATION */ 
+
+    .pagination p { display: none; margin: 0; padding: 0; }
+    .pagination ul { padding: 10px; margin: 0; list-style: none; }
+    .pagination ul li { display: inline-block; color: #dadada; }
+    .pagination ul li a { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; }
+    .show_all { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; position: absolute; bottom: 10px; right: 10px; }
 
 
 /**************************************************************************************************************************************/
@@ -115,25 +147,11 @@
 /*  ERRORS */
 
 	ul.errorlist { margin: 10px 0; padding: 5px 10px; list-style: none; background: #ff0000; font-size: 90%; font-weight: normal; color: #fff; }
+
 	
 /**************************************************************************************************************************************/
-/*  SHARE */ 
-    .social_media_share_widget { padding: 10px; background: #fff8b1; }   
-    .social_media_share_widget P { float: left; margin: 0; padding: 0 10px 0 0; font-weight: bold; text-transform: uppercase; font-size: 13px; }
-	
-/**************************************************************************************************************************************/
-/*  COMMENT */	
-	
-	.comment_widget_comment_count { padding: 0 0 0 10px; }
-	.add_comment { float: right; padding: 0 10px; color: #019b93; }
-    #comment_widget_container { padding: 10px 0; }
-    .commenting_comment img { width: 50px; float: left; }
-    .commenting_comment a { display: inline-block; color: #000; }
-    .commenting_comment span { display: inline-block; color: #878686; }
-    .commenting_comment { padding: 10px; color: #ee1f99; border-bottom: 1px solid #cdcdcd; }
-    .commenting_comment p { color: #000; }
-    form textarea { width: 98%; }
-    
-    
-    
-	
+/*  MESSAGES */
+
+	.messages {}
+		.messages .success { padding: 10px; background: #33cc99; font-weight: bold; color: #fff; }
+		.messages .error { padding: 10px; background: #ec0000; font-weight: bold; color: #fff; }
