@@ -17,7 +17,9 @@
             {% if object.poll %}
                 {% poll_widget object.poll_id %}
             {% endif %}
-            {{ object.rich_content|safe }}
+            <div class="rich deets">
+                {{ object.rich_content|safe }}
+            </div>
             {% social_media_share_widget 'facebook' 'twitter' 'google' %}
         </div>
         <div class="item">
@@ -27,6 +29,9 @@
         <div class="comments">
     	    {% commenting_widget object 3 page_obj %}
     	    <a href="{% url 'article_all_comments' object.slug %}" class="show_all">Show All</a>
+        </div>
+        <div class="item">   
+            <a href="{% url 'articles' %}" class="navver">Back to Articles</a>
         </div>
     </div>
 {% endblock %}

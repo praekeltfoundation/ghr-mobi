@@ -13,6 +13,8 @@
 	.hidden { display: none; }
 	.align-right { float: right; }
 	.no-bord { border: 0!important; }
+	.no-pad { padding: 0!important; }
+	.up { text-transform: uppercase; }
 
 
 /**************************************************************************************************************************************/
@@ -94,6 +96,8 @@
 		.block .item .meta a { color: #1cb4ac; }
 		.block .item .desc { color: #878686; }
 		.block .item .part { padding: 0 0 10px 0; }
+		.block .item .part img { padding: 0 10px 10px 0; float: none; }
+		.block .item .part a { color: #1cb4ac; }
 		/* block - poll */
 		.block .poll .lead { font-weight: bold; color: #000; }
 		.block .poll ul { margin: 0; padding: 10px 0; list-style: none; }
@@ -107,6 +111,7 @@
 		.report_comment { font-size: 90%; }
 		.commentor { padding: 0 10px 0 0; }
 		.commenting_comment { min-height: 30px; padding: 10px; color: #ee1f99; border-bottom: 1px solid #cdcdcd; font-size: 90%; }
+			.commenting_comment > p { margin: 0; padding: 0; }
 		    .commenting_comment img { width: 30px; float: left; padding: 0 10px 0 0; border: 0; }
 		    .commenting_comment a { display: inline-block; color: #000; }
 		    .commenting_comment span { display: inline-block; color: #878686; }
@@ -120,7 +125,7 @@
 /**************************************************************************************************************************************/
 /*  SHARE */ 
 
-    .social_media_share_widget { padding: 10px; background: #fff8b1; }   
+    .social_media_share_widget { margin: 10px 0 0 0; padding: 10px; background: #fff8b1; }   
     .social_media_share_widget p { float: left; margin: 0; padding: 0 10px 0 0; font-weight: bold; text-transform: uppercase; }
 
 
@@ -132,6 +137,7 @@
     .pagination ul li { display: inline-block; color: #dadada; }
     .pagination ul li a { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; }
     .show_all { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; position: absolute; bottom: 10px; right: 10px; }
+    .navver { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; }
 
 
 /**************************************************************************************************************************************/
@@ -141,6 +147,8 @@
 	.block .rich p,
 	.block .rich ul,
 	.block .rich ol { margin: 10px 0; }
+	.block .rich a { color: #1cb4ac; }
+	.block .deets { padding: 5px 0; }
 
 
 /**************************************************************************************************************************************/

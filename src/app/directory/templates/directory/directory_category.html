@@ -2,20 +2,31 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Directory' 'directory' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Directory' 'directory_categories' %}</div>
 {% endblock %}
 
 {% block content %}
-    <h3>{{ object.title }}</h3>
-    
-    {% for directory_item in object_list %}
-        <h4>{{ directory_item.title }}</h4>
-        <p>{{ directory_item.address }}</p>
-        <p>{{ directory_item.name }}</p>
-        <p>T: {{ directory_item.tel_number }}</p>
-        <p>E: {{ directory_item.email }}</p>
-    {% empty %}
-        <p>There are no directory items to list</p>
-    {% endfor %}
-    <a href="{% url 'directory_categories' %}">Go back</a>
+    <div class="block">
+        <div class="item">
+            <div class="lead up">{{ object.title }}</div>
+        </div>
+        {% for directory_item in object_list %}
+            <div class="item">
+                <div class="lead">{{ directory_item.title }}</div>
+                <div class="part">
+                    {{ directory_item.address }}<br />{{ directory_item.name }}
+                </div>
+                <div class="part no-pad">
+                    T: <a href="tel:{{ directory_item.tel_number }}">{{ directory_item.tel_number }}</a><br />E: <a href="mailto:{{ directory_item.email }}">{{ directory_item.email }}</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="item">
+                <p>There are no directory items to list</p>
+            </div>
+        {% endfor %}
+        <div class="item">   
+            <a href="{% url 'directory_categories' %}" class="navver">Back to Directory</a>
+        </div>
+    </div>
 {% endblock %}

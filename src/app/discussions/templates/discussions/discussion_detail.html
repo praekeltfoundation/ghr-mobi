@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
-{% load core_widgets social_media_widgets commenting_widgets %}
+{% load core_widgets social_media_widgets commenting_widgets commenting_tags %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Discussions' 'discussions' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Discussions' 'discussions' %}</div>
 {% endblock %}
 
 {% block content %}
     {% include 'includes/message_error_header.html' %}
-    <h3>{{ object.title }}</h3>
-    {% social_media_share_widget 'facebook' 'twitter' 'google' %}
-    <a href="{% url 'discussion_post_comment' object.slug %}" class="add_comment">Add a comment</a>
-    {% commenting_widget object 3 page_obj %}
+    <div class="block">
+    	<div class="item no-bord">
+	    	<div class="lead">{{ object.title }}</div>
+	   		{% social_media_share_widget 'facebook' 'twitter' 'google' %}
+		</div>
+		<div class="item">
+		    {% num_comments object %}
+		    <a href="{% url 'discussion_post_comment' object.slug %}" class="add_comment">Add yours</a>
+        </div>
+	    {% commenting_widget object 3 page_obj %}
+        <div class="item">   
+            <a href="{% url 'discussions' %}" class="navver">Back to Discussions</a>
+        </div>
+    </div>
 {% endblock %}
 
 {% block bottom_js %}

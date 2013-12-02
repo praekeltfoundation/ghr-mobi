@@ -31,6 +31,9 @@
     </div>
     {% commenting_widget object 3 page_obj %}
     <a href="{% url 'gallery_all_comments' object.slug %}">Show All</a>
+        <div class="item">   
+            <a href="{% url 'galleries' %}" class="navver">Back to Galleries</a>
+        </div>
 {% endblock %}
 
 {% block bottom_js %}
