@@ -2,20 +2,20 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Newsfeed' 'newsfeed' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Newsfeed' 'newsfeed' %}</div>
 {% endblock %}
 
 {% block content %}
-	<ul>
+	<div class="block">
 	    {% for object in object_list %}
-	        <li>
-	            <p>{{ object.source_name }}</p>
-	            <p>{{ object.publish_at|date:"j M Y" }}</p>
-	            <a href="{% url 'newsfeed_detail' object.slug %}">{{ object.title }}</a>
-	        </li>
+	        <div class="item">
+	        	<div class="type">{{ object.source_name }}</div>
+	            <div class="lead"><a href="{% url 'newsfeed_detail' object.slug %}">{{ object.title }}</a></div>
+	            <div class="meta">{{ object.publish_at|date:"j M Y" }}</div>
+	        </div>
 	    {% empty %}
-	       <li>There are no Newsfeeds to list</li>
+	        <p>There are no Newsfeeds to list</p>
 	    {% endfor %}
-	</ul>
-	{% pagination_widget page_obj %}
+		{% pagination_widget page_obj %}
+	</div>
 {% endblock %}

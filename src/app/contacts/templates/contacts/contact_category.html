@@ -2,20 +2,31 @@
 {% load core_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Ni Nyampinga Contacts' 'contact_categories' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Ni Nyampinga Contacts' 'contact_categories' %}</div>
 {% endblock %}
 
 {% block content %}
-    <h3>{{ object.title }}</h3>
-    
-    {% for contact in object_list %}
-        <h4>{{ contact.title }}</h4>
-        <p>{{ contact.role }}</p>
-        <p>{{ contact.name }}</p>
-        <p>T: {{ contact.tel_number }}</p>
-        <p>E: {{ contact.email }}</p>
-    {% empty %}
-        <p>There are no contacts to list</p>
-    {% endfor %}
-    <a href="{% url 'contact_categories' %}">Go back</a>
+    <div class="block">
+        <div class="item">
+            <div class="lead up">{{ object.title }}</div>
+        </div>
+        {% for contact in object_list %}
+            <div class="item">
+                <div class="lead">{{ contact.title }}</div>
+                <div class="part">
+                    {{ contact.role }}<br />{{ contact.name }}
+                </div>
+                <div class="part no-pad">
+                    T: <a href="tel:{{ contact.tel_number }}">{{ contact.tel_number }}</a><br />E: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="item">
+                <p>There are no contacts to list</p>
+            </div>
+        {% endfor %}
+        <div class="item">   
+            <a href="{% url 'contact_categories' %}" class="navver">Back to Contacts</a>
+        </div>
+    </div>
 {% endblock %}

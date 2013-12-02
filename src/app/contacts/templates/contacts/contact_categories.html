@@ -7,12 +7,12 @@
 
 {% block content %}
 	<div class="block">
-		<ul>
-		    {% for object in object_list %}
-		        <li><a href="{% url 'contact_category' object.slug %}">{{ object.title }}</a></li>
-		    {% empty %}
-		       <li>There are no contacts to list</li>
-		    {% endfor %}
-		</ul>
+	    {% for object in object_list %}
+	        <div class="item">
+	        	<div class="lead"><a href="{% url 'contact_category' object.slug %}">{{ object.title }}</a></div>
+	        </div>
+	    {% empty %}
+	       <p>There are no contacts to list</p>
+	    {% endfor %}
 	</div>
 {% endblock %}
