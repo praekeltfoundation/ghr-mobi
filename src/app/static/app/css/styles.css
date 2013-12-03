@@ -16,6 +16,7 @@
 	.no-bord { border: 0!important; }
 	.no-pad { padding: 0!important; }
 	.up { text-transform: uppercase; }
+	.grey { color: #cfcfcf; }
 
 
 /**************************************************************************************************************************************/
@@ -66,6 +67,7 @@
 		/* titles */
 		.title,
 		.breadcrumbs { padding: 7px 10px; background: #ec008b; font-weight: bold; text-transform: uppercase; color: #fff; }
+		.breadcrumbs a { padding: 0 5px; }
 		/* intro */
 		.intro { margin: 0; padding: 0 0 5px 0; }
 		/* block - form */
@@ -153,6 +155,7 @@
 	.block .rich ol { margin: 10px 0; }
 	.block .rich a { color: #1cb4ac; }
 	.block .deets { padding: 5px 0; }
+	.block .deets img { width: 200px; margin: 0 0 10px 0; }
 
 
 /**************************************************************************************************************************************/

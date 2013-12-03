@@ -10,36 +10,37 @@
     <div class="block">
         {% with gallery=object.gallery %}
 	        <div class="item no-bord">
-	            <img src="{{ object.get_50x50_url }}">
+	            <img src="{{ gallery.get_50x50_url }}">
 	            <div class="words">
 	                <div class="lead">{{ gallery.title }}</div>
-	                <div class="meta"><span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span></div>
+	                <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
 	            </div>
-	            <div class="rich deets">
-	                
-	            </div>
-	            {% social_media_share_widget 'facebook' 'twitter' 'google' %}
+                 <div class="rich deets">
+                    <img src="{{ object.get_200x200_url }}" />
+                </div>
+                <div class="clear"></div>
+                {% gallery_surrounding_image_pks gallery object.pk as surrounding_image_pks %}
+                {% if surrounding_image_pks.previous_image_pk %}
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}" class="navver">Prev</a> &nbsp;<span class="grey">|</span>&nbsp;
+                {% endif %}
+                {% if surrounding_image_pks.next_image_pk %}
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}" class="navver">Next</a> &nbsp;<span class="grey">|</span>&nbsp;
+                {% endif %}
+                <a href="{% url 'gallery_detail' gallery.slug %}" class="navver">Back to Gallery</a>
+                {% social_media_share_widget 'facebook' 'twitter' 'google' %}
 	        </div>
-	            <img src="{{ object.get_200x200_url }}" />
-	            {% gallery_surrounding_image_pks gallery object.pk as surrounding_image_pks %}
-	            {% if surrounding_image_pks.previous_image_pk %}
-	    	       <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}">Prev</a>
-	    	    {% endif %}
-	    	    {% if surrounding_image_pks.next_image_pk %}
-	    	       <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}">Next</a>
-	    	    {% endif %}
-	    	    <a href="{% url 'gallery_detail' gallery.slug %}">Back to Gallery</a>
-	    	    <div class="item">
-	                {% num_comments object %}
-	                <a href="{% url 'gallery_post_comment' gallery.slug %}" class="add_comment">Add yours</a>
-	            </div>
-	            <div class="comments">
-	                {% commenting_widget object 3 page_obj %}
-	                <a href="{% url 'gallery_all_comments' gallery.slug %}" class="show_all">Show All</a>
-	            </div>
-	            <div class="item">   
-	                <a href="{% url 'galleries' %}" class="navver">Back to Galleries</a>
-	            </div>
+            <div class="clear"></div>
+    	    <div class="item">
+                {% num_comments object %}
+                <a href="{% url 'gallery_post_comment' gallery.slug %}" class="add_comment">Add yours</a>
+            </div>
+            <div class="comments">
+                {% commenting_widget object 3 page_obj %}
+                <a href="{% url 'gallery_all_comments' gallery.slug %}" class="show_all">Show All</a>
+            </div>
+            <div class="item">   
+                <a href="{% url 'galleries' %}" class="navver">Back to Galleries</a>
+            </div>
 	    </div>
     {% endwith %}
 {% endblock %}
