@@ -9,7 +9,7 @@
             <div class="live"><a href="{% url 'discussions' %}">Live Chat:</a> {{ active_discussion.title }}</div>
         {% else %}
             {% if user.is_admin %}
-                <p style="color: red;">Please load the Live Chat as Active Discussion in Preferences adminn</p>
+                <p style="color: red;">Please load the Live Chat as Active Discussion in Preferences admin</p>
             {% endif %}
         {% endif %}
     </div>
