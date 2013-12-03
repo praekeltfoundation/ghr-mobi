@@ -26,6 +26,13 @@ PROD_SERVERS = ['ubuntu@web1.prod.unomena.net', 'ubuntu@web2.prod.unomena.net']
 
 TESTS_TO_RUN = (
     'app.authentication '
+    'app.articles '
+    'app.contacts '
+    'app.directory '
+    'app.discussions '
+    'app.faq '
+    'app.newsfeed '
+    'app.research_tool '
     'tunobase.core '
     'tunobase.commenting '
     'tunobase.poll '
