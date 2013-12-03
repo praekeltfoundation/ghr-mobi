@@ -12,7 +12,7 @@
             <img src="{{ object.get_50x50_url }}">
             <div class="words">
                 <div class="lead">{{ object.title }}</div>
-                <div class="meta"><span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span></div>
+                <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
             </div>
             <div class="rich deets">
                 {{ object.rich_content|safe }}
