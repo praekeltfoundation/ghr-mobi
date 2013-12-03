@@ -1,11 +1,10 @@
 {% include 'includes/message_error_header.html' %}
-<table>
+<table cellpadding="0" cellspacing="2">
 	{% for result in object_list %}
 		<tr>
 			<td>Answer {{ forloop.counter }}</td>
 			<td>
-				<div style="background-color: blue; width: {{ result }};" />
-				<p>{{ result }}</p>
+				{% if result > 0 %}<div style="background-color: #019b93; width: {{ result }}%;">{{ result }}%</div>{% else %}<div style="color: #000;">{{ result }}%</div>{% endif %}
 			</td>
 		</tr>
 	{% endfor %}
