@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
+    'django_countries',
     'polymorphic',
     'debug_toolbar',
     'djcelery',
@@ -181,7 +182,7 @@ INSTALLED_APPS = (
     'preferences',
     'gunicorn',
     'honeypot',
-    'django.contrib.admin',
+    'django.contrib.admin'
 )
 
 CACHES = {
