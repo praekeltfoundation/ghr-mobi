@@ -24,7 +24,7 @@
     	        {% if forloop.counter0|divisibleby:3 %}
     	            <tr>
     	        {% endif %}
-    	        <td><a href="{% url 'gallery_image_detail' image.pk %}"><img src="{{ image.get_50x500_url }}" /></a></td>
+    	        <td><a href="{% url 'gallery_image_detail' image.pk %}"><img src="{{ image.get_50x50_url }}" /></a></td>
     	        {% if forloop.counter|divisibleby:3 %}
     	           </tr>
     	        {% endif %}
