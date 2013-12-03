@@ -15,7 +15,7 @@
                 <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
             </div>
             {% if object.poll %}
-                {% poll_widget object.poll_id %}
+                {% poll_widget pk=object.poll_id %}
             {% endif %}
             <div class="rich deets">
                 {{ object.rich_content|safe }}

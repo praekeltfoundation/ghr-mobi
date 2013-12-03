@@ -16,7 +16,7 @@
 		    	</div>
 		    	<div class="clear"></div>
 		    </div>
-		    {% poll_widget object.poll.pk True %}
+		    {% poll_widget pk=object.poll_id multiple_answers=True %}
 		    <div class="rich">
 		    	{{ object.rich_content|safe }}
 		    </div>

@@ -1,5 +1,4 @@
 import os
-
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -22,7 +21,9 @@ env.buildout_config = {
     'app_name': APP_NAME
 }
 
-env.run_cmd = run
+env.run_cmd = local
+
+env.tests_to_run = TESTS_TO_RUN
 
 def _email_project_deployed(instance_type):
     fromaddr = "Unomena <unomena.com>"
@@ -186,10 +187,18 @@ def create_settings_local_file(instance_type):
             env.run_cmd(
                 'echo "%s" > src/project/settings_local.py' % _get_local_settings(instance_type)
             )
+            
+def run_tests():
+    env.run_cmd('bin/django test %s' % env.tests_to_run)
 
 def build(where='local', first_deploy=False, instance_type='dev', 
-                  nginx_conf_changed=False, code_dir='.'):
+          nginx_conf_changed=False, code_dir='.'):
     assert where in ['local', 'remote'], "invalid option to where"
+    
+    if where == 'local':
+        env.run_cmd = local
+    elif where == 'remote':
+        env.run_cmd = run
     
     server_name = _get_server_name(instance_type)
     instanced_project_name = _get_instanced_project_name(instance_type)
@@ -258,6 +267,9 @@ def build(where='local', first_deploy=False, instance_type='dev',
         
         # run migrations
         env.run_cmd('bin/django migrate')
+        
+        # run tests
+        run_tests()
         
 def prep():
     with settings(warn_only=True):

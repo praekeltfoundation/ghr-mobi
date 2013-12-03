@@ -23,3 +23,11 @@ DEV_SERVERS = ['ubuntu@precise.dev.unomena.net']
 QA_SERVERS = ['ubuntu@precise.qa.unomena.net']
 
 PROD_SERVERS = ['ubuntu@web1.prod.unomena.net', 'ubuntu@web2.prod.unomena.net']
+
+TESTS_TO_RUN = (
+    'tunobase.core '
+    'tunobase.blog '
+    'tunobase.commenting '
+    'tunobase.poll '
+    'tunobase.social_media.tunosocial'
+)
