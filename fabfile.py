@@ -21,7 +21,7 @@ env.buildout_config = {
     'app_name': APP_NAME
 }
 
-env.run_cmd = local
+env.run_cmd = run
 
 env.tests_to_run = TESTS_TO_RUN
 

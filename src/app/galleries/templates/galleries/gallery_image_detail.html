@@ -8,19 +8,17 @@
 {% block content %}
     {% include 'includes/message_error_header.html' %}
     <div class="block">
-        <div class="item no-bord">
-            <img src="{{ object.get_50x50_url }}">
-            <div class="words">
-                <div class="lead">{{ object.title }}</div>
-                <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
-            </div>
-        </div>
-        <div class="item no-bord">
         {% with gallery=object.gallery %}
+	        <div class="item no-bord">
+	            <img src="{{ object.get_50x50_url }}">
+	            <div class="words">
+	                <div class="lead">{{ gallery.title }}</div>
+	                <div class="meta"><span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span></div>
+	            </div>
+	       </div>
             <div class="rich deets">
                 <img src="{{ object.get_200x200_url }}" />
             </div>
-            {% social_media_share_widget 'facebook' 'twitter' 'google' %}
             {% gallery_surrounding_image_pks gallery object.pk as surrounding_image_pks %}
             {% if surrounding_image_pks.previous_image_pk %}
     	       <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}">Prev</a>
@@ -41,9 +39,8 @@
             <div class="item">   
                 <a href="{% url 'galleries' %}" class="navver">Back to Galleries</a>
             </div>
-    	{% endwith %}
-        </div>
-    </div>
+	    </div>
+    {% endwith %}
 {% endblock %}
 
 {% block bottom_js %}
