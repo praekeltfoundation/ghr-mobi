@@ -10,8 +10,16 @@ from django.core.urlresolvers import reverse
 from tunobase.core import views as core_views
 from tunobase.commenting import forms as commenting_forms, models as commenting_models
 
+from preferences import preferences
+
 class Index(generic_views.TemplateView):
-    pass
+    
+    def get_context_data(self, **kwargs):
+        context = super(Index, self).get_context_data(**kwargs)
+        
+        context['active_discussion'] = preferences.SitePreferences.active_discussion
+        
+        return context
 
 class CommentListDetail(core_views.ListWithDetailView):
     template_name = 'root/all_comments.html'

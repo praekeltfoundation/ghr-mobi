@@ -5,7 +5,13 @@
         
 {% block content %} 
     <div class="block">
-        <div class="live"><a href="{% url 'discussions' %}">Live Chat:</a> Lorem ipsum dolor sit amet, consectetur heading</div>
+        {% if active_discussion %}
+            <div class="live"><a href="{% url 'discussions' %}">Live Chat:</a> {{ active_discussion.title }}</div>
+        {% else %}
+            {% if user.is_admin %}
+                <p style="color: red;">Please load the Live Chat as Active Discussion in Preferences admin</p>
+            {% endif %}
+        {% endif %}
     </div>
 
     <div class="block">
