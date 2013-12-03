@@ -67,6 +67,7 @@
 		/* titles */
 		.title,
 		.breadcrumbs { padding: 7px 10px; background: #ec008b; font-weight: bold; text-transform: uppercase; color: #fff; }
+		.breadcrumbs a { padding: 0 5px; }
 		/* intro */
 		.intro { margin: 0; padding: 0 0 5px 0; }
 		/* block - form */
