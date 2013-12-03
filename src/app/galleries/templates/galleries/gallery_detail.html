@@ -2,38 +2,48 @@
 {% load core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets %}
 
 {% block breadcrumbs %}
-    {{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}
+    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}</div>
 {% endblock %}
 
 {% block content %}
     {% include 'includes/message_error_header.html' %}
-    <img src="{{ object.get_100x100_url }}">
-    <span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span>
-    <h3>{{ object.title }}</h3>
-    {% social_media_share_widget 'facebook' 'twitter' 'google' %}
-    {{ object.rich_content|safe }}
-    <table cellpadding="5">
-	    {% for image in object.images.permitted %}
-	        {% if forloop.counter0|divisibleby:3 %}
-	            <tr>
-	        {% endif %}
-	        <td><a href="{% url 'gallery_image_detail' image.pk %}"><img src="{{ image.get_100x100_url }}" /></a></td>
-	        {% if forloop.counter|divisibleby:3 %}
-	           </tr>
-	        {% endif %}
-	    {% empty %}
-	        <p>This gallery is empty</p>
-	    {% endfor %}
-    </table>
-    <div>
-        {% num_comments object %}
-        <a href="{% url 'gallery_post_comment' object.slug %}" class="add_comment">Add yours</a>
-    </div>
-    {% commenting_widget object 3 page_obj %}
-    <a href="{% url 'gallery_all_comments' object.slug %}">Show All</a>
+    <div class="block">
+        <div class="item no-bord">
+            <img src="{{ object.get_50x50_url }}">
+            <div class="words">
+                <div class="lead">{{ object.title }}</div>
+                <div class="meta"><span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span></div>
+            </div>
+            <div class="rich deets">
+                {{ object.rich_content|safe }}
+            </div>
+            {% social_media_share_widget 'facebook' 'twitter' 'google' %}
+        </div>
+        <table cellpadding="7">
+    	    {% for image in object.images.permitted %}
+    	        {% if forloop.counter0|divisibleby:3 %}
+    	            <tr>
+    	        {% endif %}
+    	        <td><a href="{% url 'gallery_image_detail' image.pk %}"><img src="{{ image.get_50x50_url }}" /></a></td>
+    	        {% if forloop.counter|divisibleby:3 %}
+    	           </tr>
+    	        {% endif %}
+    	    {% empty %}
+    	        <p>This gallery is empty</p>
+    	    {% endfor %}
+        </table>
+        <div class="item">
+            {% num_comments object %}
+            <a href="{% url 'gallery_post_comment' object.slug %}" class="add_comment">Add yours</a>
+        </div>
+        <div class="comments">
+            {% commenting_widget object 3 page_obj %}
+            <a href="{% url 'gallery_all_comments' object.slug %}" class="show_all">Show All</a>
+        </div>
         <div class="item">   
             <a href="{% url 'galleries' %}" class="navver">Back to Galleries</a>
         </div>
+    </div>
 {% endblock %}
 
 {% block bottom_js %}
