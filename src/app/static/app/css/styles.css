@@ -153,6 +153,7 @@
 	.block .rich ol { margin: 10px 0; }
 	.block .rich a { color: #1cb4ac; }
 	.block .deets { padding: 5px 0; }
+	.block .deets img { width: 200px; margin: 0 0 10px 0; }
 
 
 /**************************************************************************************************************************************/
