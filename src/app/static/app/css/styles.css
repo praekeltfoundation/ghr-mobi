@@ -104,6 +104,10 @@
 		/* block - poll */
 		.block .poll .lead { font-weight: bold; color: #000; }
 		.block .poll ul { margin: 0; padding: 10px 0; list-style: none; }
+		.poll_results table { width: 100%; }
+		.poll_results table td { width: 50%; margin: 2px 0; padding: 0 10px 0 0; }
+		.poll_results table td div { margin: 0; padding: 3px; color: #fff }
+		.poll_results .content { padding: 10px 10px 0 10px; }
 		/* comments */	
 		.comments { position: relative; }
 		.comment_widget_comment_count,
