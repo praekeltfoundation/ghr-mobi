@@ -15,19 +15,19 @@
 	                <div class="lead">{{ gallery.title }}</div>
 	                <div class="meta"><span>{% num_comments object %}</span> <span>{% tunosocial_likes_widget object %}</span></div>
 	            </div>
+                 <div class="rich deets">
+                    <img src="{{ object.get_200x200_url }}" />
+                </div>
+                {% gallery_surrounding_image_pks gallery object.pk as surrounding_image_pks %}
+                {% if surrounding_image_pks.previous_image_pk %}
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}">Prev</a>
+                {% endif %}
+                {% if surrounding_image_pks.next_image_pk %}
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}">Next</a>
+                {% endif %}
+                <a href="{% url 'gallery_detail' gallery.slug %}">Back to Gallery</a>
+                {% social_media_share_widget 'facebook' 'twitter' 'google' %}
 	       </div>
-            <div class="rich deets">
-                <img src="{{ object.get_200x200_url }}" />
-            </div>
-            {% gallery_surrounding_image_pks gallery object.pk as surrounding_image_pks %}
-            {% if surrounding_image_pks.previous_image_pk %}
-    	       <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}">Prev</a>
-    	    {% endif %}
-    	    {% if surrounding_image_pks.next_image_pk %}
-    	       <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}">Next</a>
-    	    {% endif %}
-    	    <a href="{% url 'gallery_detail' gallery.slug %}">Back to Gallery</a>
-            {% social_media_share_widget 'facebook' 'twitter' 'google' %}
     	    <div class="item">
                 {% num_comments object %}
                 <a href="{% url 'gallery_post_comment' gallery.slug %}" class="add_comment">Add yours</a>
