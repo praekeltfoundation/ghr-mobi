@@ -21,10 +21,10 @@
                 <div class="clear"></div>
                 {% gallery_surrounding_image_pks gallery object.pk as surrounding_image_pks %}
                 {% if surrounding_image_pks.previous_image_pk %}
-                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}" class="navver">Prev</a>
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}" class="navver">Prev</a> &nbsp;<span class="grey">|</span>&nbsp;
                 {% endif %}
                 {% if surrounding_image_pks.next_image_pk %}
-                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}" class="navver">Next</a>
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}" class="navver">Next</a> &nbsp;<span class="grey">|</span>&nbsp;
                 {% endif %}
                 <a href="{% url 'gallery_detail' gallery.slug %}" class="navver">Back to Gallery</a>
                 {% social_media_share_widget 'facebook' 'twitter' 'google' %}
