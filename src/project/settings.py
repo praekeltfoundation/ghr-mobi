@@ -7,7 +7,7 @@ APP_NAME = 'Girl Hub Rwanda'
 
 PROJECT_NAME = 'app'
 
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
