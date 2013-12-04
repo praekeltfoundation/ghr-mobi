@@ -14,9 +14,9 @@ class ContactCategoryModelTestCase(TestCase):
     title = 'Contact Category Model Title'
     contact_title = 'Contact Model Title'
     contact_role = 'Test Role'
-    contact_name = 'Michael Whelehan'
-    contact_tel_number = '021 711 2345'
-    contact_email = 'michael@unoemena.com'
+    contact_name = 'Test Name'
+    contact_tel_number = '012 345 6789'
+    contact_email = 'test@example.com'
     slug = slugify(title)
 
     def setUp(self):

@@ -12,7 +12,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Unomena Developers', 'dev@unomena.com'),
+    ('', ''),
 )
 
 MANAGERS = ADMINS
@@ -240,12 +240,12 @@ INTERNAL_IPS = ('127.0.0.1',)
 # Django Celery Settings
 
 USE_CELERY = False
-BROKER_URL = 'amqp://unomena:unomena@127.0.0.1:5672//unomena'
+BROKER_URL = 'amqp://ghr:ghr@127.0.0.1:5672//ghr'
 
 # Honeypot Settings
 
-HONEYPOT_FIELD_NAME = 'unomena_hp'
-HONEYPOT_VALUE = 'unomena'
+HONEYPOT_FIELD_NAME = 'ghr_hp'
+HONEYPOT_VALUE = 'ghr'
 
 
 # CK Editor Settings

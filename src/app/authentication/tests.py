@@ -10,8 +10,8 @@ from django.db import IntegrityError
 from app.authentication import models
 
 class EndUserModelTestCase(TestCase):
-    username = 'michael'
-    super_user_username = 'euan'
+    username = 'user'
+    super_user_username = 'superuser'
 
     def setUp(self):
         '''

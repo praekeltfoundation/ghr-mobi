@@ -14,9 +14,9 @@ class DirectoryCategoryModelTestCase(TestCase):
     title = 'Directory Category Model Title'
     directory_item_title = 'Directory Model Title'
     directory_item_address = 'Directory Item Address'
-    directory_item_name = 'Michael Whelehan'
-    directory_item_tel_number = '021 711 2345'
-    directory_item_email = 'michael@unoemena.com'
+    directory_item_name = 'Test Directory'
+    directory_item_tel_number = '012 345 6789'
+    directory_item_email = 'test@example.com'
     slug = slugify(title)
     directory_item_slug = slugify(directory_item_title)
 
