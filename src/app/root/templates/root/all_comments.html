@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load core_widgets commenting_widgets commenting_tags %}
 
+{% block breadcrumbs %}
+    <div class="breadcrumbs">{{ block.super }}</div>
+{% endblock %}
+
 {% block content %}
     {% include 'includes/message_error_header.html' %}
     <div>
