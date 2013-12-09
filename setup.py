@@ -7,16 +7,16 @@ setup(
     author='Unomena Developers',
     author_email='dev@unomena.com',
     url='http://unomena.com',
-    packages = find_packages('src'),
-    package_dir = {'': 'src'},
-    dependency_links = [
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    dependency_links=[
         'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
         'http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2',
         'http://packages.unomena.net/tunobase-1.0.0.tar.gz#egg=tunobase-1.0.0',
     ],
-    install_requires = [
+    install_requires=[
         'South',
-	'unipath',
+        'unipath',
         'Whoosh==2.4.1',
         'django-haystack==2.0.0',
         'django-countries',
