@@ -10,6 +10,7 @@ from tunobase.core import constants as core_constants
 
 from app.faq import models
 
+
 class FAQModelTestCase(TestCase):
     title = 'FAQ Model Title'
     slug = slugify(title)
