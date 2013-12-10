@@ -8,7 +8,8 @@ from django.template.defaultfilters import slugify
 
 from tunobase.core import constants as core_constants
 
-from app.directory import models
+from app.directory.models import DirectoryCategory, DirectoryItem
+
 
 class DirectoryCategoryModelTestCase(TestCase):
     title = 'Directory Category Model Title'
@@ -24,11 +25,11 @@ class DirectoryCategoryModelTestCase(TestCase):
         '''
         Create a Directory Category Model
         '''
-        self.directory_category_object = models.DirectoryCategory.objects.create(
+        self.directory_category_object = DirectoryCategory.objects.create(
             title=self.title,
         )
-        
-        models.DirectoryItem.objects.create(
+
+        DirectoryItem.objects.create(
             category=self.directory_category_object,
             title=self.directory_item_title,
             address=self.directory_item_address,
@@ -42,6 +43,8 @@ class DirectoryCategoryModelTestCase(TestCase):
         Test that the Directory Category Model was created, it has at
         least 1 Directory Item Model and is in the correct state
         '''
-        directory_category_object = models.DirectoryCategory.objects.get(slug=self.slug)
-        self.assertEqual(directory_category_object.state, core_constants.STATE_PUBLISHED)
+        directory_category_object = DirectoryCategory.objects.get(
+            slug=self.slug)
+        self.assertEqual(directory_category_object.state,
+                         core_constants.STATE_PUBLISHED)
         self.assertGreaterEqual(directory_category_object.directory_items, 1)
