@@ -11,15 +11,18 @@ from ckeditor.widgets import CKEditorWidget
 
 from app import models
 
+
 class FlatPageAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = FlatPage
+
 
 class FlatPageAdmin(admin.ModelAdmin):
     form = FlatPageAdminForm
     list_display = ('url', 'title', 'site_list')
-    
+
     def site_list(self, model):
         return ', '.join([site.domain for site in model.sites.all()])
 
