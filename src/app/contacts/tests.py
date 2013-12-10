@@ -10,6 +10,7 @@ from tunobase.core import constants as core_constants
 
 from app.contacts import models
 
+
 class ContactCategoryModelTestCase(TestCase):
     title = 'Contact Category Model Title'
     contact_title = 'Contact Model Title'
@@ -26,7 +27,7 @@ class ContactCategoryModelTestCase(TestCase):
         self.contact_category_object = models.ContactCategory.objects.create(
             title=self.title,
         )
-        
+
         models.Contact.objects.create(
             category=self.contact_category_object,
             title=self.contact_title,
@@ -41,6 +42,8 @@ class ContactCategoryModelTestCase(TestCase):
         Test that the Contact Category Model was created, it has at
         least 1 Contact Model and is in the correct state
         '''
-        contact_category_object = models.ContactCategory.objects.get(slug=self.slug)
-        self.assertEqual(contact_category_object.state, core_constants.STATE_PUBLISHED)
+        contact_category_object = models.ContactCategory.objects.get(
+            slug=self.slug)
+        self.assertEqual(contact_category_object.state,
+                         core_constants.STATE_PUBLISHED)
         self.assertGreaterEqual(contact_category_object.contacts, 1)
