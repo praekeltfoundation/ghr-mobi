@@ -75,6 +75,6 @@ urlpatterns = patterns(
 
     url(r'^logout/$',
         views.logout,
-        {'template_name': 'authentication/logged_out.html' },
+        {'template_name': 'authentication/logged_out.html'},
         name='auth_logout')
 )
