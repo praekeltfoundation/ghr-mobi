@@ -10,6 +10,7 @@ from tunobase.core import constants as core_constants
 
 from app.newsfeed import models
 
+
 class FeedItemModelTestCase(TestCase):
     title = 'Feed Item Model Title'
     source_name = 'Test Source Name'
@@ -30,5 +31,6 @@ class FeedItemModelTestCase(TestCase):
         the correct state
         '''
         feed_item_object = models.FeedItem.objects.get(slug=self.slug)
-        self.assertEqual(feed_item_object.state, core_constants.STATE_PUBLISHED)
+        self.assertEqual(feed_item_object.state,
+                         core_constants.STATE_PUBLISHED)
         self.assertEqual(feed_item_object.source_name, self.source_name)
