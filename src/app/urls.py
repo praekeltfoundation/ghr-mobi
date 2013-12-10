@@ -1,6 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, include
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     (r'^authentication/', include('app.authentication.urls')),
     (r'^articles/', include('app.articles.urls')),
     (r'^contacts/', include('app.contacts.urls')),
