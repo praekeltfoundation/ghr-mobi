@@ -12,13 +12,15 @@ setup(
     dependency_links = [
         'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
         'http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2',
+        'http://github.com/unomena/django-holodeck/tarball/0.1.1#egg=django-holodeck-0.1.1',
         'http://packages.unomena.net/tunobase-1.0.0.tar.gz#egg=tunobase-1.0.0',
     ],
     install_requires = [
         'South',
-	'unipath',
+	    'unipath',
         'Whoosh==2.4.1',
         'django-haystack==2.0.0',
+        'django-holodeck==0.1.1',
         'django-countries',
         'django-debug-toolbar==0.11.0',
         'django-polymorphic',
@@ -34,6 +36,7 @@ setup(
         'django-honeypot',
         'Pillow',
         'psycopg2',
+        'photon==0.0.5',
         'flufl.password==1.2.1',
         'phonenumbers==5.9b1',
         'tunobase==1.0.0'

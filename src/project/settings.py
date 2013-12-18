@@ -178,12 +178,15 @@ INSTALLED_APPS = (
     'ckeditor',
     'photologue',
     'haystack',
+    'holodeck',
     #'registration',
     'preferences',
     'gunicorn',
     'honeypot',
     'django.contrib.admin'
 )
+
+PUBLIC = False
 
 CACHES = {
     'default': {
