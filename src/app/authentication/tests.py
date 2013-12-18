@@ -50,15 +50,11 @@ class EndUserModelTestCase(TestCase):
         )
         self.assertTrue(end_user_object.is_active)
         self.assertLessEqual(end_user_object.date_joined, timezone.now())
-
-        try:
-            duplicate_end_user = models.EndUser.objects.create_user(
-                username=self.username,
-                password='1234'
-            )
-        except IntegrityError:
-            duplicate_end_user = None
-        self.assertIsNone(duplicate_end_user, "Duplicate End User was created")
+        self.assertRaises(
+            IntegrityError,
+            models.EndUser.objects.create_user,
+            username=self.username, password='1234'
+        )
 
     def test_super_end_user_model(self):
         '''
@@ -80,7 +76,7 @@ class EndUserModelTestCase(TestCase):
             password='1234'
         )
 
-        self.assertIsNotNone(username_user, "Username authentication failed")
+        self.assertEqual(username_user.pk, self.end_user_object.pk)
 
         # authenticate with mobile number
         mobile_user = authenticate(
@@ -88,10 +84,7 @@ class EndUserModelTestCase(TestCase):
             password='1234'
         )
 
-        self.assertIsNotNone(
-            mobile_user,
-            "Mobile number authentication failed"
-        )
+        self.assertEqual(mobile_user.pk, self.end_user_object.pk)
 
     def test_random_image_assignment(self):
         default_image = DefaultImage.objects.permitted().get_random('user')
