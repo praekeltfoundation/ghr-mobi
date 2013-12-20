@@ -6,7 +6,7 @@ Created on 18 Dec 2013
 from datetime import datetime
 from operator import attrgetter
 
-from dateutil.relativedelta import relativedelta
+from dateutil.relativedelta import *
 
 from django.contrib.auth import get_user_model
 from django.utils import timezone
@@ -51,14 +51,20 @@ def _push_top_5_articles(api_key, article_list):
 
 def _push_total(api_key, queryset, date_field):
     week_kwargs = {
-       '%s__gte' % date_field: timezone.now() + relativedelta(weeks=-1)
+       '%s__gte' % date_field: timezone.now() + \
+           relativedelta(weekday=SU(-1), weeks=-1)
     }
     month_kwargs = {
-       '%s__gte' % date_field: timezone.now() + relativedelta(months=-1)
+       '%s__gte' % date_field: timezone.now() + \
+           relativedelta(day=1, months=-1),
+       '%s__lt' % date_field: timezone.now() + \
+           relativedelta(day=1)
     }
     previous_kwargs = {
-       '%s__gte' % date_field: timezone.now() + relativedelta(months=-2),
-       '%s__lt' % date_field: timezone.now() + relativedelta(months=-1)
+       '%s__gte' % date_field: timezone.now() + \
+           relativedelta(day=1, months=-2),
+       '%s__lt' % date_field: timezone.now() + \
+           relativedelta(day=1, months=-1)
     }
     total_objects = queryset
     total_objects_past_week = total_objects.filter(
