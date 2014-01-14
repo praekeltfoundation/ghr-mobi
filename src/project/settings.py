@@ -255,14 +255,17 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 # Default Image Settings
 
-DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
+DEFAULT_IMAGE_CATEGORY_CHOICES = (
+    ('content', 'Content'),
+    ('user', 'User'),
+)
 
 # Vumi API Settings
 
-VUMI_ACCOUNT_KEY = 'ac54c74494294690b7978edb00a3635e'
-VUMI_CONVERSATION_KEY = 'a5d15db32af345a1aa5b1db662df8f19'
+VUMI_ACCOUNT_KEY = ''
+VUMI_CONVERSATION_KEY = ''
 VUMI_URL = 'https://go.vumi.org/api/v1/go/http_api/%s/messages.json' % VUMI_CONVERSATION_KEY
-VUMI_ACCESS_TOKEN = 'thairo7xielaiseivoo2naengoec3Yik'
+VUMI_ACCESS_TOKEN = ''
 
 # Authentication Backend Settings
 

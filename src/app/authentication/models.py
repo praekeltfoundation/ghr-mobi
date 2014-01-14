@@ -2,8 +2,9 @@ import re
 import datetime
 
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin, Group)
+    AbstractBaseUser, BaseUserManager, PermissionsMixin)
 try:
     from django.utils.timezone import now as datetime_now
 except ImportError:
@@ -16,7 +17,7 @@ SHA1_RE = re.compile('^[a-f0-9]{40}$')
 
 class EndUserManager(BaseUserManager):
 
-    def create_user(self, username, password=None):
+    def create_user(self, username, password=None, mobile_number=None):
         '''
         Creates and saves a User with the given username and password.
         '''
@@ -25,6 +26,7 @@ class EndUserManager(BaseUserManager):
 
         user = self.model(
             username=username,
+            mobile_number=mobile_number
         )
         user.set_password(password)
         user.save(using=self._db)
