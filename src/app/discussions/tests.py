@@ -10,6 +10,7 @@ from tunobase.core import constants as core_constants
 
 from app.discussions import models
 
+
 class DiscussionModelTestCase(TestCase):
     title = 'Discussion Model Title'
     slug = slugify(title)
@@ -28,7 +29,8 @@ class DiscussionModelTestCase(TestCase):
         the correct state
         '''
         discussion_object = models.Discussion.objects.get(slug=self.slug)
-        self.assertEqual(discussion_object.state, core_constants.STATE_PUBLISHED)
+        self.assertEqual(discussion_object.state,
+                         core_constants.STATE_PUBLISHED)
         discussion_object.for_ni_nyampinga_journalists_only = True
         discussion_object.save()
         self.assertTrue(discussion_object.for_ni_nyampinga_journalists_only)

@@ -2,10 +2,11 @@ import urlparse
 
 from django.views import generic as generic_views
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout, get_backends
+from django.http import HttpResponseRedirect
+from django.contrib.auth import (REDIRECT_FIELD_NAME, login as auth_login,
+                                 logout as auth_logout, get_backends)
 from django.conf import settings
-from django.contrib.sites.models import get_current_site, Site, RequestSite
+from django.contrib.sites.models import get_current_site
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.template.response import TemplateResponse
@@ -20,51 +21,57 @@ from tunobase.commenting import models as comment_models
 
 from app.authentication import forms, models
 
+
 class UserProfile(generic_views.DetailView):
-    
+
     def get_context_data(self, **kwargs):
         context = super(UserProfile, self).get_context_data(**kwargs)
-        context['num_comments'] = \
-            comment_models.CommentModel.objects.filter(user=self.object).count()
-        
+        context['num_comments'] = comment_models.CommentModel.objects.filter(
+            user=self.object).count()
+
         return context
-    
+
     def get_object(self):
         return get_object_or_404(models.EndUser, pk=self.kwargs['pk'])
-    
+
+
 class Profile(core_mixins.LoginRequiredMixin, generic_views.TemplateView):
     pass
 
+
 class UpdateProfile(core_mixins.LoginRequiredMixin, generic_views.UpdateView):
-    
+
     def get_object(self):
         return self.request.user
-    
+
     def form_valid(self, form):
         self.object = form.save()
-        
+
         messages.success(self.request, 'Profile details updated')
-        
+
         return self.render_to_response(self.get_context_data(form=form))
-    
-class UpdateProfilePassword(core_mixins.LoginRequiredMixin, generic_views.FormView):
-    
+
+
+class UpdateProfilePassword(core_mixins.LoginRequiredMixin,
+                            generic_views.FormView):
+
     def get_form_kwargs(self):
         kwargs = super(UpdateProfilePassword, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
-    
+
     def form_valid(self, form):
         form.save()
-        
+
         messages.success(self.request, 'Password updated.')
 
         return self.render_to_response(self.get_context_data(form=form))
-    
+
 # Registration views
 
+
 class ProjectRegistration(BaseRegistrationView):
-    
+
     def register(self, request, **cleaned_data):
         """
         Given a username, email address and password, register a new
@@ -96,26 +103,28 @@ class ProjectRegistration(BaseRegistrationView):
         registration_profile.is_active = True
         registration_profile.set_password(password)
         registration_profile.save()
-        
+
         return registration_profile
-    
+
     def get_success_url(self, request, user):
         """
         Return the name of the URL to redirect to after successful
         user registration.
-        
+
         """
         return ('registration_complete', (), {})
-    
+
+
 class ProjectPasswordReset(generic_views.FormView):
-    
+
     def get_success_url(self):
         return reverse('password_reset_done')
-    
+
     def form_valid(self, form):
         form.save()
-        
+
         return redirect(self.get_success_url())
+
 
 @csrf_protect
 @never_cache
@@ -140,19 +149,20 @@ def login(request, template_name='authentication/login.html',
             # host.
             elif netloc and netloc != request.get_host():
                 redirect_to = settings.LOGIN_REDIRECT_URL
-            
+
             the_user = form.get_user()
-            
+
             # Okay, security checks complete. Log the user in.
             backend = get_backends()[0]
-            the_user.backend = "%s.%s" % (backend.__module__, backend.__class__.__name__)
+            the_user.backend = "%s.%s" % (backend.__module__,
+                                          backend.__class__.__name__)
             auth_login(request, the_user)
 
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
 
             response = HttpResponseRedirect(redirect_to)
-                
+
             return response
     else:
         form = authentication_form(request)
@@ -168,13 +178,14 @@ def login(request, template_name='authentication/login.html',
         'site_name': current_site.name,
     }
     context.update(extra_context or {})
-    
+
     return render_to_response(
-        template_name, 
+        template_name,
         context,
         context_instance=RequestContext(request, current_app=current_app)
     )
-    
+
+
 def logout(request, next_page=None,
            template_name='authentication/logged_out.html',
            redirect_field_name=REDIRECT_FIELD_NAME,
@@ -183,14 +194,14 @@ def logout(request, next_page=None,
     Logs out the user and displays 'You are logged out' message.
     """
     auth_logout(request)
-    
+
     redirect_to = request.REQUEST.get(redirect_field_name, '')
     if redirect_to:
         netloc = urlparse.urlparse(redirect_to)[1]
         # Security check -- don't allow redirection to a different host.
         if not (netloc and netloc != request.get_host()):
             response = HttpResponseRedirect(redirect_to)
-            
+
             return response
 
     if next_page is None:
@@ -203,11 +214,11 @@ def logout(request, next_page=None,
         if extra_context is not None:
             context.update(extra_context)
         response = TemplateResponse(request, template_name, context,
-                                current_app=current_app)
-            
+                                    current_app=current_app)
+
         return response
     else:
         # Redirect to this page until the session has been cleared.
         response = HttpResponseRedirect(next_page or request.path)
-            
+
         return response

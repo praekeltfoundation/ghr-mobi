@@ -10,6 +10,7 @@ from tunobase.core import constants as core_constants
 
 from app.articles import models
 
+
 class ArticleModelTestCase(TestCase):
     title = 'Article Model Title'
     slug = slugify(title)

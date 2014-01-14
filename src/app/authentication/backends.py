@@ -9,8 +9,9 @@ from django.db.models import Q
 
 import phonenumbers
 
+
 class MobileUsernameBackend(ModelBackend):
-    
+
     def authenticate(self, username=None, password=None, **kwargs):
         UserModel = get_user_model()
         if username is None:
@@ -22,9 +23,9 @@ class MobileUsernameBackend(ModelBackend):
                 ), phonenumbers.PhoneNumberFormat.NATIONAL)
             except phonenumbers.phonenumberutil.NumberParseException:
                 pass
-            
+
             user = UserModel._default_manager.get(
-                Q(username=username) | 
+                Q(username=username) |
                 Q(mobile_number=username)
             )
             if user.check_password(password):

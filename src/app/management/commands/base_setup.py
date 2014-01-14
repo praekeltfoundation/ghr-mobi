@@ -17,7 +17,8 @@ class Command(BaseCommand):
     Initial base setup
     """
     option_list = BaseCommand.option_list + (
-        make_option('--site',
+        make_option(
+            '--site',
             action='store',
             type="string",
             dest='site',
