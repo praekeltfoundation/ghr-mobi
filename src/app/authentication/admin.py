@@ -20,17 +20,12 @@ class CustomUserCreationForm(UserCreationForm):
         model = models.EndUser
         fields = ("username",)
         
-    def __init__(self, *args, **kwargs):
-        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
-        
-        self.fields['username'].required = False
-        
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
         username = self.cleaned_data["username"]
         try:
-            models.EndUser.objects.get(username__iexact=username)
+            models.EndUser.objects.get(username=username)
         except models.EndUser.DoesNotExist:
             return username
         raise forms.ValidationError("A user with that username already exists.")
@@ -45,7 +40,6 @@ class CustomUserChangeForm(UserChangeForm):
         Returns True if the form has no errors. Otherwise, False. If errors are
         being ignored, returns False.
         """
-        print self.errors
         
         return self.is_bound and not bool(self.errors)
     
@@ -63,7 +57,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password',)}
+            'fields': ('username', 'password1', 'password2')}
         ),
     )
     
