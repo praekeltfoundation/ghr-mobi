@@ -34,6 +34,7 @@ class EndUserModelTestCase(TestCase):
             password='1234'
         )
 
+
         self.super_end_user_object = models.EndUser.objects.create_superuser(
             username=self.super_user_username,
             password='1234'
@@ -55,6 +56,7 @@ class EndUserModelTestCase(TestCase):
             models.EndUser.objects.create_user,
             username=self.username, password='1234'
         )
+
 
     def test_super_end_user_model(self):
         '''
