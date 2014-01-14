@@ -234,4 +234,4 @@ class ProjectPasswordResetForm(forms.Form):
         user = self.cleaned_data['username']
 
         # SMS user new pin
-        tasks.sms_password_reset(user.id)
+        tasks.sms_password_reset.delay(user.id)
