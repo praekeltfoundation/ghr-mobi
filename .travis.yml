@@ -6,4 +6,4 @@ env:
 install:
   - "pip install -e ."
 script:
-  - django-admin.py test
+  - django-admin.py test app
