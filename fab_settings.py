@@ -16,7 +16,7 @@ PRODUCTION_SERVER_NAME = 'girlhub-rwanda.com'
 
 DEPLOY_USER = getpass.getuser()
 
-USE_CELERY = True
+CELERY_ALWAYS_EAGER = False
 
 DEV_SERVERS = ['ubuntu@precise.dev.unomena.net']
 
