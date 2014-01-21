@@ -18,7 +18,4 @@ def password_reset(sender, **kwargs):
     context = kwargs.pop('context', None)
     
     if context is not None:
-        if settings.USE_CELERY:
-            tasks.sms_password_reset.delay(context)
-        else:
-            tasks.sms_password_reset(context)
+        tasks.sms_password_reset.delay(context)

@@ -117,7 +117,7 @@ def pg_database_exists(name):
 
 def restart_supervisor(server_name):
     env.run_cmd('sudo supervisorctl restart %s.gunicorn' % server_name)
-    if USE_CELERY:
+    if not CELERY_ALWAYS_EAGER:
         env.run_cmd('sudo supervisorctl restart %s.celeryd' % server_name)
         
 def setup_rabbitmq(instanced_project_name):
@@ -237,7 +237,7 @@ def build(where='local', first_deploy=False, instance_type='dev',
                 symlink_supervisor_gunicorn(server_name)
                 
                 # symlink supervisor celeryd if in settings
-                if USE_CELERY:
+                if not CELERY_ALWAYS_EAGER:
                     symlink_supervisor_celeryd(server_name)
                 
                 # create db stuff
