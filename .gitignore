@@ -25,3 +25,4 @@ settings_local.py
 ez_setup.py
 setuptools-0.8.tar.gz
 /ve/
+src/project/production_settings.py
