@@ -103,6 +103,8 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'app.root.middleware.UserTrackingMiddleware',
+    'app.root.middleware.PageImpressionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -178,12 +180,15 @@ INSTALLED_APPS = (
     'ckeditor',
     'photologue',
     'haystack',
+    'holodeck',
     #'registration',
     'preferences',
     'gunicorn',
     'honeypot',
     'django.contrib.admin'
 )
+
+PUBLIC = False
 
 CACHES = {
     'default': {
@@ -259,10 +264,10 @@ DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
 
 # Vumi API Settings
 
-VUMI_ACCOUNT_KEY = 'ac54c74494294690b7978edb00a3635e'
-VUMI_CONVERSATION_KEY = 'a5d15db32af345a1aa5b1db662df8f19'
+VUMI_ACCOUNT_KEY = ''
+VUMI_CONVERSATION_KEY = ''
 VUMI_URL = 'https://go.vumi.org/api/v1/go/http_api/%s/messages.json' % VUMI_CONVERSATION_KEY
-VUMI_ACCESS_TOKEN = 'thairo7xielaiseivoo2naengoec3Yik'
+VUMI_ACCESS_TOKEN = ''
 
 # Authentication Backend Settings
 
@@ -319,6 +324,6 @@ LOGGING = {
 }
 
 try:
-    from project.settings_local import *
+    from production_settings import *
 except ImportError:
     pass
