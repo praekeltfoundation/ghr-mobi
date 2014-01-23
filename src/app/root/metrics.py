@@ -201,8 +201,7 @@ def push_top_5_articles_page_views():
 
     _push_top_5_articles(
         API_KEY,
-        top_5_articles,
-        'publish_at'
+        top_5_articles
     )
 
 
@@ -229,6 +228,5 @@ def push_top_5_articles_comments():
 
     _push_top_5_articles(
         API_KEY,
-        top_5_articles,
-        'publish_at'
+        top_5_articles
     )
