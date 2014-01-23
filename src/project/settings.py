@@ -260,7 +260,10 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 # Default Image Settings
 
-DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
+DEFAULT_IMAGE_CATEGORY_CHOICES = (
+    ('content', 'Content'),
+    ('user', 'User'),
+)
 
 # Vumi API Settings
 
