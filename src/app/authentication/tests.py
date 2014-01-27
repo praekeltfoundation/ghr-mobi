@@ -88,7 +88,3 @@ class EndUserModelTestCase(TestCase):
 
         self.assertEqual(mobile_user.pk, self.end_user_object.pk)
 
-    def test_random_image_assignment(self):
-        default_image = DefaultImage.objects.permitted().get_random('user')
-
-        self.assertIsNotNone(default_image, "Default image not set")
