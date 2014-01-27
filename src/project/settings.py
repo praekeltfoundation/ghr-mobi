@@ -243,8 +243,7 @@ SESSION_COOKIE_AGE = 24 * 60 * 60
 INTERNAL_IPS = ('127.0.0.1',)
 
 # Django Celery Settings
-
-USE_CELERY = False
+CELERY_ALWAYS_EAGER = False
 BROKER_URL = 'amqp://ghr:ghr@127.0.0.1:5672//ghr'
 
 # Honeypot Settings
@@ -260,7 +259,10 @@ CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 # Default Image Settings
 
-DEFAULT_IMAGE_CATEGORY_CHOICES = (('content', 'Content'),)
+DEFAULT_IMAGE_CATEGORY_CHOICES = (
+    ('content', 'Content'),
+    ('user', 'User'),
+)
 
 # Vumi API Settings
 
