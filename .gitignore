@@ -21,7 +21,6 @@ production_settings.py
 .DS_Store
 *.swp
 *.sh~
-<<<<<<< HEAD
 /eggs
 /crt/
 ez_setup.py
