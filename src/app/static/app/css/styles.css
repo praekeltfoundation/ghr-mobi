@@ -17,7 +17,7 @@
 	.no-pad { padding: 0!important; }
 	.up { text-transform: uppercase; }
 	.grey { color: #cfcfcf; }
-
+	.pad-left { padding: 0 0 0 8px; }
 
 /**************************************************************************************************************************************/
 /*  HEADER */

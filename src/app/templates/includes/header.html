@@ -4,6 +4,7 @@
             <a href="{% url 'secure_login' %}">Sign In</a> / <a href="{% url 'secure_register' %}">Sign Up</a>
         {% else %}
             <a href="{% url 'profile' %}">My Profile</a>
+            <a href="{% url 'auth_logout' %}" class="align-right pad-left">Sign Out</a>
         {% endif %}
         <a href="#menu" class="align-right">Menu</a>
     </div>
