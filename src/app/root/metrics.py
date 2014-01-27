@@ -11,6 +11,7 @@ from dateutil.relativedelta import *
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 
 from photon import Client
 
@@ -23,7 +24,7 @@ from app.root import models as root_models
 from app.articles import models as article_models
 
 client = Client(
-    server="http://localhost:8000/",
+    server="http://%s/" % Site.objects.get_current().domain,
 )
 
 
@@ -200,8 +201,7 @@ def push_top_5_articles_page_views():
 
     _push_top_5_articles(
         API_KEY,
-        top_5_articles,
-        'publish_at'
+        top_5_articles
     )
 
 
@@ -228,6 +228,5 @@ def push_top_5_articles_comments():
 
     _push_top_5_articles(
         API_KEY,
-        top_5_articles,
-        'publish_at'
+        top_5_articles
     )

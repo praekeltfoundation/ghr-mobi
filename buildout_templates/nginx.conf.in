@@ -49,8 +49,8 @@ server {
     access_log  ${options.log_dir}/nginx_access.log;
     error_log   ${options.log_dir}/nginx_error.log;
     
-    auth_basic            "Restricted";
-    auth_basic_user_file  /etc/nginx/htpasswd;
+    #auth_basic            "Restricted";
+    #auth_basic_user_file  /etc/nginx/htpasswd;
 }
 
 
