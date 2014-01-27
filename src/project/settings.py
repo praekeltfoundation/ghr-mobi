@@ -103,6 +103,8 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'app.root.middleware.UserTrackingMiddleware',
+    'app.root.middleware.PageImpressionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -178,12 +180,15 @@ INSTALLED_APPS = (
     'ckeditor',
     'photologue',
     'haystack',
+    'holodeck',
     #'registration',
     'preferences',
     'gunicorn',
     'honeypot',
     'django.contrib.admin'
 )
+
+PUBLIC = False
 
 CACHES = {
     'default': {

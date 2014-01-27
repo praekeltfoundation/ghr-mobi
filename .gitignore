@@ -16,10 +16,12 @@
 /logs/
 /supervisor/
 settings_local.py
+production_settings.py
 /media/
 .DS_Store
 *.swp
 *.sh~
+<<<<<<< HEAD
 /eggs
 /crt/
 ez_setup.py
