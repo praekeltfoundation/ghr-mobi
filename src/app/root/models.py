@@ -40,3 +40,11 @@ class PageImpression(models.Model):
 
     def __unicode__(self):
         return u'%s @ %s' % (self.path, self.timestamp)
+
+def is_removed_by_community(self):
+    if self.flags.all().count() > 2:
+        return True
+    return False
+
+from tunobase.commenting.models import CommentModel
+CommentModel.is_removed_by_community = is_removed_by_community
