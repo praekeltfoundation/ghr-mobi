@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load core_widgets %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs"><a href="/">Home</a>»<a href="#">Search</a></div>
+{% endblock %}
+
+{% block content %}
+    <div class="block">
+        <div class="comment_form">
+            <form id="frmSearch" action="#" method="POST" >{% csrf_token %}
+                <div><textarea id="id_search" name="search_box" class="required" placeholder="Enter your search criteria here"></textarea></div>
+                <div class="btn">
+                    <input type="submit" value="Search" />
+                </div>            
+            </form>                  
+        </div><!--/comment_form-->
+        
+        <div class="item">      
+	        <div class="">Search results</div>
+	        <div class="meta"><span class="meta_comments">5 Results for search_criteria_value.</span></div>
+	        <div class="type"><a href="#">Title</a></div>
+	        <p>Short description</p>
+	    </div><!--/item-->
+        {% pagination_widget page_obj %}
+    </div><!--/block-->
+{% endblock %}

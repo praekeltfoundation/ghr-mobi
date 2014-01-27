@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.flatpages.views import flatpage
-from django.views import generic as generic_views
+from django.views import generic as generic_views 
 
 from app.root import views
 
@@ -45,6 +45,13 @@ urlpatterns = patterns('',
             template_name='ghr/forgot_password_error.html',
         ),
         name='forgot_password_error'
+    ),
+                       
+    url(r'^search/$',
+        generic_views.TemplateView.as_view(
+            template_name='root/search.html',
+        ),
+        name='search'
     ),
     
 )
