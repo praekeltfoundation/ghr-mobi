@@ -12,6 +12,8 @@ from tunobase.commenting import forms as commenting_forms, models as commenting_
 
 from preferences import preferences
 
+from app.root import forms
+
 class Index(generic_views.TemplateView):
     
     def get_context_data(self, **kwargs):
@@ -34,3 +36,18 @@ class CommentListDetail(core_views.ListWithDetailView):
 class PostComment(generic_views.FormView):
     form_class = commenting_forms.CommentForm
     template_name = 'root/post_comment.html'
+    
+class Search(generic_views.FormView, generic_views.list.MultipleObjectMixin):
+    form_class = forms.SearchForm
+    object_list = None
+    
+    def form_valid(self, form):
+        search_results, count, phrase = form.search()
+        return self.render_to_response(
+            self.get_context_data(
+                form=form,
+                object_list=search_results,
+                count=count,
+                phrase=phrase,            
+            )
+        )

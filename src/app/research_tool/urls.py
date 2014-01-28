@@ -15,4 +15,11 @@ urlpatterns = patterns('',
         ),
         name='research_tool'
     ),
+                       
+    url(r'^(?P<slug>[-\w]+)/$', 
+        views.ResearchToolDetail.as_view(
+            template_name='research_tool/research_tool.html'
+        ),
+        name='research_tool_detail'
+    ),
 )
