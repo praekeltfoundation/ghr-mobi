@@ -2,9 +2,9 @@
 <table cellpadding="0" cellspacing="2">
 	{% for result in object_list %}
 		<tr>
-			<td>Answer {{ forloop.counter }}</td>
+			<td>{{ result.0 }}</td>
 			<td>
-				{% if result > 0 %}<div style="background-color: #019b93; width: {{ result }}%;">{{ result }}%</div>{% else %}<div style="color: #000;">{{ result }}%</div>{% endif %}
+				{% if result.1 > 0 %}<div style="background-color: #019b93; width: {{ result.1 }}%;">{{ result.1 }}%</div>{% else %}<div style="color: #000;">{{ result.1 }}%</div>{% endif %}
 			</td>
 		</tr>
 	{% endfor %}

@@ -12,7 +12,7 @@ setup(
     dependency_links = [
         'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
         'http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2',
-        'http://github.com/unomena/tunobase/tarball/1.0.4#egg=tunobase-1.0.4',
+        'http://github.com/unomena/tunobase/tarball/1.0.8#egg=tunobase-1.0.8',
         'http://github.com/unomena/django-holodeck/tarball/0.1.2#egg=django-holodeck-0.1.2',
         'http://github.com/unomena/photon/tarball/0.0.6#egg=photon-0.0.6',
     ],
@@ -40,7 +40,7 @@ setup(
         'photon==0.0.6',
         'flufl.password==1.2.1',
         'phonenumbers==5.9b1',
-        'tunobase==1.0.4'
+        'tunobase==1.0.8'
     ],
     include_package_data=True,
 )
