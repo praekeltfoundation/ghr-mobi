@@ -15,10 +15,17 @@ urlpatterns = patterns('',
         name='contact_categories'
     ),
                        
-    url(r'^(?P<slug>[-\w]+)/$', 
-        views.ContactCategory.as_view(
+    url(r'^(?P<slug>[-\w]+)/by_name/$', 
+        views.ContactCategoryByName.as_view(
             template_name='contacts/contact_category.html'
         ),
-        name='contact_category'
+        name='contact_category_by_name'
+    ),
+                       
+    url(r'^(?P<slug>[-\w]+)/by_location/$', 
+        views.ContactCategoryByLocation.as_view(
+            template_name='contacts/contact_category.html'
+        ),
+        name='contact_category_by_location'
     ),
 )

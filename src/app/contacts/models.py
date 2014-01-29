@@ -21,6 +21,7 @@ class Contact(core_models.StateModel, core_models.SlugModel):
     name = models.CharField(max_length=255)
     tel_number = models.CharField(max_length=16, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
     
     class Meta:
         verbose_name_plural = 'Ni Nyampinga Contacts'

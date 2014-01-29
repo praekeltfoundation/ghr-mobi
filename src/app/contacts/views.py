@@ -28,5 +28,12 @@ class ContactCategory(core_mixins.GroupRequiredMixin, core_views.ListWithDetailV
             slug=self.kwargs['slug']
         )
     
+class ContactCategoryByName(ContactCategory):
+    
     def get_queryset(self):
-        return self.object.contacts.permitted()
+        return self.object.contacts.permitted().order_by('name')
+    
+class ContactCategoryByLocation(ContactCategory):
+    
+    def get_queryset(self):
+        return self.object.contacts.permitted().order_by('location')

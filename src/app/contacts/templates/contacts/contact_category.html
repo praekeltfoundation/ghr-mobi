@@ -9,15 +9,21 @@
     <div class="block">
         <div class="item">
             <div class="lead up">{{ object.title }}</div>
+            <div class="part">Sort by: 
+                <a href="{% url 'contact_category_by_name' object.slug %}">name</a> / 
+                <a href="{% url 'contact_category_by_location' object.slug %}">location</a>
+            </div>
         </div>
         {% for contact in object_list %}
             <div class="item">
                 <div class="lead">{{ contact.title }}</div>
                 <div class="part">
-                    {{ contact.role }}<br />{{ contact.name }}
+                    {{ contact.role }}<br />{{ contact.name }}<br />{{ contact.location }}
                 </div>
                 <div class="part no-pad">
-                    T: <a href="tel:{{ contact.tel_number }}">{{ contact.tel_number }}</a><br />E: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                    T: <a href="tel:{{ contact.tel_number }}">{{ contact.tel_number }}</a>
+                    <br />
+                    E: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a><br />
                 </div>
             </div>
         {% empty %}
