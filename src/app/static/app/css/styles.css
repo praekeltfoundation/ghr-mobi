@@ -134,7 +134,7 @@
 
     .social_media_share_widget { margin: 10px 0 0 0; padding: 10px 10px 6px 10px; background: #fff8b1; }   
     .social_media_share_widget p { float: left; margin: 1px 0 0 0; padding: 0 10px 0 0; font-weight: bold; text-transform: uppercase; }
-    .social_media_share_widget * { float: left; }
+    .social_media_share_widget * { xfloat: left; }
     .fb_iframe_widget { margin: 1px 10px 0 0; }
     .social_media_share_widget iframe { margin: 0 10px 0 0; }
 
