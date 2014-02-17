@@ -6,7 +6,7 @@
 	<div class="block">
 		<div class="item">
 	    	<div class="part">
-	    		<img src="{{ user.get_100x100_url }}">
+	    		{% if user.image %}<img src="{{ user.get_100x100_url }}">{% else %}<img src="{{ STATIC_URL }}app/img/avatar.png" />{% endif %}
 		    	<div class="lead">{{ user.username }}</div>
 		    	<div class="desc">Mobile No: {{ user.mobile_number }}</div>
 		    </div>
