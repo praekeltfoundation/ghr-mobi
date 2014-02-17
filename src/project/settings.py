@@ -238,8 +238,7 @@ SESSION_COOKIE_AGE = 24 * 60 * 60
 INTERNAL_IPS = ('127.0.0.1',)
 
 # Django Celery Settings
-
-USE_CELERY = False
+CELERY_ALWAYS_EAGER = False
 BROKER_URL = 'amqp://ghr:ghr@127.0.0.1:5672//ghr'
 
 # Honeypot Settings
