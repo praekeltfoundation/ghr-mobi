@@ -16,7 +16,6 @@ setup(
     ],
     install_requires = [
         'South',
-        'unipath',
         'Whoosh==2.4.1',
         'django-haystack==2.0.0',
         'django-countries',

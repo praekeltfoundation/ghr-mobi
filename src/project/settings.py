@@ -1,4 +1,4 @@
-from unipath import FSPath as Path
+import os
 from django.utils import timezone
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
