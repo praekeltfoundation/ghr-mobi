@@ -4,6 +4,6 @@ python:
 env:
   - DJANGO_SETTINGS_MODULE=project.settings PYTHONPATH=`pwd`/src
 install:
-  - "pip install --allow-all-external  --allow-unverified django-holodeck -e ."
+  - "python setup.py develop"
 script:
   - django-admin.py test app
