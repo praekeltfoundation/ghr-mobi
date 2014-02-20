@@ -1,7 +1,7 @@
 /**************************************************************************************************************************************/
 /* RESETS */
 
-	html, body { margin: 0; padding: 0; color: #000; background: #ffd500; font-size: 100%; font-family: Arial, Helvetica, sans-serif; line-height: 1.3em; -webkit-text-size-adjust: none; }
+	html, body { margin: 0; padding: 0; color: #000; background: #ffd500 url('../img/pattern.png') repeat; font-size: 100%; font-family: Arial, Helvetica, sans-serif; line-height: 1.3em; -webkit-text-size-adjust: none; }
 	input, select, textarea { font-size: 95%; font-family: Arial, Helvetica, sans-serif; }
 	a { color: #fff; text-decoration: none; }
 

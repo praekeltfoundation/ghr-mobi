@@ -1,6 +1,6 @@
 <div class="commenting_comment">
     {% if comment.user %}
-        <img src="{{ comment.user.get_30x30_url }}">
+        {% if comment.user.image %}<img src="{{ comment.user.get_30x30_url }}">{% else %}<img src="{{ STATIC_URL }}app/img/avatar.png" />{% endif %}
         <a href="{% url 'user_profile' comment.user.pk %}" class="commentor {% if comment.user.is_special_guest %}special{% endif %}">{{ comment.user }}</a>
     {% else %}
         <span>Anonymous</span>
