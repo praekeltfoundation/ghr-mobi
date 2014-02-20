@@ -10,11 +10,11 @@ setup(
     packages = find_packages('src'),
     package_dir = {'': 'src'},
     dependency_links = [
-        'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
-        'http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2',
-        'http://github.com/unomena/tunobase/tarball/1.0.9#egg=tunobase-1.0.9',
-        'http://github.com/unomena/django-holodeck/tarball/0.1.2#egg=django-holodeck-0.1.2',
-        'http://github.com/unomena/photon/tarball/0.0.6#egg=photon-0.0.6',
+        'https://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
+        'https://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2',
+        'https://github.com/unomena/tunobase/tarball/1.0.9#egg=tunobase-1.0.9',
+        'https://github.com/unomena/django-holodeck/tarball/0.1.2#egg=django-holodeck-0.1.2',
+        'https://github.com/unomena/photon/tarball/0.0.6#egg=photon-0.0.6',
     ],
     install_requires = [
         'South',
