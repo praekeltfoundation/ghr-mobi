@@ -1,7 +1,12 @@
 from unipath import FSPath as Path
 from django.utils import timezone
 
-BUILDOUT_PATH = Path(__file__).parent.parent.parent
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+def abspath(*args):
+    """convert relative paths to absolute paths relative to PROJECT_ROOT"""
+    return os.path.join(PROJECT_ROOT, *args)
+
 
 APP_NAME = 'Girl Hub Rwanda'
 
@@ -58,7 +63,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = BUILDOUT_PATH.child('media')
+MEDIA_ROOT = abspath('media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -69,7 +74,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = BUILDOUT_PATH.child('static')
+STATIC_ROOT = abspath('static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -204,7 +209,7 @@ ANONYMOUS_POLL_VOTES_ALLOWED = True
 
 # Whoosh Settings
 
-WHOOSH_PATH = BUILDOUT_PATH.child('whoosh')
+WHOOSH_PATH = abspath('whoosh')
 
 # Haystack Settings
 
