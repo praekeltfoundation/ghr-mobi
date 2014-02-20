@@ -216,7 +216,7 @@ WHOOSH_PATH = abspath('whoosh')
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': WHOOSH_PATH.child('whoosh_index'),
+        'PATH': os.path.join(WHOOSH_PATH, 'whoosh_index'),
     },
 }
 
@@ -254,7 +254,7 @@ HONEYPOT_VALUE = 'ghr'
 
 # CK Editor Settings
 
-CKEDITOR_UPLOAD_PATH = MEDIA_ROOT.child('uploads')
+CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'uploads')
 CKEDITOR_STATIC_PREFIX = '/static/ckeditor/'
 
 # Default Image Settings
