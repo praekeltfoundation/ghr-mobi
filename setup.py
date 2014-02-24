@@ -12,7 +12,7 @@ setup(
     dependency_links = [
         'http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
         'http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2',
-        'http://github.com/unomena/tunobase/tarball/1.0.9#egg=tunobase-1.0.9',
+        'http://github.com/unomena/tunobase/tarball/1.0.10#egg=tunobase-1.0.10',
     ],
     install_requires = [
         'South',
@@ -35,7 +35,7 @@ setup(
         'psycopg2',
         'flufl.password==1.2.1',
         'phonenumbers==5.9b1',
-        'tunobase==1.0.9'
+        'tunobase==1.0.10'
     ],
     include_package_data=True,
 )
