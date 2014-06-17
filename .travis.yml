@@ -3,7 +3,9 @@ python:
   - "2.7"
 env:
   - DJANGO_SETTINGS_MODULE=project.settings PYTHONPATH=`pwd`/src
+before_install:
+  - mkdir -p src/project/media/uploads
 install:
-  - "pip install -e ."
+  - "python setup.py develop"
 script:
   - django-admin.py test app

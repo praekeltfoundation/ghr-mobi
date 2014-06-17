@@ -266,7 +266,7 @@ def build(where='local', first_deploy=False, instance_type='dev',
         env.run_cmd('bin/django syncdb')
         
         # run migrations
-        env.run_cmd('bin/django migrate')
+        env.run_cmd('bin/django migrate core; bin/django migrate tagging; bin/django migrate commenting; bin/django migrate poll; bin/django migrate app; bin/django migrate discussions; bin/django migrate')
         
         # run tests
         run_tests()
