@@ -17,6 +17,7 @@ setup(
         'https://github.com/unomena/photon/tarball/0.0.6#egg=photon-0.0.6',
     ],
     install_requires = [
+        'django==1.6',
         'South',
         'unipath',
         'Whoosh==2.4.1',
