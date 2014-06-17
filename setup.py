@@ -41,7 +41,7 @@ setup(
         'photon==0.0.6',
         'flufl.password==1.2.1',
         'phonenumbers==5.9b1',
-        'tunobase==1.0.9'
+        'tunobase==1.0.10'
     ],
     include_package_data=True,
 )

@@ -1,5 +1,5 @@
 Django==1.6
-unipath
+Whoosh==2.4.1
 South
 gunicorn
 django-haystack==2.0.0
