@@ -6,18 +6,25 @@
         <title>{% block title %} Girl Hub Rwanda{% endblock %}</title> 
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
         <link rel="shortcut icon" href="{{ STATIC_URL }}app/img/favicon.ico" />
-        <link href="{{ STATIC_URL }}app/css/styles.css?v=1" rel="stylesheet" type="text/css" /> 
+        <link href="{{ STATIC_URL }}app/css/styles.css?v=1" rel="stylesheet" type="text/css" />
+        <style>
+            /* Demo styles Added by TechAffinity */
+            p{margin:0 0 20px}
+            a {color:#22BCB9;text-decoration:none;}
+            .cred{margin-top:20px;font-size:11px;}
+
+            /* This rule is read by Galleria to define the gallery height: */
+            #galleria{height:320px}
+        </style> 
     </head>
     <body>
         <a name="top"></a>
         {% block header %}
 	        {% include 'includes/header.html' %}
 	    {% endblock %}
-
-        {% block brand %}
-            {% include 'includes/brand.html' %}
-        {% endblock %}
-        
+        {% if not user.is_authenticated %}
+        <div class="banner"><a href="{% url 'secure_register' %}">Join the Community <img src="{{ STATIC_URL}}app/img/nextIcon.png" alt="nextIcon" /></a></div>
+        {% endif %}
         <div class="content">
             {% block breadcrumbs %}
                 <a href="{% url 'index' %}">Home</a>
@@ -32,8 +39,8 @@
         
         {% block footer %}
 	        <div class="footer">
-	            <p><a href="/terms/">Terms</a> | <a href="/privacy/">Privacy Policy</a> | <a href="/contact/">Contact Us</a></p>
-                <p><span>&copy; Nike Foundation</span></p>
+	            <p class="terms"><a href="/terms/">Terms</a> | <a href="/privacy/">Privacy Policy</a> | <a href="/contact/">Contact Us</a></p>
+                <p class="copyrights"><span>&copy; Nike Foundation</span></p>
 	        </div><!--/footer-->
         {% endblock %}
         {% compress js %}
@@ -44,6 +51,9 @@
 	        <script src="{{ STATIC_URL }}app/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
 	        <script src="{{ STATIC_URL }}app/js/libs/tag-it.min.js"></script>
 	        <script src="{{ STATIC_URL }}app/js/scripts.js"></script>
+            <!--Added by TechAffinity-->
+            <script src="{{ STATIC_URL }}app/js/libs/galleria-1.3.5.js"></script>
+            <script src="{{ STATIC_URL }}app/js/libs/galleria.history.js"></script>
 	    {% endcompress %}
         {% block bottom_js %}{% endblock %}
     </body>

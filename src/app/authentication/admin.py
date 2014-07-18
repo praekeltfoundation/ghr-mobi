@@ -45,13 +45,13 @@ class CustomUserChangeForm(UserChangeForm):
     
 class CustomUserAdmin(UserAdmin):
     search_fields = ('username', 'mobile_number')
-    list_display = ('username', 'mobile_number', 'is_admin', 'is_active', 'is_staff')
+    list_display = ('username', 'mobile_number', 'is_admin', 'is_active', 'is_staff','gender', 'Date_of_birth')
     list_filter = ('username', 'mobile_number', 'is_admin', 'is_active')
     ordering = ('username',)
     
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('image', 'mobile_number', 'last_login')}),
+        (_('Personal info'), {'fields': ('image', 'mobile_number', 'last_login','gender')}),
         (_('Permissions'), {'fields': ('is_superuser', 'is_active', 'is_admin', 'groups', 'user_permissions')}),
     )
     add_fieldsets = (

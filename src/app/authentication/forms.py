@@ -21,7 +21,8 @@ import phonenumbers
 
 from app.authentication import tasks
 
-
+#########Added by TechAffinity #######
+import datetime
 # Profile Update Form
 class UpdateProfileForm(forms.ModelForm):
     password = forms.CharField(
@@ -139,7 +140,67 @@ class ProjectRegistrationForm(forms.Form):
         help_text='Should be in the format +27 71 555 1234'
     )
     password = forms.CharField(max_length=4, widget=forms.PasswordInput())
+    ######### Added by Techaffinity ##########
+    day = forms.CharField(
+        max_length=2,error_messages={
+        'required':'Day field is required'}
+        )
+    year = forms.CharField(
+        max_length=4,error_messages={
+        'required':'Year field is required'}
+        )
+    MALE = 'Male'
+    FEMALE = 'Female'
+    GENDER_CHOICES = (
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    )
+    gender = forms.ChoiceField(choices=GENDER_CHOICES,initial=MALE)
 
+
+    MONTH_CHOICES = (
+        ('January', 'January'),
+        ('February', 'February'),
+        ('March', 'March'),
+        ('April', 'April'),
+        ('May', 'May'),
+        ('June', 'June'),
+        ('July', 'July'),
+        ('August', 'August'),
+        ('September', 'September'),
+        ('October', 'October'),
+        ('November', 'November'),
+        ('December', 'December'),
+    )
+    month = forms.ChoiceField(choices=MONTH_CHOICES,initial='JAN')
+
+    def clean_day(self):
+        try:
+            int(self.cleaned_data['day'])
+            if int(self.cleaned_data['day']) > 31:
+                raise forms.ValidationError(
+                'Day entered is not a valid.')
+        except ValueError:
+            raise forms.ValidationError(
+                'Day entered is not a number.'
+            )
+
+        return self.cleaned_data['day']
+
+    def clean_year(self):
+        now = datetime.datetime.now()
+        try:
+            int(self.cleaned_data['year'])
+            if (int(self.cleaned_data['year']) > now.year) or (int(self.cleaned_data['year']) < 1900):
+                raise forms.ValidationError(
+                'Year entered is not a valid.')
+        except ValueError:
+            raise forms.ValidationError(
+                'Year entered is not a number.'
+            )
+
+        return self.cleaned_data['year']
+    #########################################
     def clean_username(self):
         '''
         Validate that the supplied email address is unique for the
@@ -201,6 +262,14 @@ class ProjectRegistrationForm(forms.Form):
             'class': 'required number'
         })
 
+        ############Added by Techaffinity ##########
+        self.fields['day'].widget.attrs.update({
+            'class': 'required number'
+        })
+         
+        self.fields['year'].widget.attrs.update({
+            'class': 'required number'
+        })
 
 class ProjectAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Username', max_length=75)
