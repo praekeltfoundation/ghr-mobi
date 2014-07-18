@@ -13,6 +13,11 @@
 	
 	$('.poll a').click(function(e){
 		show_poll_results($(this));
+        /////////////////Added by TechAffinity////////////
+        if ($('.poll_results').find('.messages').size() == 1){
+        	$('.poll_results').find('.messages').remove();
+        }
+		//////////////////////////////////////////////////
 		return false;
 	});
 	
@@ -28,8 +33,13 @@
 	                success: function(data){
 	                    data = JSON.parse(data);
 	                    if(data.success){
-	                        $(form).parent().parent().next('.poll_results').find('.content').html(data.results);
+	                        //$(form).parent().parent().next('.poll_results').find('.content').html(data.results);
 	                        show_poll_results($(form).parent().find('a'));
+	                        /////////////////Added by TechAffinity////////////
+	                        if ($(data.results).filter('.messages').children().hasClass('error') && $('.poll_results').find('.messages').size() == 0){
+	                        	$('.content').append($(data.results).filter('.messages'));
+	                        /////////////////////////////////////////////////
+	                        }
 	                    } else{
 	                        alert(data.reason);
 	                    }
