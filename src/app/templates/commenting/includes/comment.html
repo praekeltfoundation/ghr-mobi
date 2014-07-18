@@ -1,17 +1,22 @@
-<div class="commenting_comment">
+{% if comment.user.is_staff %}
+    <div class="commenting_expert"> 
+{% else %}
+    <div class="commenting_comment">
+{% endif %}
     {% if comment.user %}
         {% if comment.user.image %}<img src="{{ comment.user.get_30x30_url }}">{% else %}<img src="{{ STATIC_URL }}app/img/avatar.png" />{% endif %}
         <a href="{% url 'user_profile' comment.user.pk %}" class="commentor {% if comment.user.is_special_guest %}special{% endif %}">{{ comment.user }}</a>
     {% else %}
-        <span>Anonymous</span>
+        <img src="{{ STATIC_URL }}app/img/avatar.png" />Anonymous
     {% endif %}
-	<span class="comment_date">{{ comment.publish_at|date:"d M Y, H:i" }}</span> &nbsp;&bull;&nbsp;
-	{% if user.is_authenticated %}
+    <span class="comment_date">{{ comment.publish_at|date:"d M Y, H:i" }}</span> 
+    {% if user.is_authenticated %}
        <a href="{% url 'report_comment' comment.pk %}" class="report_comment"> Report</a>
     {% endif %}
-	{% if not comment.is_removed %}
-		<div class="commenting_text">{{ comment.comment }}</div>
-	{% else %}
-		<p><strong><i>This comment has been removed.</i></strong></p>
-	{% endif %}
+    {% if not comment.is_removed %}
+             <div class="commenting_text">{{ comment.comment }}</div>
+    {% else %}
+        <p><strong><i>This comment has been removed.</i></strong></p>
+    {% endif %}
+
 </div>
