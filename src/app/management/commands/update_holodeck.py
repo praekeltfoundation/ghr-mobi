@@ -24,3 +24,7 @@ class Command(BaseCommand):
         metrics.push_research_tool_polls()
         metrics.push_top_5_articles_page_views()
         metrics.push_top_5_articles_comments()
+        ######## Added by TechAffnity #########
+        metrics.push_total_girl_users()
+        metrics.push_top_10_discussions_comments()
+        metrics.push_total_unique_and_registraions()
