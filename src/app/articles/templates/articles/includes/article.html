@@ -5,6 +5,7 @@
 	<div class="words">
     	<div class="type">Article</div>
     	<div class="lead"><a href="{% url 'article_detail' object.slug %}">{{ object.title }}</a></div>
+    	{{ object.summary }}
     	<div class="meta"><span class="meta_comments">{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span class="meta_likes">{% num_likes object %}</span></div>
     </div>
 </div>

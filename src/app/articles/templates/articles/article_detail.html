@@ -2,7 +2,7 @@
 {% load core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets poll_widgets %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Articles' 'articles' %}</div>
+    <div class="breadcrumbs updates">{{ block.super }} {% breadcrumb_url_widget 'Articles' 'articles' %}</div>
 {% endblock %}
 
 {% block content %}
@@ -14,6 +14,7 @@
                 <div class="lead">{{ object.title }}</div>
                 <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
             </div>
+            <div style="clear:both"></div>
             {% if object.poll %}
                 {% poll_widget pk=object.poll_id %}
             {% endif %}
