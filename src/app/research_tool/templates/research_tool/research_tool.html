@@ -15,11 +15,14 @@
 		    		<div class="lead">{{ object.title }}</div>
 		    	</div>
 		    	<div class="clear"></div>
+		    	<div class="rich">
+				    {{ object.rich_content|safe }}
+				</div>
 		    </div>
-		    {% poll_widget pk=object.poll_id multiple_answers=True %}
-		    <div class="rich">
+		    {% poll_widget_research_tool pk=object.poll_id multiple_answers=True %}
+		    <!-- <div class="rich">
 		    	{{ object.rich_content|safe }}
-		    </div>
+		    </div> -->
 		{% else %}
 		   <p>Please load a Research Tool in the Preferences Admin</p>
 		{% endif %}
