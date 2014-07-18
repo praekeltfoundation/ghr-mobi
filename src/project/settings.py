@@ -171,6 +171,7 @@ INSTALLED_APPS = (
     'app.newsfeed',
     'app.research_tool',
     'app.root',
+    'app.experts',
     'tunobase',
     'tunobase.core',
     'tunobase.tagging',
