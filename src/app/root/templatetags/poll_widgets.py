@@ -17,11 +17,6 @@ from tunobase.poll import forms, models
 from app.experts import models as expert_model
 register = template.Library()
 
-#------ Added by TechAff ----------#
-
-import colorsys
- 
-#-------------------#
 
 @register.inclusion_tag('poll/inclusion_tags/poll_widget.html',
                         takes_context=True)
