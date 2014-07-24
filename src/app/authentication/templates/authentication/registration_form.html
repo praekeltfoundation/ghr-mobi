@@ -17,6 +17,21 @@
                 <label for="id_mobile_number">Your Mobile Number</label>
                 {{ form.mobile_number }}{{ form.mobile_number.errors }}{{ form.mobile.help_text }}
             </div>
+            <!-- ######## Added by Techaffinity ##########-->
+              <div class="field">
+                <label for="id_gender">Gender:</label>
+                {{ form.gender }}{{ form.gender.errors }}
+            </div>
+              <div class="field">
+                <label for="id_dob">Your Birthday:</label>
+                <span>{{ form.day }}</span>
+                <span>{{ form.month }}</span>
+                <span>{{ form.year }}</span>
+                {{ form.month.errors }}
+                {{ form.day.errors }}
+                {{ form.year.errors }}
+            </div>
+            <!-- #################################################-->
             <div class="btn">
                 <input type="submit" value="Sign Up" />
             </div>

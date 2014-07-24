@@ -6,7 +6,11 @@
 {% block content %} 
     <div class="block">
         {% if active_discussion %}
-            <div class="live"><a href="{% url 'discussion_detail' active_discussion.slug %}">Live Chat:</a> {{ active_discussion.title }}</div>
+            <div class="live">
+                <div class="live_chat_txt">Live Chat</div>
+                <div class="liveChatTitle">{{ active_discussion.title }} </div>
+                <a class="joinLiveChat" href="{% url 'discussion_detail' active_discussion.slug %}">Join Live Chat</a>
+            </div>
         {% else %}
             {% if user.is_admin %}
                 <p style="color: red;">Please load the Live Chat as Active Discussion in Preferences admin</p>
@@ -15,16 +19,16 @@
     </div>
 
     <div class="block">
-        <div class="title">Have your say</div>
+        <div class="title haveYourSay">Have your say</div>
         {% poll_widget randomize_answers=True %}
     </div><!--/block-->
     <div class="block">
-        <div class="title">Discussions</div>
-        {% home_page_discussion_widget %}
+        <div class="title updates">Updates</div>
+        {% home_page_updates_widget %}
     </div><!--/block-->
     <div class="block">
-        <div class="title">Updates</div>
-        {% home_page_updates_widget %}
+        <div class="title discussions">Discussions</div>
+        {% home_page_discussion_widget %}
     </div><!--/block-->
 {% endblock %}
 

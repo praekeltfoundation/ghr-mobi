@@ -7,6 +7,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+#########Added by TechAffinity #####
+from datetime import date
 try:
     from django.utils.timezone import now as datetime_now
 except ImportError:
@@ -58,7 +60,18 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_special_guest = models.BooleanField(default=False)
-    
+    ######### Added by Techaffinity ##########
+    MALE = 'Male'
+    FEMALE = 'Female'
+    GENDER_CHOICES = (
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    )
+    gender = models.CharField(max_length=16, blank=True, null=True, choices=GENDER_CHOICES)
+    day = models.CharField(max_length=16, blank=True, null=True)
+    month = models.CharField(max_length=16, blank=True, null=True)
+    year = models.CharField(max_length=16, blank=True, null=True)
+    #########################################
     default_image_category = 'user'
     
     USERNAME_FIELD = 'username'
@@ -115,3 +128,12 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
                 pass
 
         return super(EndUser, self).save(*args, **kwargs)
+    
+############# Added by TechAffinity ###########
+    def Date_of_birth(self):
+        today = date.today()
+        if self.year is not None:
+            age = int(today.year) - int(self.year)
+        else:
+            age = 0
+        return '{} {} {} ({})'.format(self.day, self.month, self.year, age)

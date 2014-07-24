@@ -1,10 +1,15 @@
 <div class="header">
+
+	{% block brand %}
+        {% include 'includes/brand.html' %}
+    {% endblock %}
     <div class="deets">
-        {% if not user.is_authenticated %}
-            <a href="{% url 'secure_login' %}">Sign In</a> / <a href="{% url 'secure_register' %}">Sign Up</a>
+         {% if not user.is_authenticated %}
+            <a href="{% url 'secure_login' %}" class="align-right">Sign In</a> 
+            <!--/ <a href="{% url 'secure_register' %}">Sign Up</a> -->
         {% else %}
-            <a href="{% url 'profile' %}">My Profile</a>
+            <a href="{% url 'profile' %}" class="align-right">My Profile</a>
         {% endif %}
-        <a href="#menu" class="align-right">Menu</a>
+            <a href="#menu" class="align-right" style="color: #fff; display:inline-block; padding:0 10px;">Menu</a>
     </div>
 </div><!--/header-->

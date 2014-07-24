@@ -1,5 +1,4 @@
 <div class="menu"><a name="menu"></a>
-    <h1>Menu</h1>
     <ul>
         <li><a href="{% url 'index' %}">Home</a></li>
         <li><a href="{% url 'articles' %}">Articles</a></li>
@@ -12,5 +11,8 @@
 	        <li><a href="{% url 'newsfeed' %}">Newsfeed</a></li>
 	        <li><a href="{% url 'research_tool' %}">Research Tool</a></li>
 	    {% endif %}
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+        {% endif %}
     </ul>
 </div><!--/menu-->
