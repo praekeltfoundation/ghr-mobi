@@ -1,0 +1,23 @@
+<script>
+/////////////// Added By Techaffinity //////////////
+
+	$('a#show_images').click(function(e){
+		e.preventDefault();
+       $('#images_gallery').show();
+       $('a#hide_images').show();
+       $('a#show_images').hide()
+	});
+	$('a#hide_images').click(function(e){
+		e.preventDefault();
+       $('#images_gallery').hide();
+       $('a#hide_images').hide();
+       $('a#show_images').show()
+	});
+
+    // Load the classic theme Added by TechAffinity
+    Galleria.loadTheme("{{ STATIC_URL }}app/js/libs/galleria.classic.js");
+
+    // Initialize Galleria
+    Galleria.run('#galleria');
+//////////////////////////////////////////////
+</script>

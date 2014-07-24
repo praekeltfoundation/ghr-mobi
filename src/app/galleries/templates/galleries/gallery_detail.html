@@ -2,7 +2,7 @@
 {% load core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}</div>
+    <div class="breadcrumbs updates">{{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}</div>
 {% endblock %}
 
 {% block content %}
@@ -19,19 +19,38 @@
             </div>
             {% social_media_share_widget 'facebook' 'twitter' 'google' %}
         </div>
-        <table cellpadding="7">
-    	    {% for image in object.images.permitted %}
-    	        {% if forloop.counter0|divisibleby:3 %}
-    	            <tr>
-    	        {% endif %}
-    	        <td><a href="{% url 'gallery_image_detail' image.pk %}"><img src="{{ image.get_50x50_url }}" /></a></td>
-    	        {% if forloop.counter|divisibleby:3 %}
-    	           </tr>
-    	        {% endif %}
-    	    {% empty %}
-    	        <p>This gallery is empty</p>
-    	    {% endfor %}
-        </table>
+        <!--Added and modified by TechAffinity -->
+        <div id="galleria">
+            {% for image in object.images.permitted %}
+                <a href="{{ image.get_200x200_url }}">
+                    <img title="Git Hub Rewanda"
+                         alt="Git Hub Rewanda"
+                         src="{{ image.get_200x200_url }}">
+                </a>
+            {% endfor %}
+        </div>
+        
+        <div class="comment_view_all">
+            <a href="#" id="show_images" style="color:white;">View all images ({{object.images.count}}) </a>
+            <a href="#" id="hide_images" style="display:none;color:white;">Hide all images ({{object.images.count}}) </a></div>
+        <div id="images_gallery" style="display:none;">
+            <table cellpadding="7">
+        	    {% for image in object.images.permitted %}
+        	        {% if forloop.counter0|divisibleby:2 %}
+        	            <tr>
+        	        {% endif %}
+        	        <td><!--<a href="{% url 'gallery_image_detail' image.pk %}"><img src="/media/{{ image.image }}" /></a>-->
+                      <img src="{{ image.get_100x100_url }}" />
+                    </td>
+        	        {% if forloop.counter|divisibleby:2 %}
+        	           </tr>
+        	        {% endif %}
+        	    {% empty %}
+        	        <p>This gallery is empty</p>
+        	    {% endfor %}
+            </table>
+        </div>
+        <!--*******************************-->
         <div class="item">
             {% num_comments object %}
             <a href="{% url 'gallery_post_comment' object.slug %}" class="add_comment">Add yours</a>
@@ -50,4 +69,5 @@
     {% include 'commenting/includes/commenting_widget_js.html' %}
     {% include 'core/includes/ajax_pagination_js.html' %}
     {% include 'tunosocial/includes/tunosocial_likes_widget_js.html' %}
+    {% include 'galleries/includes/galleries_js.html' %}
 {% endblock %}
