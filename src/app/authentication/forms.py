@@ -172,7 +172,7 @@ class ProjectRegistrationForm(forms.Form):
         ('November', 'November'),
         ('December', 'December'),
     )
-    month = forms.ChoiceField(choices=MONTH_CHOICES,initial='JAN')
+    month = forms.ChoiceField(choices=MONTH_CHOICES,initial='January')
 
     def clean_day(self):
         try:
