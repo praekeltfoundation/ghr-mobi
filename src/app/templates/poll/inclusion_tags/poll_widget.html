@@ -7,7 +7,7 @@
 		    	  {{ form.multiple_answers }}
 		    	{% endif %}
 		        <div class="lead">{{ form.poll.question }}:</div>
-		        {{ form.answers }}
+		        <div class="poll_answers">{{ form.answers }}</div>
 		        <div class="btn">
 		        	<input type="submit" id="submit" value="Vote"> &nbsp; 
 	            	<a href="{% url 'poll_results' form.poll.pk %}">See Results</a>
@@ -17,7 +17,13 @@
 	</div>
 	<div class="poll_results">
 	    <div class="content">
+	    <div class="lead">{{ form.poll.question }}:</div>
+	    <div class="poll_answers">
 		  {% include 'poll/includes/poll_results.html' %}
+		</div>
+          {% if expert_text %}
+		     Expert Opinion/Fact : <span style="font-size: 15px;"> {{ expert_text }}</span>
+		  {% endif %}
 		</div>
 		<div class="item">
 		    <a href="javascript: void(0);" class="navver">See Poll</a>
