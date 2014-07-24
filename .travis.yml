@@ -6,6 +6,7 @@ env:
 before_install:
   - mkdir -p src/project/media/uploads
 install:
+  - "pip install -r requirements.txt"
   - "python setup.py develop"
 script:
   - django-admin.py test app
