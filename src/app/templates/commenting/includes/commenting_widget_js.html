@@ -66,4 +66,13 @@
 			return false;
 		});
 	{% endif %}
+	/////////////// Added by TechAffinity //////////////
+	$(document).ready(function() {
+		if ($('.breadcrumbs').hasClass('liveChatHeading')){
+			$('.add_comment').click();
+			$('.add_comment').hide();
+			$('.navver').hide();
+	   }
+	})
+	///////////////////////////////////////////////////
 </script>

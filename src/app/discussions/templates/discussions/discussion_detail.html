@@ -2,15 +2,41 @@
 {% load core_widgets social_media_widgets commenting_widgets commenting_tags %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Discussions' 'discussions' %}</div>
+        {% if preferences.SitePreferences.active_discussion.id == object.id %}
+        <div class="breadcrumbs liveChatHeading">
+            {{ block.super }} >
+            <a href="{% url 'discussion_detail' object.slug%}">Live Chat</a>
+        </div>
+        {% else %}
+        <div class="breadcrumbs updates">
+            {{ block.super }} >
+            <a href="{% url 'discussions'%}">Discussions</a>
+        </div>
+        {% endif %}
 {% endblock %}
 
 {% block content %}
     {% include 'includes/message_error_header.html' %}
     <div class="block">
     	<div class="item no-bord">
-	    	<div class="lead">{{ object.title }}</div>
+            {% if preferences.SitePreferences.active_discussion.id == object.id %}
+                {% if object.created_by and object.created_by.about_me and object.created_by.image %}
+                    <div><img src="{{ object.created_by.get_30x30_url }}">
+                    <span class="titleLiveChat">Live Chat with {{ object.created_by }}
+                    </span ><br/>
+                    <span  class="userLiveChatContent">
+                    {{ object.created_by.about_me }}
+                    </span>
+                </div>
+                {% endif %}
 	   		{% social_media_share_widget 'facebook' 'twitter' 'google' %}
+            {% endif %}
+            <div class="lead">
+               {{ object.title }}
+            </div>
+            <div class="discussion_description">
+            {{ object.rich_content|safe }}
+            </div>
 		</div>
 		<div class="item">
 		    {% num_comments object %}
