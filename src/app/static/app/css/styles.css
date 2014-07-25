@@ -23,13 +23,13 @@
 /*  HEADER */
 
 	.header { padding: 5px 10px; background: #ff0099; font-size: 90%; height:50px; line-height:50px; border-bottom: 1px solid #4ce4dc;}
-		.header .deets a {color:#fff; display:inline-block; padding:0 10px;}
+		.header .deets a {color:#fff; display:inline-block; padding:0 5px;}
 
 
 /**************************************************************************************************************************************/
 /*  BRAND */
 	
-	.brand { height: 42px; padding: 5px 5px 0 5px; float: left; }
+	.brand { height: 42px; padding: 0px; float: left; }
 		.brand img { float: left; padding: 11px 0 0 0; display: block; }
 
 

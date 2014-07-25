@@ -38,8 +38,11 @@ def poll_widget(context, pk=None, multiple_answers=False,
                 'pk': pk
             })
             return context
-        else:
-            expert_text = expert_model.ExpertOpinion.objects.get(poll_id= poll.id).expert_opinion_text
+        elif expert_model.ExpertOpinion.objects.exists():
+            try:
+                expert_text = expert_model.ExpertOpinion.objects.get(poll_id= poll.id).expert_opinion_text
+            except expert_model.ExpertOpinion.DoesNotExist:
+                expert_text = None
     else:
         try:
             poll = models.PollQuestion.objects.permitted().get(pk=pk)
