@@ -22,7 +22,7 @@ from preferences import preferences
 
 from app.root import models as root_models
 from app.articles import models as article_models
-
+from app.discussions import models as discussion_models
 client = Client(
     server="http://%s/" % Site.objects.get_current().domain,
 )
@@ -111,11 +111,20 @@ def push_total_users():
 def push_unique_users():
     API_KEY = preferences.SitePreferences.unique_users_metric_api_key
 
-    _push_total(
+    _push_total_unique(
         API_KEY,
-        root_models.Visitor.objects.filter(unique=True),
-        'timestamp'
+        root_models.Visitor.objects.filter(unique=True).count()
     )
+
+
+def _push_total_unique(api_key, visitors_list_count):
+    client.send(
+       samples=(
+           ("Total Unique Users", visitors_list_count),
+       ),
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )    
 
 
 def push_page_views():
@@ -137,15 +146,23 @@ def push_newsfeed_page_views():
         'timestamp'
     )
 
-
 def push_registrations():
     API_KEY = preferences.SitePreferences.registations_metric_api_key
 
-    _push_total(
+    _push_total_registrations(
         API_KEY,
-        get_user_model().objects.all(),
-        'date_joined'
+        get_user_model().objects.all().count()
     )
+
+
+def _push_total_registrations(api_key, users_list_count):
+    client.send(
+       samples=(
+           ("Total Registrations", users_list_count),
+       ),
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )    
 
 
 def push_comments():
@@ -173,7 +190,7 @@ def push_research_tool_polls():
 
     _push_total(
         API_KEY,
-        preferences.SitePreferences.research_tool.poll.answers.all(),
+        preferences.SitePreferences.research_tool.polls.all(),
         'publish_at'
     )
 
@@ -193,7 +210,7 @@ def push_top_5_articles_page_views():
 
     for article in sorted(
         article_list,
-        key=attrgetter('num_page_impressions'))[:5]:
+        key=attrgetter('num_page_impressions'))[:10]:
 
         top_5_articles.append(
             (article.title, article.num_page_impressions)
@@ -220,7 +237,7 @@ def push_top_5_articles_comments():
 
     for article in sorted(
         article_list,
-        key=attrgetter('num_comments'))[:5]:
+        key=attrgetter('num_comments'))[:10]:
 
         top_5_articles.append(
             (article.title, article.num_comments)
@@ -230,3 +247,72 @@ def push_top_5_articles_comments():
         API_KEY,
         top_5_articles
     )
+############ Added by TechAffnity #############
+def push_total_girl_users():
+    now = datetime.now()
+    API_KEY = preferences.SitePreferences.total_girl_users_metric_api_key
+    _push_total_girl(
+        API_KEY,
+        get_user_model().objects.filter(gender = 'Female',year__gt = (now.year - 18)).count()
+    )
+def _push_total_girl(api_key, users_list_count):
+    client.send(
+       samples=(
+           ("Total Girl Users", users_list_count),
+       ),
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )
+
+def push_top_10_discussions_comments():
+    API_KEY = preferences.SitePreferences.top_10_discussions_comments_metric_api_key
+
+    discussion_list = list(discussion_models.Discussion.objects.permitted())
+    top_10_discussions = []
+    content_type = ContentType.objects.get_for_model(discussion_models.Discussion)
+    for discussion in discussion_list:
+        num_comments = comment_models.CommentModel.objects.filter(
+            content_type=content_type,
+            object_pk=discussion.pk
+        ).count()
+        discussion.num_comments = num_comments
+
+    for discussion in sorted(
+        discussion_list,
+        key=attrgetter('num_comments'))[:10]:
+
+        top_10_discussions.append(
+            (discussion.title, discussion.num_comments)
+        )
+
+    _push_top_10_discussions(
+        API_KEY,
+        top_10_discussions
+    )
+
+def push_total_unique_and_registraions():
+    API_KEY = preferences.SitePreferences.total_unique_and_registration_user_metric_api_key
+    
+    _push_total_unique_and_registration_user(
+        API_KEY,
+        root_models.Visitor.objects.filter(unique=True).count(),
+        get_user_model().objects.all().count(),
+    )
+
+def _push_total_unique_and_registration_user(api_key, unique_users_count, total_registration_count):
+    client.send(
+       samples=(
+           ("Total Unique Users", unique_users_count),
+           ("Total Registrations", total_registration_count)
+       ),
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )
+    
+def _push_top_10_discussions(api_key, discussion_list):
+    client.send(
+       samples=discussion_list,
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )
+############################
