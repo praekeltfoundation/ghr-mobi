@@ -190,7 +190,7 @@ def push_research_tool_polls():
 
     _push_total(
         API_KEY,
-        preferences.SitePreferences.research_tool.polls.first().answers.all(),
+        preferences.SitePreferences.research_tool.polls.all(),
         'publish_at'
     )
 
