@@ -111,11 +111,20 @@ def push_total_users():
 def push_unique_users():
     API_KEY = preferences.SitePreferences.unique_users_metric_api_key
 
-    _push_total(
+    _push_total_unique(
         API_KEY,
-        root_models.Visitor.objects.filter(unique=True),
-        'timestamp'
+        root_models.Visitor.objects.filter(unique=True).count()
     )
+
+
+def _push_total_unique(api_key, visitors_list_count):
+    client.send(
+       samples=(
+           ("Total Unique Users", visitors_list_count),
+       ),
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )    
 
 
 def push_page_views():
@@ -137,15 +146,23 @@ def push_newsfeed_page_views():
         'timestamp'
     )
 
-
 def push_registrations():
     API_KEY = preferences.SitePreferences.registations_metric_api_key
 
-    _push_total(
+    _push_total_registrations(
         API_KEY,
-        get_user_model().objects.all(),
-        'date_joined'
+        get_user_model().objects.all().count()
     )
+
+
+def _push_total_registrations(api_key, users_list_count):
+    client.send(
+       samples=(
+           ("Total Registrations", users_list_count),
+       ),
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )    
 
 
 def push_comments():
