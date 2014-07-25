@@ -20,6 +20,7 @@ setup(
         'django==1.6',
         'South',
         'unipath',
+        'raven',
         'Whoosh==2.4.1',
         'django-haystack==2.0.0',
         'django-holodeck==0.1.2',
