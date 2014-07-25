@@ -191,7 +191,8 @@ INSTALLED_APPS = (
     'preferences',
     'gunicorn',
     'honeypot',
-    'django.contrib.admin'
+    'django.contrib.admin',
+    'raven.contrib.django.raven_compat',
 )
 
 PUBLIC = False
