@@ -14,3 +14,7 @@ class Discussion(core_models.ContentModel):
 
     def __unicode__(self):
         return u'%s' % self.title
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if len(self.title) >= 64:
+	        raise ValidationError('The Title should be maximum 64 characters.')

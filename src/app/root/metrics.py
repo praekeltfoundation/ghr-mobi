@@ -264,6 +264,26 @@ def _push_total_girl(api_key, users_list_count):
        timestamp=datetime.now(),
     )
 
+
+def push_total_unique_and_registraions():
+    API_KEY = preferences.SitePreferences.total_unique_and_registration_user_metric_api_key
+    
+    _push_total_unique_and_registration_user(
+        API_KEY,
+        root_models.Visitor.objects.filter(unique=True).count(),
+        get_user_model().objects.all().count(),
+    )
+
+def _push_total_unique_and_registration_user(api_key, unique_users_count, total_registration_count):
+    client.send(
+       samples=(
+           ("Total Unique Users", unique_users_count),
+           ("Total Registrations", total_registration_count)
+       ),
+       api_key=api_key,
+       timestamp=datetime.now(),
+    )
+    
 def push_top_10_discussions_comments():
     API_KEY = preferences.SitePreferences.top_10_discussions_comments_metric_api_key
 
@@ -288,25 +308,6 @@ def push_top_10_discussions_comments():
     _push_top_10_discussions(
         API_KEY,
         top_10_discussions
-    )
-
-def push_total_unique_and_registraions():
-    API_KEY = preferences.SitePreferences.total_unique_and_registration_user_metric_api_key
-    
-    _push_total_unique_and_registration_user(
-        API_KEY,
-        root_models.Visitor.objects.filter(unique=True).count(),
-        get_user_model().objects.all().count(),
-    )
-
-def _push_total_unique_and_registration_user(api_key, unique_users_count, total_registration_count):
-    client.send(
-       samples=(
-           ("Total Unique Users", unique_users_count),
-           ("Total Registrations", total_registration_count)
-       ),
-       api_key=api_key,
-       timestamp=datetime.now(),
     )
     
 def _push_top_10_discussions(api_key, discussion_list):
