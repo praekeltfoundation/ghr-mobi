@@ -155,7 +155,7 @@
 /**************************************************************************************************************************************/
 /*  SHARE */ 
 
-    .social_media_share_widget { margin: 20px 0 0 0; padding: 10px 10px 6px 10px; background: #fff; border-top:1px solid #ccc; border-bottom:1px solid #ccc; margin-bottom: 10px; }   
+    .social_media_share_widget { height:25px;margin: 20px 0 0 0; padding: 10px 10px 6px 10px; background: #fff; border-top:1px solid #ccc; border-bottom:1px solid #ccc; margin-bottom: 10px; }   
     .social_media_share_widget p { float: left; margin: 1px 0 0 0; padding: 0 10px 0 0; font-weight: bold; }
     .social_media_share_widget * { float: left; }
     .fb_iframe_widget { margin: 1px 10px 0 0; }
@@ -218,7 +218,7 @@
         .liveChatHeading  {background:url('../img/livechatBg.png') repeat; }
         .titleLiveChat {margin-left: 10px;display: inline-block;font-size: 16px;font-weight: bold;}
         .userLiveChatContent {margin-left: 10px;display: inline-block;font-size: 13px;}
-.no-bord .lead {font-size: 13px;}
+.no-bord .lead {font-size: 15px;}
 .no-bord p {font-size: 13px;}
 .comment_view_all{background-color:#ff0099; height:48px; line-height:48px; text-align:center; font-size: 15px; font-weight: bold;}
 .report_comment {margin-left: 5px;font-size: 12px;font-weight: bold;color: #ff0099 !important;}
@@ -226,3 +226,12 @@
 #id_day {width :3%;}
 #id_year {width :5%;}
 #id_month {height: 29px;}
+
+.discussion_cmmts { font-size: 13px; }
+.socila_media_inline{display:inline-block;}
+
+
+@media only screen and (max-width: 479px) {
+  .brand {width: 130px; height: 0}
+  .brand img {margin: 15px 0 0;width:100%; padding: 0}
+ }
