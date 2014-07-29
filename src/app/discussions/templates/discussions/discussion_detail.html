@@ -2,6 +2,9 @@
 {% load core_widgets social_media_widgets commenting_widgets commenting_tags %}
 
 {% block breadcrumbs %}
+<!-- Added Techaffinity - Discussion id and object id in store for js function -->
+        <input type="hidden" id="divprefid" class="divprefid" value="{{ preferences.SitePreferences.active_discussion.id }}" />
+        <input type="hidden" id="divobjfid" class="divobjfid" value="{{ object.id }}" />
         {% if preferences.SitePreferences.active_discussion.id == object.id %}
         <div class="breadcrumbs liveChatHeading">
             {{ block.super }} >
