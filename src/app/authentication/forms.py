@@ -141,14 +141,15 @@ class ProjectRegistrationForm(forms.Form):
     )
     password = forms.CharField(max_length=4, widget=forms.PasswordInput())
     ######### Added by Techaffinity ##########
-    day = forms.CharField(
-        max_length=2,error_messages={
-        'required':'Day field is required'}
-        )
-    year = forms.CharField(
-        max_length=4,error_messages={
-        'required':'Year field is required'}
-        )
+    '''
+       Day, Year and Month field has been modified as drop down for
+       user select
+    '''
+    days = [(d,d) for d in range(1,31+1)]
+    this_year = datetime.datetime.now().year
+    years = [(y,y) for y in range(1960, this_year+1)]
+    day = forms.ChoiceField(choices=days,initial=1)
+    year = forms.ChoiceField(choices=years,initial=1960)
     MALE = 'Male'
     FEMALE = 'Female'
     GENDER_CHOICES = (
@@ -173,33 +174,13 @@ class ProjectRegistrationForm(forms.Form):
         ('December', 'December'),
     )
     month = forms.ChoiceField(choices=MONTH_CHOICES,initial='January')
-
-    def clean_day(self):
+    def clean(self):
         try:
-            int(self.cleaned_data['day'])
-            if int(self.cleaned_data['day']) > 31:
-                raise forms.ValidationError(
-                'Day entered is not a valid.')
+            month = self.MONTH_CHOICES.index((self.cleaned_data['month'],self.cleaned_data['month']))+1
+            date = datetime.date(int(self.cleaned_data['year']), month, int(self.cleaned_data['day']))
         except ValueError:
-            raise forms.ValidationError(
-                'Day entered is not a number.'
-            )
-
-        return self.cleaned_data['day']
-
-    def clean_year(self):
-        now = datetime.datetime.now()
-        try:
-            int(self.cleaned_data['year'])
-            if (int(self.cleaned_data['year']) > now.year) or (int(self.cleaned_data['year']) < 1900):
-                raise forms.ValidationError(
-                'Year entered is not a valid.')
-        except ValueError:
-            raise forms.ValidationError(
-                'Year entered is not a number.'
-            )
-
-        return self.cleaned_data['year']
+            self._errors["year"] =self.error_class(['Day is out of range for month.'])
+        return self.cleaned_data
     #########################################
     def clean_username(self):
         '''
@@ -259,15 +240,6 @@ class ProjectRegistrationForm(forms.Form):
             'class': 'required'
         })
         self.fields['password'].widget.attrs.update({
-            'class': 'required number'
-        })
-
-        ############Added by Techaffinity ##########
-        self.fields['day'].widget.attrs.update({
-            'class': 'required number'
-        })
-         
-        self.fields['year'].widget.attrs.update({
             'class': 'required number'
         })
 
