@@ -21,7 +21,7 @@ import phonenumbers
 
 from app.authentication import tasks
 
-#########Added by TechAffinity #######
+# Added by TechAffinity
 import datetime
 # Profile Update Form
 class UpdateProfileForm(forms.ModelForm):
@@ -140,25 +140,23 @@ class ProjectRegistrationForm(forms.Form):
         help_text='Should be in the format +27 71 555 1234'
     )
     password = forms.CharField(max_length=4, widget=forms.PasswordInput())
-    ######### Added by Techaffinity ##########
+# Added by Techaffinity
     '''
        Day, Year and Month field has been modified as drop down for
        user select
     '''
-    days = [(d,d) for d in range(1,31+1)]
+    days = [(d, d) for d in range(1, 31+1)]
     this_year = datetime.datetime.now().year
-    years = [(y,y) for y in range(1960, this_year+1)]
-    day = forms.ChoiceField(choices=days,initial=1)
-    year = forms.ChoiceField(choices=years,initial=1960)
+    years = [(y, y) for y in range(1960, this_year+1)]
+    day = forms.ChoiceField(choices=days, initial=1)
+    year = forms.ChoiceField(choices=years, initial=1960)
     MALE = 'Male'
     FEMALE = 'Female'
     GENDER_CHOICES = (
         (MALE, 'Male'),
         (FEMALE, 'Female'),
     )
-    gender = forms.ChoiceField(choices=GENDER_CHOICES,initial=MALE)
-
-
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, initial=MALE)
     MONTH_CHOICES = (
         ('January', 'January'),
         ('February', 'February'),
@@ -173,15 +171,15 @@ class ProjectRegistrationForm(forms.Form):
         ('November', 'November'),
         ('December', 'December'),
     )
-    month = forms.ChoiceField(choices=MONTH_CHOICES,initial='January')
+    month = forms.ChoiceField(choices=MONTH_CHOICES, initial='January')
     def clean(self):
         try:
-            month = self.MONTH_CHOICES.index((self.cleaned_data['month'],self.cleaned_data['month']))+1
+            month = self.MONTH_CHOICES.index((self.cleaned_data['month'], self.cleaned_data['month']))+1
             date = datetime.date(int(self.cleaned_data['year']), month, int(self.cleaned_data['day']))
         except ValueError:
             self._errors["year"] =self.error_class(['Day is out of range for month.'])
         return self.cleaned_data
-    #########################################
+# End
     def clean_username(self):
         '''
         Validate that the supplied email address is unique for the
