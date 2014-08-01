@@ -158,24 +158,23 @@ class ProjectRegistrationForm(forms.Form):
     )
     gender = forms.ChoiceField(choices=GENDER_CHOICES, initial=MALE)
     MONTH_CHOICES = (
-        ('January', 'January'),
-        ('February', 'February'),
-        ('March', 'March'),
-        ('April', 'April'),
-        ('May', 'May'),
-        ('June', 'June'),
-        ('July', 'July'),
-        ('August', 'August'),
-        ('September', 'September'),
-        ('October', 'October'),
-        ('November', 'November'),
-        ('December', 'December'),
+        (1, 'January'),
+        (2, 'February'),
+        (3, 'March'),
+        (4, 'April'),
+        (5, 'May'),
+        (6, 'June'),
+        (7, 'July'),
+        (8, 'August'),
+        (9, 'September'),
+        (10, 'October'),
+        (11, 'November'),
+        (12, 'December'),
     )
-    month = forms.ChoiceField(choices=MONTH_CHOICES, initial='January')
+    month = forms.ChoiceField(choices=MONTH_CHOICES, initial=1)
     def clean(self):
         try:
-            month = self.MONTH_CHOICES.index((self.cleaned_data['month'], self.cleaned_data['month']))+1
-            date = datetime.date(int(self.cleaned_data['year']), month, int(self.cleaned_data['day']))
+            date = datetime.date(int(self.cleaned_data['year']), int(self.cleaned_data['month']), int(self.cleaned_data['day']))
         except ValueError:
             self._errors["year"] =self.error_class(['Day is out of range for month.'])
         return self.cleaned_data
