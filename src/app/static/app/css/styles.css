@@ -169,7 +169,7 @@
     .pagination ul { padding: 10px; margin: 0; list-style: none; }
     .pagination ul li { display: inline-block; color: #dadada; }
     .pagination ul li a { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; }
-    .show_all { color: #019b93; font-size: 80%; font-weight: bold; position: absolute; bottom: 10px; right: 10px; }
+    .show_all { color: #019b93; font-size: 80%; font-weight: bold; text-align: right; padding: 10px 10px 0px 0px; display: block;}
     .navver { background:#f99d1c; padding:5px 10px; font-size:15px; font-weight:bold;margin-top: 7px;color: #fff;  }
 
 
