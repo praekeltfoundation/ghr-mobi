@@ -229,6 +229,7 @@
 
 .discussion_cmmts { font-size: 13px; }
 .socila_media_inline{display:inline-block;}
+.block .item .article_img { width: 80px; margin: 0 10px 10px 0 }
 
 
 @media only screen and (max-width: 479px) {
