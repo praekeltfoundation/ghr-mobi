@@ -191,7 +191,7 @@ class ProjectRegistrationForm(forms.Form):
                 'Please supply a different username.'
             )
 
-        return self.cleaned_data['username']
+        return self.cleaned_data['username'].lower()
 
     def clean_password(self):
         try:
