@@ -71,7 +71,7 @@ class UpdateProfileForm(forms.ModelForm):
         except phonenumbers.phonenumberutil.NumberParseException:
             raise forms.ValidationError(
                 'This mobile number is not in the correct format. '
-                'Eg +27 71 555 1234.'
+                'Eg +250 71 555 1234.'
             )
 
         if get_user_model().objects.filter(
@@ -137,7 +137,7 @@ class ProjectRegistrationForm(forms.Form):
     username = forms.CharField(max_length=75)
     mobile_number = forms.CharField(
         max_length=16,
-        help_text='Should be in the format +27 71 555 1234'
+        help_text='Should be in the format +250 71 555 1234'
     )
     password = forms.CharField(max_length=4, widget=forms.PasswordInput())
 # Added by Techaffinity
@@ -215,7 +215,7 @@ class ProjectRegistrationForm(forms.Form):
         except phonenumbers.phonenumberutil.NumberParseException:
             raise forms.ValidationError(
                 'This mobile number is not in the correct format. '
-                'Eg +27 71 555 1234.'
+                'Eg +250 71 555 1234.'
             )
 
         if get_user_model().objects.filter(
