@@ -9,7 +9,7 @@
     {% include 'includes/message_error_header.html' %}
     <div class="block">
         <div class="item no-bord">
-            <img src="{{ object.get_50x50_url }}">
+            <img class="article_img" src="{{ object.get_80x80_url }}">
             <div class="words">
                 <div class="lead">{{ object.title }}</div>
                 <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>

@@ -169,7 +169,7 @@
     .pagination ul { padding: 10px; margin: 0; list-style: none; }
     .pagination ul li { display: inline-block; color: #dadada; }
     .pagination ul li a { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; }
-    .show_all { color: #019b93; font-size: 80%; font-weight: bold; position: absolute; bottom: 10px; right: 10px; }
+    .show_all { color: #019b93; font-size: 80%; font-weight: bold; text-align: right; padding: 10px 10px 0px 0px; display: block;}
     .navver { background:#f99d1c; padding:5px 10px; font-size:15px; font-weight:bold;margin-top: 7px;color: #fff;  }
 
 
@@ -223,12 +223,13 @@
 .comment_view_all{background-color:#ff0099; height:48px; line-height:48px; text-align:center; font-size: 15px; font-weight: bold;}
 .report_comment {margin-left: 5px;font-size: 12px;font-weight: bold;color: #ff0099 !important;}
 
-#id_day {width :3%;}
-#id_year {width :5%;}
+#id_day {height: 29px;}
+#id_year {height: 29px;}
 #id_month {height: 29px;}
 
 .discussion_cmmts { font-size: 13px; }
 .socila_media_inline{display:inline-block;}
+.block .item .article_img { width: 80px; margin: 0 10px 10px 0 }
 
 
 @media only screen and (max-width: 479px) {
