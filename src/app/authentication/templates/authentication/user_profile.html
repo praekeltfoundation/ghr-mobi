@@ -7,10 +7,10 @@
 	<div class="block">
 		<div class="item">
 			<div class="part">
-		    	<img src="{{ user.get_100x100_url }}">
-			    <div class="lead">About {{ user.username }}</div>
-			    <div class="desc">{% if user.about_me %}{{ user.about_me }}{% else %}Not set{% endif %}</div>
-			    <div class="desc">Join Date: {{ user.date_joined|date:"j/m/Y" }}</div>
+		    	{% if object.image %}<img src="{{ object.get_100x100_url }}">{% else %}<img src="{{ STATIC_URL }}app/img/avatar.png" />{% endif %}
+			    <div class="lead">About {{ object.username }}</div>
+			    <div class="desc">{% if object.about_me %}{{ object.about_me }}{% else %}Not set{% endif %}</div>
+			    <div class="desc">Join Date: {{ object.date_joined|date:"j/m/Y" }}</div>
 			    <div class="desc">{{ num_comments }} Comment{{ num_comments|pluralize }} Made</div>
 		    </div>
 	    </div>
