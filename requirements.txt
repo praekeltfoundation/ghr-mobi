@@ -22,5 +22,5 @@ Genshi
 http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor
 http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue
 http://github.com/unomena/tunobase/tarball/1.0.10#egg=tunobase
-http://github.com/unomena/django-holodeck/tarball/0.1.2#egg=django-holodeck
+http://github.com/unomena/django-holodeck/tarball/0.1.3#egg=django-holodeck
 http://github.com/unomena/photon/tarball/0.0.6#egg=photon
