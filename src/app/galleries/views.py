@@ -31,6 +31,14 @@ class GalleryImageDetail(root_views.CommentListDetail):
             core_models.GalleryImage, 
             pk=self.kwargs['pk']
         )
+
+class GalleryImageViewAll(root_views.CommentListDetail):
+    
+    def get_object(self):
+        return core_utils.get_permitted_object_or_404(
+            core_models.Gallery, 
+            pk=self.kwargs['pk']
+        )
     
 class PostComment(root_views.PostComment):
     

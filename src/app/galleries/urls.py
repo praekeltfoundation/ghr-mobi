@@ -43,4 +43,12 @@ urlpatterns = patterns('',
         views.PostComment.as_view(),
         name='gallery_post_comment'
     ),
+
+    url(r'^view-image/(?P<pk>\d+)/$', 
+        views.GalleryImageViewAll.as_view(
+            template_name='galleries/gallery_image_view_all.html',
+            paginate_by=3
+        ),
+        name='gallery_image_detail_view'
+    ),
 )

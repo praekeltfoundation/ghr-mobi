@@ -1,10 +1,19 @@
 {% load commenting_tags tunosocial_tags %}
 
 <div class="item">
-	<a href="{% url 'gallery_detail' object.slug %}"><img src="{{ object.get_50x50_url }}" /></a>
-	<div class="words">
-		<div class="type">Gallery</div>
-		<div class="lead"><a href="{% url 'gallery_detail' object.slug %}">{{ object.title }}</a></div>
-    	<div class="meta"><span class="meta_comments">{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span class="meta_likes">{% num_likes object %}</span></div>
-    </div>
+	{% if object.images.permitted %}
+		<a href="{% url 'gallery_image_detail' object.images.permitted.last.pk %}"><img src="{{ object.get_50x50_url }}" /></a>
+		<div class="words">
+			<div class="type">Gallery</div>
+			<div class="lead"><a href="{% url 'gallery_image_detail' object.images.permitted.last.pk %}">{{ object.title}}</a></div>
+	    	<div class="meta"><span class="meta_comments">{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span class="meta_likes">{% num_likes object %}</span></div>
+	    </div>
+	{% else %}
+		<a href="{% url 'gallery_detail' object.slug %}"><img src="{{ object.get_50x50_url }}" /></a>
+		<div class="words">
+			<div class="type">Gallery</div>
+			<div class="lead"><a href="{% url 'gallery_detail' object.slug %}">{{ object.title}}</a></div>
+	    	<div class="meta"><span class="meta_comments">{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span class="meta_likes">{% num_likes object %}</span></div>
+	    </div>
+	{% endif %}
 </div>
