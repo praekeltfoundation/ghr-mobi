@@ -85,7 +85,7 @@
 		/* intro */
 		.intro { margin: 0; padding: 0 0 5px 0; }
 		/* block - form */
-		.block form { padding: 10px; }
+		.block form { padding: 10px; margin: 0;}
 		.block form .field { padding: 0 0 5px 0; font-size: 90%; font-weight: bold; }
 		.block form .field label { display: block; }
 		.block form .field label a { float: right; font-size: 90%; color: #019b93; }
@@ -169,8 +169,9 @@
     .pagination ul { padding: 10px; margin: 0; list-style: none; }
     .pagination ul li { display: inline-block; color: #dadada; }
     .pagination ul li a { color: #019b93; font-size: 80%; font-weight: bold; text-transform: uppercase; }
-    .show_all { color: #019b93; font-size: 80%; font-weight: bold; text-align: right; padding: 10px 10px 0px 0px; display: block;}
-    .navver { background:#f99d1c; padding:5px 10px; font-size:15px; font-weight:bold;margin-top: 7px;color: #fff;  }
+    .pagination ul li.selected a { color: #000000; font-size: 80%; font-weight: bold; text-transform: uppercase; }
+    .show_all { color: #019b93; font-size: 80%; font-weight: bold; position: absolute; bottom: 10px; right: 10px; }
+  	.navver { background:#f99d1c; padding:5px 10px; font-size:15px; font-weight:bold;margin-top: 7px;color: #fff;  }
 
 
 /**************************************************************************************************************************************/
@@ -236,3 +237,5 @@
   .brand {width: 130px; height: 0}
   .brand img {margin: 15px 0 0;width:100%; padding: 0}
  }
+.clear_back{clear: both; height: 10px;}
+.orange_box { background: none !important;}
