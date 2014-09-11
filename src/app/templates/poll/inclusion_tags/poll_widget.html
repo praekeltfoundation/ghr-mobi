@@ -15,20 +15,6 @@
 		    </form>
 	    </div>
 	</div>
-	<div class="poll_results">
-	    <div class="content">
-	    <div class="lead">{{ form.poll.question }}:</div>
-	    <div class="poll_answers">
-		  {% include 'poll/includes/poll_results.html' %}
-		</div>
-          {% if expert_text %}
-		     Expert Opinion/Fact : <span style="font-size: 15px;"> {{ expert_text }}</span>
-		  {% endif %}
-		</div>
-		<div class="item">
-		    <a href="javascript: void(0);" class="navver">See Poll</a>
-		</div>
-	</div>
 {% else %}
 	{% if user.is_admin %}<p style="color: red">{% if pk %}Please load a Poll Question with pk {{ pk }} in the database.{% else %}Please set the Active Poll in Site preferences admin{% endif %}</p>{% endif %}
 {% endif %}

@@ -1,0 +1,15 @@
+<div class="poll_results">
+	    <div class="content block">
+	    <div class="lead">{{ poll.question }}:</div>
+	    <div class="poll_answers">
+		  {% include 'poll/includes/poll_results.html' %}
+		</div>
+          {% if expert_text %}
+		     Expert Opinion/Fact : <span style="font-size: 15px;"> {{ expert_text }}</span>
+		  {% endif %}
+		</div>
+		<div class="clear_back block"></div>
+		<div class="item block">
+		    <a href="{{ request.META.HTTP_REFERER }}" class="navver">Back</a>
+		</div>
+</div>
