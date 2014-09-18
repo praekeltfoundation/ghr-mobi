@@ -126,7 +126,7 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     def Date_of_birth(self):
         today = date.today()
         if (self.year and self.month and self.day):
-            age = int(today.year) - self.year
+            age = int(today.year) - int(self.year)
             date_object = date(self.year, self.month, self.day)
             dob = datetime.strftime(date_object, "%Y %B %d")
             return_object ='{} ({})' .format(dob, age)
