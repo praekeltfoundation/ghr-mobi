@@ -15,17 +15,17 @@ class Migration(SchemaMigration):
 
         # Adding field 'EndUser.day'
         db.add_column(u'authentication_enduser', 'day',
-                      self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True),
+                      self.gf('django.db.models.fields.IntegerField')(max_length=16, null=True, blank=True),
                       keep_default=False)
 
         # Adding field 'EndUser.month'
         db.add_column(u'authentication_enduser', 'month',
-                      self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True),
+                      self.gf('django.db.models.fields.IntegerField')(max_length=16, null=True, blank=True),
                       keep_default=False)
 
         # Adding field 'EndUser.year'
         db.add_column(u'authentication_enduser', 'year',
-                      self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True),
+                      self.gf('django.db.models.fields.IntegerField')(max_length=16, null=True, blank=True),
                       keep_default=False)
 
 
