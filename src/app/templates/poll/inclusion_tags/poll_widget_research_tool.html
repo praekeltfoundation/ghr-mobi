@@ -1,6 +1,4 @@
-<!--####### Added by TechAffinity #########-->
 {% load core_widgets poll_widgets %}
 {% for poll in polls %}
-   {% poll_widget pk=poll.id multiple_answers=True %}
+   {% poll_widget pk=poll.id multiple_answers=False %}
 {% endfor %}
-<!--#######################################-->
