@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     (r'^galleries/', include('app.galleries.urls')),
     (r'^newsfeed/', include('app.newsfeed.urls')),
     (r'^research-tool/', include('app.research_tool.urls')),
+    (r'^poll/', include('app.poll.urls')),
     (r'^', include('app.root.urls')),
 )
