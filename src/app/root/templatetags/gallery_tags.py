@@ -7,9 +7,9 @@ register = template.Library()
 
 
 @register.assignment_tag
-def getCountValue(gallery, gallery_image_pk):
-    gallery_images = tuple(gallery.images.all().reverse())
+def getCountValue(gallery, gallery_image):
+    gallery_images = tuple(gallery.images.order_by("id"))
     return {
-        'current_image': gallery_images.index(gallery_image_pk)+1,
+        'current_image': gallery_images.index(gallery_image)+1,
         'total_count': len(gallery_images)
     }

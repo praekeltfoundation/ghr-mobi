@@ -9,7 +9,8 @@ class GalleryModelTestCase(TestCase):
     title = 'Gallery Model Title'
     image_name = 'MyImage'
     slug = slugify(title)
-
+    CURRENT_IMAGE = 1
+    TOTAL_IMAGE_COUNT = 4
     def setUp(self):
         '''
         Create an Gallery Model
@@ -17,7 +18,7 @@ class GalleryModelTestCase(TestCase):
         self.gallery_object = core_models.Gallery.objects.create(
             title=self.title,
         )
-        for image_no in range(3):
+        for image_no in range(4):
             
             self.gallery_image_object = self.gallery_object.images.create(
                 image_name='%s %i' % (self.image_name, image_no),
@@ -33,8 +34,8 @@ class GalleryModelTestCase(TestCase):
 
     def test_get_count_value(self):
         gallery_object = core_models.Gallery.objects.get(slug=self.slug)
-        gallery_image_object = gallery_object.images.all()[0]
+        gallery_image_object = gallery_object.images.order_by("id")[0]
         t = Template('{% load gallery_tags %}{% getCountValue gallery_object gallery_image_object as count_value %}')
-        c = Context({"gallery_object": self.gallery_object, "gallery_image_object": self.gallery_image_object})
+        c = Context({"gallery_object": gallery_object, "gallery_image_object": gallery_image_object})
         t.render(c)
-        self.assertEqual(c['count_value'], {'current_image': 3, 'total_count': 3})
+        self.assertEqual(c['count_value'], {'current_image': self.CURRENT_IMAGE, 'total_count': self.TOTAL_IMAGE_COUNT})

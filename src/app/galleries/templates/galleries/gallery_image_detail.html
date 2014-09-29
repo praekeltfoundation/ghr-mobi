@@ -16,7 +16,7 @@
                     <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
                 </div>
                 <div class="rich deets">
-                    {{ object.rich_content|safe }}
+                    {{ gallery.rich_content|safe }}
                 </div>
             {% social_media_share_widget 'facebook' 'twitter' 'google' %}
                 <div class="rich deets">
