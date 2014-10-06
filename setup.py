@@ -13,7 +13,7 @@ setup(
         'https://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue-2.8.praekelt',
         'https://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor-3.6.2.2',
         'https://github.com/unomena/tunobase/tarball/1.0.10#egg=tunobase-1.0.10',
-        'https://github.com/unomena/django-holodeck/tarball/0.1.3#egg=django-holodeck-0.1.3',
+        'https://github.com/smn/django-holodeck/tarball/0.1.4#egg=django-holodeck-0.1.4',
         'https://github.com/unomena/photon/tarball/0.0.6#egg=photon-0.0.6',
     ],
     install_requires = [
@@ -23,7 +23,7 @@ setup(
         'raven',
         'Whoosh==2.4.1',
         'django-haystack==2.0.0',
-        'django-holodeck==0.1.3',
+        'django-holodeck==0.1.4',
         'django-countries',
         'django-debug-toolbar==0.11.0',
         'django-polymorphic',
