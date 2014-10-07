@@ -334,6 +334,6 @@ LOGGING = {
 }
 
 try:
-    from production_settings import *
+    from project.production_settings import *
 except ImportError:
     pass
