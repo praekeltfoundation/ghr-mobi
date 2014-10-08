@@ -5,6 +5,7 @@
 {% block content %}
     <div class="block">
         <form id="frmLogin" method="post" action=".">{% csrf_token %}
+            {{ form.non_field_errors }}
             <div class="field">
                 <label>Username / Mobile</label>
                 {{ form.username }}{{ form.username.errors }}
