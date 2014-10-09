@@ -30,7 +30,7 @@
                    <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}" class="navver">Prev</a> &nbsp;<span class="grey">|</span>&nbsp;
                 {% endif %}
                 {% if surrounding_image_pks.next_image_pk %}
-                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}" class="navver">View Next Image</a> &nbsp;
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}" class="navver">Next</a> &nbsp;
                 {% endif %}
             </div>
             <div class="clear"></div>
