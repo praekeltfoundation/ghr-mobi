@@ -172,7 +172,6 @@ INSTALLED_APPS = (
     'app.research_tool',
     'app.root',
     'app.experts',
-    'app.poll',
     'tunobase',
     'tunobase.core',
     'tunobase.tagging',
