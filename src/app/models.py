@@ -84,3 +84,20 @@ class SitePreferences(Preferences):
         blank=True,
         null=True
     )
+    ############### Added by Techaffinity #############
+    total_girl_users_metric_api_key = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
+    top_10_discussions_comments_metric_api_key = models.CharField(
+         max_length=255,
+         blank=True,
+         null=True
+    )
+    total_unique_and_registration_user_metric_api_key = models.CharField(
+         max_length=255,
+         blank=True,
+         null=True
+    )
+    ###################################################

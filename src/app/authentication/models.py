@@ -7,8 +7,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-#########Added by TechAffinity #####
-from datetime import date
+# Added by TechAffinity 
+from datetime import date, datetime
 try:
     from django.utils.timezone import now as datetime_now
 except ImportError:
@@ -60,18 +60,11 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_special_guest = models.BooleanField(default=False)
-    ######### Added by Techaffinity ##########
-    MALE = 'Male'
-    FEMALE = 'Female'
-    GENDER_CHOICES = (
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
-    )
-    gender = models.CharField(max_length=16, blank=True, null=True, choices=GENDER_CHOICES)
-    day = models.CharField(max_length=16, blank=True, null=True)
-    month = models.CharField(max_length=16, blank=True, null=True)
-    year = models.CharField(max_length=16, blank=True, null=True)
-    #########################################
+# Added by Techaffinity 
+    gender = models.CharField(max_length=6, blank=True, null=True)
+    day = models.IntegerField(blank=True, null=True)
+    month = models.IntegerField(blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
     default_image_category = 'user'
     
     USERNAME_FIELD = 'username'
@@ -129,11 +122,14 @@ class EndUser(ImageModel, AbstractBaseUser, PermissionsMixin):
 
         return super(EndUser, self).save(*args, **kwargs)
     
-############# Added by TechAffinity ###########
+# Added by TechAffinity 
     def Date_of_birth(self):
         today = date.today()
-        if self.year is not None:
+        if (self.year and self.month and self.day):
             age = int(today.year) - int(self.year)
+            date_object = date(int(self.year), int(self.month), int(self.day))
+            dob = datetime.strftime(date_object, "%Y %B %d")
+            return_object ='{} ({})' .format(dob, age)
         else:
-            age = 0
-        return '{} {} {} ({})'.format(self.day, self.month, self.year, age)
+            return_object = '-'
+        return return_object

@@ -9,6 +9,17 @@
 	  }
 	}
 
+	//Added Techaffinity - Function for expert color variation only for live chat
+  function expert_for_livechat(){
+  var prefid = $("#divprefid").val();
+     var objfid = $("#divobjfid").val();
+     if(prefid!=objfid)
+     {
+         $(".commenting_expert.checkExpert").addClass("commenting_comment");
+         $(".commenting_expert.checkExpert").removeClass("commenting_expert");
+     }
+ }
+
 	$('#frmComment').validate({
 		submitHandler: function(form){
 			$(form).ajaxSubmit({
@@ -68,11 +79,13 @@
 	{% endif %}
 	/////////////// Added by TechAffinity //////////////
 	$(document).ready(function() {
+
 		if ($('.breadcrumbs').hasClass('liveChatHeading')){
 			$('.add_comment').click();
 			$('.add_comment').hide();
 			$('.navver').hide();
 	   }
+		expert_for_livechat();
 	})
 	///////////////////////////////////////////////////
 </script>

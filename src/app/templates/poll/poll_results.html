@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load poll_widgets %}
 {% block content %}
-    {% include 'poll/includes/poll_results.html' %}
+   {% poll_widget_result  answer_list=object_list %}
 {% endblock %}

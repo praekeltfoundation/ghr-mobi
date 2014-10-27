@@ -7,10 +7,31 @@
     <div id="comment_widget_comments_container">
         {% include 'commenting/includes/comments.html' %}
     </div>
-    <noscript>
-        {% pagination_widget page_obj %}
-    </noscript>
-    <div class="ajax_pagination_container hidden">
-        {% ajax_pagination_widget page_obj load_more_url '#comment_widget_comments_container' %}
-    </div>
+    {% if object_list.has_other_pages %}
+    <div class="pagination">
+    	<ul>
+    		<li>
+    			{% if object_list.has_previous %}
+	            <a href="?page={{ object_list.previous_page_number }}">Previous</a>
+	        	{% endif %}
+    		</li>
+
+    		{% for page in paginator.page_range %}
+
+    		{% ifequal page object_list.number %}
+    		<li class="selected"><a href="?page={{ page }}">{{ page }}</a></li>
+    		{% else %}
+    		<li><a href="?page={{ page }}">{{ page }}</a></li>
+    		{% endifequal %}
+    		
+			{% endfor %}
+
+    		<li>
+    			{% if object_list.has_next %}
+    			<a href="?page={{ object_list.next_page_number }}">Next</a>
+    			{% endif %}
+    		</li>
+    	</ul>
+	</div>
+	{% endif %}
 </div>

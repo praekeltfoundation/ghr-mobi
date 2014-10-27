@@ -191,7 +191,8 @@ INSTALLED_APPS = (
     'preferences',
     'gunicorn',
     'honeypot',
-    'django.contrib.admin'
+    'django.contrib.admin',
+    'raven.contrib.django.raven_compat',
 )
 
 PUBLIC = False
@@ -332,6 +333,6 @@ LOGGING = {
 }
 
 try:
-    from production_settings import *
+    from project.production_settings import *
 except ImportError:
     pass

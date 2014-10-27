@@ -1,14 +1,19 @@
-<div class="social_media_share_widget hidden">
+<div class="social_media_share_widget">
     <p>Share:</p>
-    {% if facebook %}
-        {% include 'facebook/includes/share_button.html' %}
-    {% endif %}
-    
-    {% if twitter %}
-        {% include 'twitter/includes/share_button.html' %}
-    {% endif %}
-    
-    {% if google %}
-        {% include 'google_plus/includes/share_button.html' %}
-    {% endif %}
+    <div class="socila_media_inline">
+        <a style="text-decoration: none;" href="https://m.facebook.com/dialog/feed?
+          app_id=145634995501895
+          &display=popup&caption=test 
+          &link=https://developers.facebook.com/docs/
+          &redirect_uri=https://developers.facebook.com/tools/explorer"><img src="{{ STATIC_URL}}app/img/fb.png" alt="fbBtn" />
+        </a>
+    </div>
+    <div class="socila_media_inline">
+        <a href="https://twitter.com/share" target="_blank"><img src="{{ STATIC_URL}}app/img/tweet.png" alt="TweetBtn" /></a>
+    </div>
+    <div class="socila_media_inline">
+        <a href="https://plus.google.com/share?url={{ request.get_full_path }}" target="_blank"><img src="{{ STATIC_URL}}app/img/share.png" alt="plusBtn" /></a>
+    </div>
+    <div style="clear:both">&nbsp;</div>
 </div>
+

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load core_tags core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets %}
+{% load core_tags core_widgets social_media_widgets commenting_widgets commenting_tags tunosocial_widgets gallery_tags%}
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">{{ block.super }} {% breadcrumb_url_widget 'Galleries' 'galleries' %}</div>
@@ -9,28 +9,35 @@
     {% include 'includes/message_error_header.html' %}
     <div class="block">
         {% with gallery=object.gallery %}
-	        <div class="item no-bord">
-	            <img src="{{ gallery.get_50x50_url }}">
-	            <div class="words">
-	                <div class="lead">{{ gallery.title }}</div>
-	                <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
-	            </div>
-                 <div class="rich deets">
+            <div class="item no-bord">
+                <img src="{{ gallery.get_50x50_url }}">
+                <div class="words">
+                    <div class="lead">{{ gallery.title }}</div>
+                    <div class="meta"><span>{% num_comments object %}</span> &nbsp;&bull;&nbsp; <span>{% tunosocial_likes_widget object %}</span></div>
+                </div>
+                <div class="rich deets">
+                    {{ gallery.rich_content|safe }}
+                </div>
+            {% social_media_share_widget 'facebook' 'twitter' 'google' %}
+                <div class="rich deets">
                     <img src="{{ object.get_200x200_url }}" />
                 </div>
+                {% getCountValue gallery object as count_value %}
+                {{count_value.current_image}} / {{count_value.total_count}}
                 <div class="clear"></div>
                 {% gallery_surrounding_image_pks gallery object.pk as surrounding_image_pks %}
                 {% if surrounding_image_pks.previous_image_pk %}
                    <a href="{% url 'gallery_image_detail' surrounding_image_pks.previous_image_pk %}" class="navver">Prev</a> &nbsp;<span class="grey">|</span>&nbsp;
                 {% endif %}
                 {% if surrounding_image_pks.next_image_pk %}
-                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}" class="navver">Next</a> &nbsp;<span class="grey">|</span>&nbsp;
+                   <a href="{% url 'gallery_image_detail' surrounding_image_pks.next_image_pk %}" class="navver">Next</a> &nbsp;
                 {% endif %}
-                <a href="{% url 'gallery_detail' gallery.slug %}" class="navver">Back to Gallery</a>
-                {% social_media_share_widget 'facebook' 'twitter' 'google' %}
-	        </div>
+            </div>
             <div class="clear"></div>
-    	    <div class="item">
+            <div class="comment_view_all">
+            <a href="{% url 'gallery_image_detail_view' object.gallery.pk %}" style="color:white;">View all images ({{object.gallery.images.count}})</a>
+            <a href="#"  style="display:none;color:white;">Hide all images ({{object.gallery.images.count}}) </a></div>
+            <div class="item">
                 {% num_comments object %}
                 <a href="{% url 'gallery_post_comment' gallery.slug %}" class="add_comment">Add yours</a>
             </div>
@@ -41,12 +48,6 @@
             <div class="item">   
                 <a href="{% url 'galleries' %}" class="navver">Back to Galleries</a>
             </div>
-	    </div>
+        </div>
     {% endwith %}
-{% endblock %}
-
-{% block bottom_js %}
-    {% include 'commenting/includes/commenting_widget_js.html' %}
-    {% include 'core/includes/ajax_pagination_js.html' %}
-    {% include 'tunosocial/includes/tunosocial_likes_widget_js.html' %}
 {% endblock %}

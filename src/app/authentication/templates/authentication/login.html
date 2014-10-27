@@ -5,6 +5,7 @@
 {% block content %}
     <div class="block">
         <form id="frmLogin" method="post" action=".">{% csrf_token %}
+            {{ form.non_field_errors }}
             <div class="field">
                 <label>Username / Mobile</label>
                 {{ form.username }}{{ form.username.errors }}
@@ -15,7 +16,7 @@
             </div>
             <div class="btn">
                 <input type="submit" value="Sign In" />
-                <p class="align-right"><input type="checkbox" name="remember" />Remember me</p>
+                <p class="align-right"><input type="checkbox" name="remember" class="orange_box"/>Remember me</p>
             </div>
             <hr />
             <p class="note">Don't have an account?<br /><a href="{% url 'secure_register' %}">Sign up now</a></p>                

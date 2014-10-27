@@ -2,6 +2,7 @@ Django==1.6
 Whoosh>=2.5
 South
 gunicorn
+raven
 django-haystack==2.0.0
 django-countries
 django-debug-toolbar==0.11.0
@@ -21,5 +22,5 @@ Genshi
 http://github.com/unomena/django-ckeditor-new/tarball/3.6.2.2#egg=django-ckeditor
 http://github.com/unomena/django-photologue/tarball/2.8.praekelt#egg=django-photologue
 http://github.com/unomena/tunobase/tarball/1.0.10#egg=tunobase
-http://github.com/unomena/django-holodeck/tarball/0.1.2#egg=django-holodeck
+http://github.com/smn/django-holodeck/tarball/0.1.4#egg=django-holodeck
 http://github.com/unomena/photon/tarball/0.0.6#egg=photon
