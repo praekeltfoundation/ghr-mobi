@@ -205,6 +205,12 @@ CACHES = {
     }
 }
 
+# preferences __module__ override requires our own migrations.
+SOUTH_MIGRATION_MODULES = {
+    'holodeck': 'app.migrations_holodeck',
+}
+
+
 # Debug Toolbar Settings
 
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
